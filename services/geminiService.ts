@@ -5,9 +5,14 @@ import { GoogleGenAI, GenerateContentResponse, Chat } from "@google/genai";
  * This allows the AI to remember context.
  */
 export const createChatSession = (): Chat => {
-    // Guideline: Always use const ai = new GoogleGenAI({apiKey: process.env.API_KEY});
     // The API key must be obtained exclusively from the environment variable process.env.API_KEY.
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const apiKey = process.env.API_KEY;
+    
+    if (!apiKey) {
+        console.warn("API_KEY is missing. AI features may not work.");
+    }
+
+    const ai = new GoogleGenAI({ apiKey: apiKey || '' });
     
     return ai.chats.create({
         model: 'gemini-2.5-flash',
@@ -38,7 +43,10 @@ export const createChatSession = (): Chat => {
  */
 export const generateImage = async (prompt: string): Promise<string> => {
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const apiKey = process.env.API_KEY;
+    if (!apiKey) throw new Error("API Key missing");
+
+    const ai = new GoogleGenAI({ apiKey });
     const response: GenerateContentResponse = await ai.models.generateContent({
       model: 'gemini-2.5-flash-image',
       contents: {
@@ -53,13 +61,18 @@ export const generateImage = async (prompt: string): Promise<string> => {
       }
     });
 
-    // Iterate through parts to find the image data
-    if (response.candidates && response.candidates[0].content.parts) {
-        for (const part of response.candidates[0].content.parts) {
-            if (part.inlineData) {
-                const base64EncodeString: string = part.inlineData.data;
-                const mimeType = part.inlineData.mimeType || 'image/png';
-                return `data:${mimeType};base64,${base64EncodeString}`;
+    // Iterate through parts to find the image data safely with Optional Chaining
+    const candidates = response.candidates;
+    if (candidates && candidates.length > 0) {
+        const parts = candidates[0].content?.parts;
+        if (parts) {
+            for (const part of parts) {
+                if (part.inlineData && part.inlineData.data) {
+                    const base64EncodeString: string = part.inlineData.data;
+                    // Provide a default fallback for mimeType to satisfy TypeScript
+                    const mimeType = part.inlineData.mimeType || 'image/png';
+                    return `data:${mimeType};base64,${base64EncodeString}`;
+                }
             }
         }
     }

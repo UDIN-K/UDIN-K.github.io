@@ -208,7 +208,7 @@ export const AIPlayground: React.FC = () => {
   };
 
   // Avatar Image Strategy: Use local ./avatar.png first, fallback to DiceBear
-  // Use relative path './' to ensure it works on GitHub Pages sub-directories
+  // Using relative path to support GitHub Pages subdirectories correctly
   const primaryUrl = './avatar.png'; 
   const fallbackUrl = `https://api.dicebear.com/9.x/lorelei/svg?seed=Kiki&backgroundColor=ffdfbf&flip=false`;
   const currentAvatarUrl = imgError ? fallbackUrl : primaryUrl;
@@ -327,7 +327,7 @@ export const AIPlayground: React.FC = () => {
              </div>
         )}
 
-        {/* CLOSED STATE: AVATAR TRIGGER (NO ANIMATION ON HOVER/PROXIMITY) */}
+        {/* CLOSED STATE: AVATAR TRIGGER */}
         {!isOpen && (
             <button 
                 onClick={() => setIsOpen(true)}

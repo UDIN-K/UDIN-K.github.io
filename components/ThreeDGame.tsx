@@ -149,11 +149,9 @@ export const ThreeDGame: React.FC = () => {
   // Input Listeners
   useEffect(() => {
       const handleKeyDown = (e: KeyboardEvent) => {
-          // Fix: Check if user is typing in chat (textarea or input) or contentEditable
-          const tag = document.activeElement?.tagName;
-          const isEditable = (document.activeElement as HTMLElement)?.isContentEditable;
-          
-          if (tag === 'INPUT' || tag === 'TEXTAREA' || isEditable) {
+          const active = document.activeElement as HTMLElement;
+          // STRICT CHECK: Ignore all inputs if typing in any text field
+          if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable)) {
               return;
           }
 
@@ -164,8 +162,8 @@ export const ThreeDGame: React.FC = () => {
       };
       
       const handleMouseDown = (e: MouseEvent) => {
-          e.preventDefault();
-          // We rely on container click for mouse to avoid global hijacking
+          // Prevent default to stop focus stealing, but logic is handled by container listener
+          // e.preventDefault(); 
       };
       
       window.addEventListener('keydown', handleKeyDown);
