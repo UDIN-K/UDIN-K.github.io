@@ -1,7 +1,8 @@
 # UDINK — Portfolio / AI Playground
 
 Fortofolio (Portfolio) oleh Muhammad Syafri Syamsudin Syah (UDIN-K)
-![Uploading Screenshot 2025-11-28 183852.png…]()
+
+![Uploading 1.png…]()
 
 Ringkasan
 ---------
