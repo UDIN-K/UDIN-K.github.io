@@ -97,13 +97,13 @@ export const Hero: React.FC = () => {
                              <span className="text-blue-200">prompt:</span> <span className="text-green-400">'Create something unique'</span>
                         </div>
                         <div className="pl-6">
-                             });
+                             {'}'});
                         </div>
                         <div className="pl-6">
                              <span className="text-purple-400 mr-2">return</span>
                              <span className="text-blue-200">idea</span>;
                         </div>
-                        <div>}</div>
+                        <div>{'}'}</div>
                     </div>
 
                     <div className="mt-8 p-4 bg-slate-950/80 rounded border-l-2 border-accent">
