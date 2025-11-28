@@ -5,13 +5,14 @@ import { GoogleGenAI, GenerateContentResponse, Chat } from "@google/genai";
  * This allows the AI to remember context.
  */
 export const createChatSession = (): Chat => {
-    // The API key must be obtained exclusively from the environment variable process.env.API_KEY.
+    // The API key is injected via vite.config.ts during build
     const apiKey = process.env.API_KEY;
     
     if (!apiKey) {
-        console.warn("API_KEY is missing. AI features may not work.");
+        console.error("API_KEY is missing. Check vite.config.ts");
     }
 
+    // Initialize with the key directly
     const ai = new GoogleGenAI({ apiKey: apiKey || '' });
     
     return ai.chats.create({
