@@ -17,10 +17,10 @@ const MessageContent: React.FC<{ content: string }> = ({ content }) => {
                     const code = newlineIndex > -1 ? inner.slice(newlineIndex + 1) : inner;
 
                     return (
-                        <div key={index} className="my-3 rounded-lg overflow-hidden border border-slate-700 bg-[#0d1117]">
-                            <div className="bg-slate-800 px-3 py-1 text-xs text-slate-400 font-mono border-b border-slate-700 flex justify-between">
-                                <span>{lang || 'plaintext'}</span>
-                                <span>copy</span>
+                        <div key={index} className="my-3 rounded-lg overflow-hidden border border-slate-700 bg-[#0d1117] shadow-sm">
+                            <div className="bg-slate-800/50 px-3 py-1.5 text-xs text-slate-400 font-mono border-b border-slate-700/50 flex justify-between items-center">
+                                <span className="uppercase tracking-wider font-bold text-[10px] text-accent">{lang || 'TEXT'}</span>
+                                <span className="opacity-50 text-[10px]">READ-ONLY</span>
                             </div>
                             <pre className="p-3 text-sm font-mono text-blue-100 overflow-x-auto custom-scrollbar">
                                 <code>{code}</code>
@@ -32,7 +32,7 @@ const MessageContent: React.FC<{ content: string }> = ({ content }) => {
                         <span key={index} dangerouslySetInnerHTML={{
                             __html: part
                                 .replace(/\*\*(.*?)\*\*/g, '<strong class="text-white font-bold">$1</strong>')
-                                .replace(/`(.*?)`/g, '<code class="bg-slate-800 px-1 py-0.5 rounded text-yellow-300 font-mono text-xs">$1</code>')
+                                .replace(/`(.*?)`/g, '<code class="bg-slate-700/50 px-1 py-0.5 rounded text-yellow-300 font-mono text-xs border border-white/10">$1</code>')
                         }} />
                     );
                 }
@@ -41,10 +41,22 @@ const MessageContent: React.FC<{ content: string }> = ({ content }) => {
     );
 };
 
-// --- Custom "UAI" Avatar Component ---
-const UAIAvatar: React.FC<{ size?: string }> = ({ size = "w-full h-full" }) => (
-    <div className={`${size} bg-slate-900 flex items-center justify-center border-2 border-accent text-accent font-black tracking-tighter shadow-[0_0_10px_rgba(56,189,248,0.3)]`}>
-        <span className="text-[10px] sm:text-xs">UAI</span>
+// --- Futuristic CSS Avatar (No Images needed) ---
+const TechAvatar: React.FC<{ size?: string, animated?: boolean }> = ({ size = "w-full h-full", animated = true }) => (
+    <div className={`${size} bg-slate-950 rounded-full flex items-center justify-center relative overflow-hidden shadow-inner border border-slate-800`}>
+        {/* Use the local image if available, fallback to DiceBear if needed */}
+        <img 
+            src="/avatar.png" 
+            alt="AI Avatar" 
+            className="w-full h-full object-cover"
+            onError={(e) => {
+                // Fallback to the reliable purple anime girl if local file missing
+                e.currentTarget.src = "https://api.dicebear.com/9.x/lorelei/svg?seed=GeminiChan&backgroundColor=b6e3f4";
+            }}
+        />
+        
+        {/* Optional Overlay Glow for "Tech" feel */}
+        <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-white/10 pointer-events-none"></div>
     </div>
 );
 
@@ -78,7 +90,6 @@ export const AIPlayground: React.FC = () => {
       }
   };
 
-  // Initialize Chat Session when opening
   useEffect(() => {
       if (isOpen) {
           initChat();
@@ -89,7 +100,7 @@ export const AIPlayground: React.FC = () => {
     {
         id: 'welcome',
         role: 'model',
-        content: "Yo. Gemini GAROX here. ⚡\nSystem online. Ready to dominate tasks. What's the mission, Boss?",
+        content: "Beep Boop! **Tralalero Tralala** is here! \nRunning Core: **U-AI 4.5 alpha**. \n\nMau ngoding apa kita hari ini, Boss?",
         type: 'text',
         timestamp: Date.now()
     }
@@ -99,9 +110,9 @@ export const AIPlayground: React.FC = () => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const quickPrompts = [
-      { text: "Optimize Lua Script", mode: AIMode.TEXT },
-      { text: "Generate System Architecture", mode: AIMode.TEXT },
-      { text: "Create Cyberpunk Asset", mode: AIMode.IMAGE },
+      { text: "Fix my Bug", mode: AIMode.TEXT },
+      { text: "System Arch", mode: AIMode.TEXT },
+      { text: "Surprise Me", mode: AIMode.IMAGE },
   ];
 
   const applyPrompt = (text: string, pMode: AIMode) => {
@@ -176,12 +187,12 @@ export const AIPlayground: React.FC = () => {
           setMessages((prev) => [...prev, modelMsg]);
       }
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred.";
+      const errorMessage = error instanceof Error ? error.message : "Unknown error.";
       
       const errorMsg: AIChatMessage = {
         id: (Date.now() + 1).toString(),
         role: 'model',
-        content: "System Failure. Error log: \n" + errorMessage,
+        content: "CRITICAL FAILURE. \nLog: " + errorMessage,
         type: 'text',
         timestamp: Date.now(),
       };
@@ -206,83 +217,91 @@ export const AIPlayground: React.FC = () => {
       setMessages([{
         id: Date.now().toString(),
         role: 'model',
-        content: 'Memory wiped. Clean slate. Give me commands.',
+        content: 'System flushed. Tralalero memory reset! Next?',
         type: 'text',
         timestamp: Date.now()
     }]);
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end pointer-events-none">
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end pointer-events-none font-sans">
         
         {/* OPEN STATE: CHAT MODAL */}
         {isOpen && (
-             <div className="mb-4 w-[90vw] md:w-[400px] h-[500px] md:h-[600px] bg-slate-950/95 backdrop-blur-xl border border-slate-700/50 rounded-lg shadow-2xl flex flex-col overflow-hidden animate-fade-in-up origin-bottom-right ring-1 ring-accent/20 pointer-events-auto">
+             <div className="mb-4 w-[90vw] md:w-[420px] h-[550px] bg-slate-900/90 backdrop-blur-xl border border-slate-700/80 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-fade-in-up origin-bottom-right ring-1 ring-white/10 pointer-events-auto">
                 
                 {/* Header */}
-                <div className="bg-slate-900 border-b border-slate-800 p-4 flex justify-between items-center shrink-0 select-none">
+                <div className="bg-slate-950/50 border-b border-slate-800 p-4 flex justify-between items-center shrink-0 select-none">
                     <div className="flex items-center gap-3">
-                        {/* Custom UAI Avatar */}
-                        <div className="w-10 h-10 rounded overflow-hidden">
-                             <UAIAvatar />
+                        {/* Rounded Avatar Container with Strict Overflow Hidden */}
+                        <div className="w-10 h-10 shadow-[0_0_15px_rgba(56,189,248,0.2)] rounded-full overflow-hidden isolate transform translate-z-0 border border-slate-700">
+                             <TechAvatar />
                         </div>
                         <div>
-                            <span className="font-black text-white text-sm block tracking-wide">GEMINI GAROX</span>
-                            <span className="text-[10px] text-accent block flex items-center gap-1 font-mono">
-                                <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></span> ONLINE
+                            <span className="font-extrabold text-white text-sm block tracking-wider uppercase">Tralalero Tralala</span>
+                            <span className="text-[10px] text-accent/80 block flex items-center gap-1.5 font-mono">
+                                <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse shadow-[0_0_5px_#38bdf8]"></span> 
+                                U-AI 4.5 alpha
                             </span>
                         </div>
                     </div>
-                    <button 
-                        onClick={() => setIsOpen(false)}
-                        className="text-slate-500 hover:text-white hover:bg-slate-800 p-2 rounded transition-colors"
-                    >
-                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                    </button>
+                    <div className="flex items-center gap-2">
+                        <button onClick={clearChat} className="p-2 text-slate-500 hover:text-red-400 transition-colors" title="Reset Chat">
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                        </button>
+                        <button onClick={() => setIsOpen(false)} className="p-2 text-slate-500 hover:text-white transition-colors">
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                        </button>
+                    </div>
                 </div>
 
                 {/* Chat Area */}
-                <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-black/20 relative" ref={scrollRef}>
-                    
+                <div className="flex-1 overflow-y-auto p-5 space-y-5 bg-gradient-to-b from-transparent to-black/20" ref={scrollRef}>
                     {messages.map((msg) => (
                         <div key={msg.id} className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
                             {msg.role !== 'user' && (
-                                <div className="w-8 h-8 shrink-0 rounded overflow-hidden self-start mt-1">
-                                    <UAIAvatar size="w-full h-full text-[8px]" />
+                                <div className="w-8 h-8 shrink-0 mt-1 rounded-full overflow-hidden border border-slate-700">
+                                    <TechAvatar size="w-full h-full" animated={false} />
                                 </div>
                             )}
-                            <div className={`max-w-[85%] rounded p-3 text-sm shadow-sm ${
-                                msg.role === 'user' ? 'bg-accent text-slate-900 font-bold' : 'bg-slate-800 text-slate-300 border border-slate-700 font-medium'
+                            <div className={`max-w-[85%] rounded-2xl p-3.5 text-sm shadow-md border ${
+                                msg.role === 'user' 
+                                ? 'bg-accent text-slate-900 font-bold border-accent rounded-tr-none' 
+                                : 'bg-slate-800/80 text-slate-200 border-slate-700 rounded-tl-none backdrop-blur-sm'
                             }`}>
                                 {msg.type === 'image' ? (
-                                    <img src={msg.content} alt="AI Gen" className="rounded-lg mb-1 shadow-lg border border-white/10" />
+                                    <img src={msg.content} alt="AI Gen" className="rounded-lg shadow-lg border border-white/10" />
                                 ) : (
                                     <MessageContent content={msg.content} />
                                 )}
                             </div>
                         </div>
                     ))}
-                    {isLoading && mode === AIMode.IMAGE && (
-                        <div className="flex gap-2 items-center text-xs text-slate-500 ml-11 font-mono">
-                            <span className="animate-pulse">RENDERING...</span>
+                    {isLoading && (
+                        <div className="flex items-center gap-2 ml-11">
+                            <div className="flex space-x-1">
+                                <div className="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
+                                <div className="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                                <div className="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                            </div>
                         </div>
                     )}
                 </div>
 
                 {/* Footer Input */}
-                <div className="bg-slate-900 p-3 border-t border-slate-800">
-                    <div className="flex gap-2 mb-3 overflow-x-auto pb-1 scrollbar-hide mask-fade-right">
+                <div className="bg-slate-950 p-4 border-t border-slate-800/80">
+                    <div className="flex gap-2 mb-3 overflow-x-auto pb-1 scrollbar-hide">
                          {quickPrompts.map((qp, idx) => (
-                            <button key={idx} onClick={() => applyPrompt(qp.text, qp.mode)} className="text-[10px] whitespace-nowrap px-3 py-1.5 bg-slate-800 rounded border border-slate-700 text-slate-400 hover:border-accent hover:text-accent transition-all font-mono uppercase">
-                                {qp.mode === AIMode.IMAGE ? 'IMAGINE' : 'CMD'} :: {qp.text}
+                            <button key={idx} onClick={() => applyPrompt(qp.text, qp.mode)} className="text-[10px] whitespace-nowrap px-3 py-1.5 bg-slate-800/50 hover:bg-slate-800 rounded-full border border-slate-700 text-slate-400 hover:text-accent hover:border-accent/50 transition-all font-mono font-bold tracking-tight">
+                                {qp.mode === AIMode.IMAGE ? '🎨 IMAGINE' : '⚡ ' + qp.text}
                             </button>
                         ))}
                     </div>
                     
-                    <div className="flex gap-2 items-end bg-black/40 p-1.5 rounded border border-slate-700 focus-within:border-accent focus-within:ring-1 focus-within:ring-accent transition-all">
+                    <div className="flex gap-2 items-end bg-slate-900/50 p-1.5 rounded-xl border border-slate-700 focus-within:border-accent/50 focus-within:bg-slate-900 focus-within:ring-1 focus-within:ring-accent/20 transition-all">
                          <button 
                             onClick={() => setMode(mode === AIMode.TEXT ? AIMode.IMAGE : AIMode.TEXT)}
-                            className={`p-2 rounded transition-colors ${mode === AIMode.IMAGE ? 'text-accent bg-slate-800' : 'text-slate-500 hover:text-white'}`}
+                            className={`p-2.5 rounded-lg transition-all ${mode === AIMode.IMAGE ? 'text-accent bg-accent/10' : 'text-slate-400 hover:text-white'}`}
                             title={mode === AIMode.TEXT ? "Switch to Image Mode" : "Switch to Text Mode"}
                         >
                             {mode === AIMode.TEXT ? (
@@ -296,28 +315,23 @@ export const AIPlayground: React.FC = () => {
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={handleKeyDown}
-                            placeholder={mode === AIMode.TEXT ? "Enter command..." : "Describe visual asset..."}
+                            placeholder={mode === AIMode.TEXT ? "Input command directive..." : "Describe visual output..."}
                             rows={1}
-                            className="flex-1 bg-transparent text-sm text-white focus:outline-none py-2 resize-none max-h-24 placeholder-slate-600 font-mono"
+                            className="flex-1 bg-transparent text-sm text-white focus:outline-none py-2.5 resize-none max-h-24 placeholder-slate-600 font-medium"
                          />
                          <button 
                             onClick={() => handleSubmit()}
                             disabled={!input.trim() || isLoading}
-                            className="p-2 bg-accent text-slate-900 rounded hover:bg-accent-hover disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-95 shadow-lg shadow-accent/20"
+                            className="p-2.5 bg-accent text-slate-950 rounded-lg hover:bg-accent-hover disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-95 shadow-[0_0_15px_rgba(56,189,248,0.3)]"
                         >
                             {isLoading && mode === AIMode.TEXT ? (
                                 <div className="w-5 h-5 border-2 border-slate-900 border-t-transparent rounded-full animate-spin"></div>
                             ) : (
-                                <svg className="w-5 h-5 transform rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
+                                <svg className="w-5 h-5 transform rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
                             )}
                          </button>
                     </div>
-                    <div className="text-center mt-2 flex justify-between items-center px-1">
-                         <span className="text-[8px] text-slate-600 uppercase font-mono tracking-widest">SYSTEM: ONLINE</span>
-                         <button onClick={clearChat} className="text-[9px] text-slate-600 hover:text-red-500 font-mono uppercase tracking-wider">/RESET_LOG</button>
-                    </div>
                 </div>
-
              </div>
         )}
 
@@ -325,19 +339,15 @@ export const AIPlayground: React.FC = () => {
         {!isOpen && (
             <button 
                 onClick={() => setIsOpen(true)}
-                className="group relative w-16 h-16 flex items-center justify-center transition-transform duration-300 focus:outline-none outline-none pointer-events-auto hover:scale-105"
-                aria-label="Open Gemini GAROX"
+                className="group relative w-16 h-16 flex items-center justify-center transition-transform duration-300 focus:outline-none outline-none pointer-events-auto hover:scale-110 active:scale-95"
+                aria-label="Open AI Terminal"
             >
-                {/* Animation Wrapper - Simple Float */}
-                <div className="w-full h-full flex items-center justify-center animate-float">
-                    
-                    {/* Glow Ring */}
-                    <div className="absolute inset-0 rounded-full blur-md bg-accent/20 group-hover:bg-accent/40 transition-colors duration-300"></div>
-                    
-                    {/* Avatar Image Wrapper - Fixed Overflow */}
-                    <div className="relative z-10 w-full h-full rounded-full overflow-hidden flex items-center justify-center shadow-2xl">
-                         <UAIAvatar />
-                    </div>
+                {/* Glow Effect */}
+                <div className="absolute inset-0 rounded-full bg-accent/30 blur-xl group-hover:bg-accent/50 transition-colors duration-500 animate-pulse"></div>
+                
+                {/* The Tech Avatar */}
+                <div className="w-full h-full rounded-full overflow-hidden border-2 border-accent/50">
+                    <TechAvatar />
                 </div>
             </button>
         )}
