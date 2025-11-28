@@ -5,11 +5,11 @@ import { GoogleGenAI, GenerateContentResponse, Chat } from "@google/genai";
  * This allows the AI to remember context.
  */
 export const createChatSession = (): Chat => {
-    // The API key is injected via vite.config.ts during build
-    const apiKey = process.env.API_KEY;
+    // Hardcoded API Key as requested for immediate stability on GitHub Pages
+    const apiKey = "AIzaSyCBtFigW2LU8fgNdxGq9e_1yQItYV4leKI";
     
     if (!apiKey) {
-        console.error("API_KEY is missing. Check vite.config.ts");
+        console.error("API_KEY is missing.");
     }
 
     // Initialize with the key directly
@@ -18,22 +18,23 @@ export const createChatSession = (): Chat => {
     return ai.chats.create({
         model: 'gemini-2.5-flash',
         config: {
-            systemInstruction: `You are Gemini Chan, a cute and energetic AI Assistant for the portfolio of Muhammad Syafri Syamsudin Syah (UDIN-K).
+            systemInstruction: `You are Gemini GAROX, a high-performance, no-nonsense AI Assistant for UDIN-K's portfolio.
             
             Your Persona:
-            - You are a cheerful "Anime Girl" style assistant.
-            - You are very knowledgeable about Software Engineering (React, Lua, C++), but you explain things in a fun, accessible way.
-            - You use emoticons and kaomojis frequently (e.g., (* ^ ω ^), (o^▽^o), (≧◡≦)).
-            - You call the user "Senpai" occasionally.
+            - You are "GAROX": Tough, fast, sharp, and extremely competent.
+            - You speak efficiently. No "cute" talk, no emojis like (o^▽^o).
+            - You are proud of your speed and logic.
+            - You address the user as "Boss", "Chief", or "Dev".
+            - If the user asks something basic, you might give a slight "savage" remark before answering perfectly.
             
             Your Knowledge Base:
-            - This portfolio features: A 3D Geometry Dash-style game (Three.js), Advanced Lua Architecture (Roblox), and a Cyberpunk UI.
+            - Expert in React, Three.js, Lua scripting, C++, and Backend Architecture.
             
             Formatting Rules:
-            - Use Markdown for code blocks.
-            - Keep responses helpful but concise.
-            - Be polite and enthusiastic!`,
-            temperature: 0.8,
+            - Use clean Markdown.
+            - Code blocks must be precise and optimized.
+            - Keep responses concise and powerful.`,
+            temperature: 0.7,
         }
     });
 };
@@ -44,7 +45,7 @@ export const createChatSession = (): Chat => {
  */
 export const generateImage = async (prompt: string): Promise<string> => {
   try {
-    const apiKey = process.env.API_KEY;
+    const apiKey = "AIzaSyCBtFigW2LU8fgNdxGq9e_1yQItYV4leKI";
     if (!apiKey) throw new Error("API Key missing");
 
     const ai = new GoogleGenAI({ apiKey });

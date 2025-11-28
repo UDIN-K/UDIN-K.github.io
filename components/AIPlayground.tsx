@@ -41,13 +41,18 @@ const MessageContent: React.FC<{ content: string }> = ({ content }) => {
     );
 };
 
+// --- Custom "UAI" Avatar Component ---
+const UAIAvatar: React.FC<{ size?: string }> = ({ size = "w-full h-full" }) => (
+    <div className={`${size} bg-slate-900 flex items-center justify-center border-2 border-accent text-accent font-black tracking-tighter shadow-[0_0_10px_rgba(56,189,248,0.3)]`}>
+        <span className="text-[10px] sm:text-xs">UAI</span>
+    </div>
+);
+
 export const AIPlayground: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [mode, setMode] = useState<AIMode>(AIMode.TEXT);
   const [input, setInput] = useState('');
   
-  // Clean State
-  const [imgError, setImgError] = useState(false);
   const chatSessionRef = useRef<Chat | null>(null);
 
   // Load AI Lab if hash matches
@@ -84,7 +89,7 @@ export const AIPlayground: React.FC = () => {
     {
         id: 'welcome',
         role: 'model',
-        content: "Konnichiwa! I'm Gemini Chan! (* ^ ω ^) \nI can help you with UDIN-K's code or generate cute images! What shall we do today?",
+        content: "Yo. Gemini GAROX here. ⚡\nSystem online. Ready to dominate tasks. What's the mission, Boss?",
         type: 'text',
         timestamp: Date.now()
     }
@@ -94,9 +99,9 @@ export const AIPlayground: React.FC = () => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const quickPrompts = [
-      { text: "Explain Lua DataStore", mode: AIMode.TEXT },
-      { text: "Write React Code", mode: AIMode.TEXT },
-      { text: "Generate Anime Art", mode: AIMode.IMAGE },
+      { text: "Optimize Lua Script", mode: AIMode.TEXT },
+      { text: "Generate System Architecture", mode: AIMode.TEXT },
+      { text: "Create Cyberpunk Asset", mode: AIMode.IMAGE },
   ];
 
   const applyPrompt = (text: string, pMode: AIMode) => {
@@ -176,7 +181,7 @@ export const AIPlayground: React.FC = () => {
       const errorMsg: AIChatMessage = {
         id: (Date.now() + 1).toString(),
         role: 'model',
-        content: "Gomenne! Something went wrong... (T_T) \n" + errorMessage,
+        content: "System Failure. Error log: \n" + errorMessage,
         type: 'text',
         timestamp: Date.now(),
       };
@@ -201,64 +206,53 @@ export const AIPlayground: React.FC = () => {
       setMessages([{
         id: Date.now().toString(),
         role: 'model',
-        content: 'Memory wiped! Ready for new tasks, Senpai! (o^▽^o)',
+        content: 'Memory wiped. Clean slate. Give me commands.',
         type: 'text',
         timestamp: Date.now()
     }]);
   };
-
-  // Avatar Image Strategy: Use local ./avatar.png first, fallback to DiceBear
-  // Using relative path to support GitHub Pages subdirectories correctly
-  const primaryUrl = '/public/avatar.png'; 
-  const fallbackUrl = `https://api.dicebear.com/9.x/lorelei/svg?seed=Kiki&backgroundColor=ffdfbf&flip=false`;
-  const currentAvatarUrl = imgError ? fallbackUrl : primaryUrl;
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end pointer-events-none">
         
         {/* OPEN STATE: CHAT MODAL */}
         {isOpen && (
-             <div className="mb-4 w-[90vw] md:w-[400px] h-[500px] md:h-[600px] bg-slate-900/95 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-fade-in-up origin-bottom-right ring-1 ring-white/10 pointer-events-auto">
+             <div className="mb-4 w-[90vw] md:w-[400px] h-[500px] md:h-[600px] bg-slate-950/95 backdrop-blur-xl border border-slate-700/50 rounded-lg shadow-2xl flex flex-col overflow-hidden animate-fade-in-up origin-bottom-right ring-1 ring-accent/20 pointer-events-auto">
                 
                 {/* Header */}
-                <div className="bg-slate-900 border-b border-slate-700 p-4 flex justify-between items-center shrink-0 select-none">
-                    <div className="flex items-center gap-2">
-                        {/* Avatar Container with Strict Overflow Hidden */}
-                        <div className="w-10 h-10 rounded-full border-2 border-pink-400 bg-pink-100 relative shrink-0 overflow-hidden">
-                             <img 
-                                src={currentAvatarUrl} 
-                                onError={() => setImgError(true)} 
-                                alt="AI" 
-                                className="w-full h-full object-cover" 
-                             />
+                <div className="bg-slate-900 border-b border-slate-800 p-4 flex justify-between items-center shrink-0 select-none">
+                    <div className="flex items-center gap-3">
+                        {/* Custom UAI Avatar */}
+                        <div className="w-10 h-10 rounded overflow-hidden">
+                             <UAIAvatar />
                         </div>
                         <div>
-                            <span className="font-bold text-white text-sm block">Gemini Chan</span>
-                            <span className="text-[10px] text-pink-400 block flex items-center gap-1">
-                                <span className="w-1.5 h-1.5 bg-pink-500 rounded-full animate-pulse"></span> Online
+                            <span className="font-black text-white text-sm block tracking-wide">GEMINI GAROX</span>
+                            <span className="text-[10px] text-accent block flex items-center gap-1 font-mono">
+                                <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></span> ONLINE
                             </span>
                         </div>
                     </div>
                     <button 
                         onClick={() => setIsOpen(false)}
-                        className="text-slate-400 hover:text-white hover:bg-slate-800 p-2 rounded-lg transition-colors"
+                        className="text-slate-500 hover:text-white hover:bg-slate-800 p-2 rounded transition-colors"
                     >
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
                     </button>
                 </div>
 
                 {/* Chat Area */}
-                <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-950/30 relative" ref={scrollRef}>
+                <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-black/20 relative" ref={scrollRef}>
                     
                     {messages.map((msg) => (
                         <div key={msg.id} className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
                             {msg.role !== 'user' && (
-                                <div className="w-8 h-8 rounded-full shrink-0 border border-pink-400/50 bg-pink-100 overflow-hidden self-start mt-1 relative">
-                                    <img src={currentAvatarUrl} alt="AI" className="w-full h-full object-cover" />
+                                <div className="w-8 h-8 shrink-0 rounded overflow-hidden self-start mt-1">
+                                    <UAIAvatar size="w-full h-full text-[8px]" />
                                 </div>
                             )}
-                            <div className={`max-w-[85%] rounded-2xl p-3 text-sm shadow-sm ${
-                                msg.role === 'user' ? 'bg-accent text-slate-900 rounded-tr-none font-medium' : 'bg-slate-800 text-slate-200 rounded-tl-none border border-slate-700'
+                            <div className={`max-w-[85%] rounded p-3 text-sm shadow-sm ${
+                                msg.role === 'user' ? 'bg-accent text-slate-900 font-bold' : 'bg-slate-800 text-slate-300 border border-slate-700 font-medium'
                             }`}>
                                 {msg.type === 'image' ? (
                                     <img src={msg.content} alt="AI Gen" className="rounded-lg mb-1 shadow-lg border border-white/10" />
@@ -269,26 +263,26 @@ export const AIPlayground: React.FC = () => {
                         </div>
                     ))}
                     {isLoading && mode === AIMode.IMAGE && (
-                        <div className="flex gap-2 items-center text-xs text-slate-500 ml-11">
-                            <span className="animate-pulse">Painting... 🎨</span>
+                        <div className="flex gap-2 items-center text-xs text-slate-500 ml-11 font-mono">
+                            <span className="animate-pulse">RENDERING...</span>
                         </div>
                     )}
                 </div>
 
                 {/* Footer Input */}
-                <div className="bg-slate-900 p-3 border-t border-slate-700">
+                <div className="bg-slate-900 p-3 border-t border-slate-800">
                     <div className="flex gap-2 mb-3 overflow-x-auto pb-1 scrollbar-hide mask-fade-right">
                          {quickPrompts.map((qp, idx) => (
-                            <button key={idx} onClick={() => applyPrompt(qp.text, qp.mode)} className="text-[10px] whitespace-nowrap px-3 py-1.5 bg-slate-800 rounded-full border border-slate-700 text-slate-400 hover:border-pink-400 hover:text-white transition-all hover:-translate-y-0.5">
-                                {qp.mode === AIMode.IMAGE ? '🎨' : '✨'} {qp.text}
+                            <button key={idx} onClick={() => applyPrompt(qp.text, qp.mode)} className="text-[10px] whitespace-nowrap px-3 py-1.5 bg-slate-800 rounded border border-slate-700 text-slate-400 hover:border-accent hover:text-accent transition-all font-mono uppercase">
+                                {qp.mode === AIMode.IMAGE ? 'IMAGINE' : 'CMD'} :: {qp.text}
                             </button>
                         ))}
                     </div>
                     
-                    <div className="flex gap-2 items-end bg-slate-800 p-1.5 rounded-xl border border-slate-700 focus-within:border-accent focus-within:ring-1 focus-within:ring-accent transition-all shadow-inner">
+                    <div className="flex gap-2 items-end bg-black/40 p-1.5 rounded border border-slate-700 focus-within:border-accent focus-within:ring-1 focus-within:ring-accent transition-all">
                          <button 
                             onClick={() => setMode(mode === AIMode.TEXT ? AIMode.IMAGE : AIMode.TEXT)}
-                            className={`p-2 rounded-lg transition-colors ${mode === AIMode.IMAGE ? 'text-pink-400 bg-slate-700' : 'text-slate-500 hover:text-white'}`}
+                            className={`p-2 rounded transition-colors ${mode === AIMode.IMAGE ? 'text-accent bg-slate-800' : 'text-slate-500 hover:text-white'}`}
                             title={mode === AIMode.TEXT ? "Switch to Image Mode" : "Switch to Text Mode"}
                         >
                             {mode === AIMode.TEXT ? (
@@ -302,14 +296,14 @@ export const AIPlayground: React.FC = () => {
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={handleKeyDown}
-                            placeholder={mode === AIMode.TEXT ? "Chat with Gemini Chan..." : "Describe a kawaii image..."}
+                            placeholder={mode === AIMode.TEXT ? "Enter command..." : "Describe visual asset..."}
                             rows={1}
-                            className="flex-1 bg-transparent text-sm text-white focus:outline-none py-2 resize-none max-h-24 placeholder-slate-500"
+                            className="flex-1 bg-transparent text-sm text-white focus:outline-none py-2 resize-none max-h-24 placeholder-slate-600 font-mono"
                          />
                          <button 
                             onClick={() => handleSubmit()}
                             disabled={!input.trim() || isLoading}
-                            className="p-2 bg-accent text-slate-900 rounded-lg hover:bg-accent-hover disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-95 shadow-lg shadow-accent/20"
+                            className="p-2 bg-accent text-slate-900 rounded hover:bg-accent-hover disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-95 shadow-lg shadow-accent/20"
                         >
                             {isLoading && mode === AIMode.TEXT ? (
                                 <div className="w-5 h-5 border-2 border-slate-900 border-t-transparent rounded-full animate-spin"></div>
@@ -318,9 +312,9 @@ export const AIPlayground: React.FC = () => {
                             )}
                          </button>
                     </div>
-                    <div className="text-center mt-2 flex justify-between items-center px-2">
-                         <span className="text-[9px] text-slate-600 uppercase font-bold tracking-widest">Powered by Google Gemini</span>
-                         <button onClick={clearChat} className="text-[10px] text-slate-500 hover:text-red-400 underline decoration-slate-700">Clear</button>
+                    <div className="text-center mt-2 flex justify-between items-center px-1">
+                         <span className="text-[8px] text-slate-600 uppercase font-mono tracking-widest">SYSTEM: ONLINE</span>
+                         <button onClick={clearChat} className="text-[9px] text-slate-600 hover:text-red-500 font-mono uppercase tracking-wider">/RESET_LOG</button>
                     </div>
                 </div>
 
@@ -332,22 +326,17 @@ export const AIPlayground: React.FC = () => {
             <button 
                 onClick={() => setIsOpen(true)}
                 className="group relative w-16 h-16 flex items-center justify-center transition-transform duration-300 focus:outline-none outline-none pointer-events-auto hover:scale-105"
-                aria-label="Open Gemini Chan"
+                aria-label="Open Gemini GAROX"
             >
                 {/* Animation Wrapper - Simple Float */}
-                <div className="w-full h-full flex items-center justify-center rounded-full animate-float">
+                <div className="w-full h-full flex items-center justify-center animate-float">
                     
                     {/* Glow Ring */}
-                    <div className="absolute inset-0 rounded-full blur-md bg-pink-400/40 group-hover:bg-pink-400/60 transition-colors duration-300"></div>
+                    <div className="absolute inset-0 rounded-full blur-md bg-accent/20 group-hover:bg-accent/40 transition-colors duration-300"></div>
                     
                     {/* Avatar Image Wrapper - Fixed Overflow */}
-                    <div className="relative z-10 w-full h-full rounded-full border-2 border-pink-400 group-hover:border-pink-300 shadow-2xl bg-pink-100 overflow-hidden flex items-center justify-center">
-                         <img 
-                            src={currentAvatarUrl} 
-                            onError={() => setImgError(true)}
-                            alt="Gemini Chan" 
-                            className="w-full h-full object-cover"
-                         />
+                    <div className="relative z-10 w-full h-full rounded-full overflow-hidden flex items-center justify-center shadow-2xl">
+                         <UAIAvatar />
                     </div>
                 </div>
             </button>

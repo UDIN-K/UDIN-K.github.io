@@ -6,9 +6,6 @@ export default defineConfig({
   plugins: [react()],
   // Base path './' agar aset dapat dibaca di GitHub Pages (subfolder)
   base: './',
-  define: {
-    'process.env.API_KEY': JSON.stringify("AIzaSyCBtFigW2LU8fgNdxGq9e_1yQItYV4leKI")
-  },
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
