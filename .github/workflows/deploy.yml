@@ -1,5 +1,5 @@
 name: Deploy to GitHub Pages
-#testing
+
 on:
   push:
     branches: ["main"]
@@ -28,7 +28,8 @@ jobs:
           cache: 'npm'
           
       - name: Install dependencies
-        run: npm ci
+        # Menggunakan npm install lebih aman daripada npm ci jika package-lock.json tidak ada/tidak sinkron
+        run: npm install
         
       - name: Build
         run: npm run build
