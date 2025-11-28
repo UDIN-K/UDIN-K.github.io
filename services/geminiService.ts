@@ -25,7 +25,8 @@ export const generateText = async (prompt: string, apiKey: string): Promise<stri
       model: 'gemini-2.5-flash',
       contents: prompt,
     });
-    return response.text || "No response generated. Please try again.";
+    // Defensive: if response.text is undefined, fallback string
+    return response?.text ?? "No response generated. Please try again.";
   } catch (error) {
     console.error("Error generating text:", error);
     throw new Error("Failed to generate response. Check your API Key.");
@@ -62,17 +63,19 @@ export const generateImage = async (prompt: string, apiKey: string): Promise<str
       }
     });
 
-    // Iterate through parts to find the image data
-    if (response.candidates && response.candidates[0].content.parts) {
-        for (const part of response.candidates[0].content.parts) {
-            if (part.inlineData) {
-                const base64EncodeString: string = part.inlineData.data;
-                const mimeType = part.inlineData.mimeType || 'image/png';
+    // Defensive: Safe access candidates/parts and image encoding
+    const candidates = response?.candidates;
+    const parts = candidates?.[0]?.content?.parts;
+    if (Array.isArray(parts)) {
+        for (const part of parts) {
+            if (part?.inlineData?.data) {
+                const base64EncodeString: string = part.inlineData.data ?? '';
+                const mimeType: string = part.inlineData.mimeType ?? 'image/png';
                 return `data:${mimeType};base64,${base64EncodeString}`;
             }
         }
     }
-    
+
     throw new Error("No image data found in response.");
   } catch (error) {
     console.error("Error generating image:", error);
