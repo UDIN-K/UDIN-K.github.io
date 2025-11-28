@@ -1,6 +1,7 @@
-# UDINK — Portfolio / AI Playground
+<img width="1916" height="940" alt="Screenshot 2025-11-28 183852" src="https://github.com/user-attachments/assets/f397913e-1377-4308-94cd-c061346125be" /># UDINK — Portfolio / AI Playground
 
 Fortofolio (Portfolio) oleh Muhammad Syafri Syamsudin Syah (UDIN-K)
+![Uploading Screenshot 2025-11-28 183852.png…]()
 
 Ringkasan
 ---------
