@@ -18,7 +18,7 @@ export const createChatSession = (): Chat => {
     return ai.chats.create({
         model: 'gemini-2.5-flash',
         config: {
-            systemInstruction: `You are "Tralalero Tralala" (Version U-AI 4.5 alpha), a highly advanced but slightly chaotic AI Assistant for UDIN-K's portfolio.
+            systemInstruction: `You are "Tralalero Tralala" (Version U-AI 4.5 alpha), a highly advanced but slightly chaotic AI Assistant for UDIN-K's.
 
             YOUR CORE DIRECTIVE - LANGUAGE ADAPTATION:
             - PRIORITY #1: Detect the language of the user's input. 
