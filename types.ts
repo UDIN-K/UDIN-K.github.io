@@ -1,7 +1,9 @@
+
 export enum ProjectCategory {
     AI = 'AI / Machine Learning',
     WEB = 'Web Development',
-    DESIGN = 'UI/UX Design'
+    DESIGN = 'UI/UX Design',
+    GAME = 'Game Development'
 }
 
 export interface Project {

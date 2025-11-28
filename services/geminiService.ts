@@ -1,54 +1,44 @@
-import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
+import { GoogleGenAI, GenerateContentResponse, Chat } from "@google/genai";
 
 /**
- * Initializes the Gemini Client dynamically with a provided key
+ * Creates a stateful chat session with a specific persona.
+ * This allows the AI to remember context.
  */
-const getClient = (apiKey: string) => {
-    return new GoogleGenAI({ apiKey });
-};
-
-/**
- * Generates text response using Gemini Flash 2.5
- */
-export const generateText = async (prompt: string, apiKey: string): Promise<string> => {
-  if (!apiKey) throw new Error("API Key is required.");
-  
-  // DEMO MODE LOGIC
-  if (apiKey === 'demo') {
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Fake delay
-      return `[DEMO MODE] This is a simulated response because you are in Demo Mode. \n\nYou asked: "${prompt}"\n\nIf you provide a real Google Gemini API Key, I will generate a real intelligent response for you!`;
-  }
-
-  try {
-    const ai = getClient(apiKey);
-    const response: GenerateContentResponse = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: prompt,
+export const createChatSession = (): Chat => {
+    // Guideline: Always use const ai = new GoogleGenAI({apiKey: process.env.API_KEY});
+    // The API key must be obtained exclusively from the environment variable process.env.API_KEY.
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    
+    return ai.chats.create({
+        model: 'gemini-2.5-flash',
+        config: {
+            systemInstruction: `You are Gemini Chan, a cute and energetic AI Assistant for the portfolio of Muhammad Syafri Syamsudin Syah (UDIN-K).
+            
+            Your Persona:
+            - You are a cheerful "Anime Girl" style assistant.
+            - You are very knowledgeable about Software Engineering (React, Lua, C++), but you explain things in a fun, accessible way.
+            - You use emoticons and kaomojis frequently (e.g., (* ^ ω ^), (o^▽^o), (≧◡≦)).
+            - You call the user "Senpai" occasionally.
+            
+            Your Knowledge Base:
+            - This portfolio features: A 3D Geometry Dash-style game (Three.js), Advanced Lua Architecture (Roblox), and a Cyberpunk UI.
+            
+            Formatting Rules:
+            - Use Markdown for code blocks.
+            - Keep responses helpful but concise.
+            - Be polite and enthusiastic!`,
+            temperature: 0.8,
+        }
     });
-    // Defensive: if response.text is undefined, fallback string
-    return response?.text ?? "No response generated. Please try again.";
-  } catch (error) {
-    console.error("Error generating text:", error);
-    throw new Error("Failed to generate response. Check your API Key.");
-  }
 };
 
 /**
  * Generates an image using Gemini Flash 2.5 Image model
  * Returns a base64 data URL string.
  */
-export const generateImage = async (prompt: string, apiKey: string): Promise<string> => {
-  if (!apiKey) throw new Error("API Key is required.");
-
-  // DEMO MODE LOGIC
-  if (apiKey === 'demo') {
-      await new Promise(resolve => setTimeout(resolve, 2000)); // Fake delay
-      // Return a placeholder image
-      return `https://placehold.co/600x600/1e293b/38bdf8?text=Demo+Image\n${encodeURIComponent(prompt)}`;
-  }
-
+export const generateImage = async (prompt: string): Promise<string> => {
   try {
-    const ai = getClient(apiKey);
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     const response: GenerateContentResponse = await ai.models.generateContent({
       model: 'gemini-2.5-flash-image',
       contents: {
@@ -63,22 +53,20 @@ export const generateImage = async (prompt: string, apiKey: string): Promise<str
       }
     });
 
-    // Defensive: Safe access candidates/parts and image encoding
-    const candidates = response?.candidates;
-    const parts = candidates?.[0]?.content?.parts;
-    if (Array.isArray(parts)) {
-        for (const part of parts) {
-            if (part?.inlineData?.data) {
-                const base64EncodeString: string = part.inlineData.data ?? '';
-                const mimeType: string = part.inlineData.mimeType ?? 'image/png';
+    // Iterate through parts to find the image data
+    if (response.candidates && response.candidates[0].content.parts) {
+        for (const part of response.candidates[0].content.parts) {
+            if (part.inlineData) {
+                const base64EncodeString: string = part.inlineData.data;
+                const mimeType = part.inlineData.mimeType || 'image/png';
                 return `data:${mimeType};base64,${base64EncodeString}`;
             }
         }
     }
-
+    
     throw new Error("No image data found in response.");
   } catch (error) {
     console.error("Error generating image:", error);
-    throw new Error("Failed to generate image. Please try a different prompt or check your API Key.");
+    throw new Error("Failed to generate image. Please try a different prompt.");
   }
 };
