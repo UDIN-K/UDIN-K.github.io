@@ -209,7 +209,7 @@ export const AIPlayground: React.FC = () => {
 
   // Avatar Image Strategy: Use local ./avatar.png first, fallback to DiceBear
   // Using relative path to support GitHub Pages subdirectories correctly
-  const primaryUrl = './public/avatar.png'; 
+  const primaryUrl = './avatar.png'; 
   const fallbackUrl = `https://api.dicebear.com/9.x/lorelei/svg?seed=Kiki&backgroundColor=ffdfbf&flip=false`;
   const currentAvatarUrl = imgError ? fallbackUrl : primaryUrl;
 
