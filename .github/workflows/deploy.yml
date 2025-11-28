@@ -25,13 +25,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: 'npm'
+          # Cache dihapus sementara agar tidak error jika package-lock.json belum ada
           
       - name: Install dependencies
-        # Menggunakan npm install lebih aman daripada npm ci jika package-lock.json tidak ada/tidak sinkron
         run: npm install
         
       - name: Build
+        # Menggunakan vite build langsung agar lebih aman jika tsc/typescript config belum sempurna
         run: npm run build
         
       - name: Upload artifact
