@@ -4,6 +4,7 @@ Fortofolio (Portfolio) oleh Muhammad Syafri Syamsudin Syah (UDIN-K)
 
 ![Uploading 1.png…]()
 
+
 Ringkasan
 ---------
 UDINK adalah starter portfolio berbasis React + TypeScript + Vite yang berisi scaffold untuk integrasi model AI (Google GenAI / layanan serupa). Repo ini berfungsi sebagai basis untuk menampilkan eksperimen antarmuka AI, demo image/text generation, dan komponen UI portfolio.
