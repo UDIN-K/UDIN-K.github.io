@@ -13,6 +13,12 @@ const getClient = (apiKey: string) => {
 export const generateText = async (prompt: string, apiKey: string): Promise<string> => {
   if (!apiKey) throw new Error("API Key is required.");
   
+  // DEMO MODE LOGIC
+  if (apiKey === 'demo') {
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Fake delay
+      return `[DEMO MODE] This is a simulated response because you are in Demo Mode. \n\nYou asked: "${prompt}"\n\nIf you provide a real Google Gemini API Key, I will generate a real intelligent response for you!`;
+  }
+
   try {
     const ai = getClient(apiKey);
     const response: GenerateContentResponse = await ai.models.generateContent({
@@ -32,6 +38,13 @@ export const generateText = async (prompt: string, apiKey: string): Promise<stri
  */
 export const generateImage = async (prompt: string, apiKey: string): Promise<string> => {
   if (!apiKey) throw new Error("API Key is required.");
+
+  // DEMO MODE LOGIC
+  if (apiKey === 'demo') {
+      await new Promise(resolve => setTimeout(resolve, 2000)); // Fake delay
+      // Return a placeholder image
+      return `https://placehold.co/600x600/1e293b/38bdf8?text=Demo+Image\n${encodeURIComponent(prompt)}`;
+  }
 
   try {
     const ai = getClient(apiKey);

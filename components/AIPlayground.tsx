@@ -48,7 +48,7 @@ export const AIPlayground: React.FC = () => {
 
   const saveApiKey = (key: string) => {
       // Basic validation to check if it looks like a Google Key (starts with AIza)
-      if (!key.startsWith('AIza')) {
+      if (key !== 'demo' && !key.startsWith('AIza')) {
           alert('Warning: This looks like it might not be a valid Google Gemini API Key (usually starts with "AIza").');
       }
       setApiKey(key);
@@ -57,7 +57,7 @@ export const AIPlayground: React.FC = () => {
       setMessages(prev => [...prev, {
           id: Date.now().toString(),
           role: 'model',
-          content: 'API Key saved locally. You are ready to go! Try asking me something.',
+          content: key === 'demo' ? 'Demo Mode activated! You can now try the UI without a real key.' : 'API Key saved locally. You are ready to go! Try asking me something.',
           type: 'text',
           timestamp: Date.now()
       }]);
@@ -179,7 +179,6 @@ export const AIPlayground: React.FC = () => {
                           <h3 className="text-xl font-bold text-white">Enter Gemini API Key</h3>
                           <p className="text-slate-400 text-sm mt-2">
                               To use the AI Playground, please enter your <strong>Google Gemini API Key</strong>. 
-                              <br/><span className="text-xs text-slate-500">(Not OpenAI/ChatGPT key)</span>
                           </p>
                       </div>
                       <form onSubmit={(e) => {
@@ -194,10 +193,25 @@ export const AIPlayground: React.FC = () => {
                             className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-3 text-white mb-4 focus:ring-2 focus:ring-accent focus:border-transparent outline-none placeholder-slate-500"
                             autoFocus
                           />
-                          <button type="submit" className="w-full bg-accent hover:bg-accent-hover text-primary font-bold py-3 rounded-lg transition-colors">
+                          <button type="submit" className="w-full bg-accent hover:bg-accent-hover text-primary font-bold py-3 rounded-lg transition-colors mb-3">
                               Connect to AI Lab
                           </button>
                       </form>
+                      
+                      <div className="relative flex py-2 items-center">
+                          <div className="flex-grow border-t border-slate-700"></div>
+                          <span className="flex-shrink-0 mx-4 text-slate-500 text-xs">OR</span>
+                          <div className="flex-grow border-t border-slate-700"></div>
+                      </div>
+
+                      <button 
+                        type="button" 
+                        onClick={() => saveApiKey('demo')}
+                        className="w-full bg-transparent border border-slate-600 text-slate-300 hover:text-white hover:bg-slate-800 font-medium py-2 rounded-lg transition-colors text-sm"
+                      >
+                          Try Demo Mode (No Key Required)
+                      </button>
+
                       <div className="mt-4 text-center">
                           <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="text-xs text-accent hover:underline">
                               Get a free Gemini API Key &rarr;
@@ -238,7 +252,7 @@ export const AIPlayground: React.FC = () => {
                     className="text-slate-400 hover:text-white text-xs font-medium px-3 py-2 rounded-md hover:bg-slate-800 transition-colors border border-transparent hover:border-slate-600"
                     title="Change API Key"
                 >
-                    KEY: {apiKey ? '••••' + apiKey.slice(-4) : 'NOT SET'}
+                    KEY: {apiKey === 'demo' ? 'DEMO MODE' : (apiKey ? '••••' + apiKey.slice(-4) : 'NOT SET')}
                 </button>
                 <div className="h-4 w-[1px] bg-slate-700 mx-1"></div>
                 <button 
