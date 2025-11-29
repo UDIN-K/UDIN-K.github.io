@@ -51,7 +51,7 @@ export const createChatSession = (): Chat => {
  */
 export const generateImage = async (prompt: string): Promise<string> => {
   try {
-    const apiKey = "AIzaSyCBtFigW2LU8fgNdxGq9e_1yQItYV4leKI";
+    const apiKey = "AIzaSyCZ1D4U57fo1VrEI1TBho5zISN0hyOizXE";
     if (!apiKey) throw new Error("API Key missing");
 
     const ai = new GoogleGenAI({ apiKey });
