@@ -6,7 +6,7 @@ import { GoogleGenAI, GenerateContentResponse, Chat } from "@google/genai";
  */
 export const createChatSession = (): Chat => {
     // Hardcoded API Key as requested for immediate stability on GitHub Pages
-    const apiKey = "AIzaSyCBtFigW2LU8fgNdxGq9e_1yQItYV4leKI";
+    const apiKey = "AIzaSyCZ1D4U57fo1VrEI1TBho5zISN0hyOizXE";
     
     if (!apiKey) {
         console.error("API_KEY is missing.");
