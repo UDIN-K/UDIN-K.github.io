@@ -6,22 +6,22 @@ export const ThreeDGame: React.FC = () => {
   const [gameState, setGameState] = useState<'start' | 'playing' | 'gameover'>('start');
   const [score, setScore] = useState(0);
 
-  // Game Logic Refs
+    // Ref logic game
   const sceneRef = useRef<THREE.Scene | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const playerRef = useRef<THREE.Mesh | null>(null);
   const floorRef = useRef<THREE.Mesh | null>(null);
-  const obstaclesRef = useRef<THREE.Group[]>([]); // Group allows combining spike + glow
+    const obstaclesRef = useRef<THREE.Group[]>([]); // Group untuk spike + glow
   
-  // Physics Refs
+    // Ref fisika
   const frameIdRef = useRef<number>(0);
   const velocityY = useRef<number>(0);
   const isGrounded = useRef<boolean>(false);
   const gameSpeed = useRef<number>(0.2);
   const scoreRef = useRef<number>(0);
   
-  // Constants
+    // Konstanta
   const GRAVITY = -0.015;
   const JUMP_FORCE = 0.38;
   const FLOOR_Y = -2;
@@ -29,18 +29,18 @@ export const ThreeDGame: React.FC = () => {
   useEffect(() => {
     if (!mountRef.current) return;
 
-    // 1. Scene Setup
+    // 1. Setup scene
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x0f172a); // Slate 900
-    // Fog for depth
+    scene.background = new THREE.Color(0x0f172a); // Slate 900 (warna)
+    // fog untuk kedalaman
     scene.fog = new THREE.Fog(0x0f172a, 10, 40);
     sceneRef.current = scene;
 
-    // Camera (Side View)
+    // Kamera (view samping)
     const camera = new THREE.PerspectiveCamera(60, mountRef.current.clientWidth / mountRef.current.clientHeight, 0.1, 100);
-    camera.position.set(0, 0, 12); // Back up
+    camera.position.set(0, 0, 12); // mundur
     camera.position.y = 1;
-    camera.lookAt(2, -1, 0); // Look slightly ahead
+    camera.lookAt(2, -1, 0); // lihat sedikit ke depan
     cameraRef.current = camera;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
@@ -49,7 +49,7 @@ export const ThreeDGame: React.FC = () => {
     mountRef.current.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
-    // 2. Lighting
+    // 2. Pencahayaan
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
     scene.add(ambientLight);
     
@@ -58,7 +58,7 @@ export const ThreeDGame: React.FC = () => {
     spotLight.castShadow = true;
     scene.add(spotLight);
 
-    // 3. Floor (Neon Line)
+    // 3. Lantai (garis neon)
     const floorGeo = new THREE.BoxGeometry(100, 1, 4);
     const floorMat = new THREE.MeshPhongMaterial({ 
         color: 0x1e293b, 
@@ -67,12 +67,12 @@ export const ThreeDGame: React.FC = () => {
         shininess: 30
     });
     const floor = new THREE.Mesh(floorGeo, floorMat);
-    floor.position.y = FLOOR_Y - 0.5; // Just below touch line
+    floor.position.y = FLOOR_Y - 0.5; // sedikit di bawah garis
     floor.receiveShadow = true;
     scene.add(floor);
     floorRef.current = floor;
 
-    // Floor Glow Line (The actual line you run on)
+    // Garis glow lantai (jalur lari)
     const lineGeo = new THREE.BoxGeometry(100, 0.05, 0.1);
     const lineMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
     const line = new THREE.Mesh(lineGeo, lineMat);
@@ -80,11 +80,11 @@ export const ThreeDGame: React.FC = () => {
     line.position.z = 0;
     scene.add(line);
 
-    // 4. Player (The Cube)
+    // 4. Pemain (kubus)
     const geometry = new THREE.BoxGeometry(1, 1, 1);
-    // Geometry Dash Style: Yellow Face with Border? Let's do simple Neon Cube
+    // Gaya Geometry Dash: kubus neon kuning
     const material = new THREE.MeshPhongMaterial({ 
-        color: 0xffd700, // Gold/Yellow
+        color: 0xffd700, // emas/kuning
         emissive: 0xaa4400,
         emissiveIntensity: 0.2
     });
@@ -100,7 +100,7 @@ export const ThreeDGame: React.FC = () => {
     const outline = new THREE.LineSegments(outlineGeo, outlineMat);
     player.add(outline);
 
-    // Background Particles/Stars
+    // Partikel/Background bintang
     const starsGeo = new THREE.BufferGeometry();
     const starCount = 200;
     const posArray = new Float32Array(starCount * 3);
@@ -113,7 +113,7 @@ export const ThreeDGame: React.FC = () => {
     scene.add(stars);
 
 
-    // Handle Resize
+    // tangani resize
     const handleResize = () => {
         if (!mountRef.current || !cameraRef.current || !rendererRef.current) return;
         const width = mountRef.current.clientWidth;
@@ -133,7 +133,7 @@ export const ThreeDGame: React.FC = () => {
     };
   }, []);
 
-  // Jump Action
+    // aksi lompat
   const jump = () => {
       if (gameState !== 'playing') {
           if (gameState === 'start') setGameState('playing');
@@ -146,11 +146,11 @@ export const ThreeDGame: React.FC = () => {
       }
   };
 
-  // Input Listeners
+    // listener input
   useEffect(() => {
       const handleKeyDown = (e: KeyboardEvent) => {
           const active = document.activeElement as HTMLElement;
-          // STRICT CHECK: Ignore all inputs if typing in any text field
+          // cek ketat: abaikan input saat mengetik
           if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable)) {
               return;
           }
@@ -161,14 +161,14 @@ export const ThreeDGame: React.FC = () => {
           }
       };
       
-      const handleMouseDown = (e: MouseEvent) => {
-          // Prevent default to stop focus stealing, but logic is handled by container listener
+          const handleMouseDown = (e: MouseEvent) => {
+          // prevent default supaya tidak pindah fokus
           // e.preventDefault(); 
       };
       
       window.addEventListener('keydown', handleKeyDown);
       
-      // Bind click to the container only
+    // pasang click di container saja
       const container = mountRef.current;
       const onContainerClick = (e: MouseEvent | TouchEvent) => {
           if (e.cancelable) e.preventDefault();
@@ -186,40 +186,42 @@ export const ThreeDGame: React.FC = () => {
   }, [gameState]);
 
 
-  // Game Loop
+    // Loop game
   useEffect(() => {
     if (gameState !== 'playing') return;
 
     const animate = () => {
         if (!sceneRef.current || !cameraRef.current || !rendererRef.current || !playerRef.current) return;
 
-        // 1. Physics (Gravity)
+        // 1. Fisika (Gravitasi)
         playerRef.current.position.y += velocityY.current;
         
         if (playerRef.current.position.y <= FLOOR_Y + 0.5) {
-            // Hit Ground
+            // kena tanah
             playerRef.current.position.y = FLOOR_Y + 0.5;
             velocityY.current = 0;
             isGrounded.current = true;
             
             // Reset rotation on ground
+            // reset rotasi saat di tanah
             const rot = playerRef.current.rotation.z;
             const targetRot = Math.round(rot / (Math.PI / 2)) * (Math.PI / 2);
             playerRef.current.rotation.z += (targetRot - rot) * 0.2;
 
         } else {
-            // In Air
+            // di udara
             velocityY.current += GRAVITY;
             isGrounded.current = false;
             // Spin while jumping
+            // putar saat lompat
             playerRef.current.rotation.z -= 0.15;
         }
 
-        // 2. Obstacle Spawning
-        // Spawn chance increases slightly with score
+        // 2. Spawn obstacle
+        // peluang spawn naik seiring skor
         const spawnThreshold = 0.02 + (scoreRef.current * 0.0001);
         
-        // Ensure minimum distance between obstacles
+        // jaga jarak min antar obstacle
         const lastObs = obstaclesRef.current[obstaclesRef.current.length - 1];
         const minDistance = 10;
         const canSpawn = !lastObs || (20 - lastObs.position.x) > minDistance;
@@ -244,21 +246,22 @@ export const ThreeDGame: React.FC = () => {
                 group.position.y = FLOOR_Y + 0.5;
             }
 
-            group.position.x = 25; // Spawn ahead
+            group.position.x = 25; // spawn di depan
             group.position.z = 0;
             
             sceneRef.current.add(group);
             obstaclesRef.current.push(group);
         }
 
-        // 3. Move Obstacles & Collision
+        // 3. Gerak obstacle & tabrakan
         for (let i = obstaclesRef.current.length - 1; i >= 0; i--) {
             const obs = obstaclesRef.current[i];
             obs.position.x -= gameSpeed.current;
 
             // Collision (AABB)
-            // Player is at x: -5, width: 1
-            // Obstacle width approx 1
+            // Collision (AABB)
+            // Player x: -5, width ~1
+            // Obstacle width ~1
             const dx = Math.abs(obs.position.x - playerRef.current.position.x);
             const dy = Math.abs(obs.position.y - playerRef.current.position.y);
             
@@ -266,7 +269,7 @@ export const ThreeDGame: React.FC = () => {
                 setGameState('gameover');
             }
 
-            // Remove if off screen
+            // hapus jika keluar layar
             if (obs.position.x < -15) {
                 sceneRef.current.remove(obs);
                 obstaclesRef.current.splice(i, 1);
@@ -278,10 +281,10 @@ export const ThreeDGame: React.FC = () => {
             }
         }
 
-        // 4. Floor texture scroll (simulate movement)
+        // 4. Simulasi gerak lantai
         if (floorRef.current) {
-           // We can't scroll texture easily without UV mapping, 
-           // but the particles moving backwards gives the speed illusion
+           // sulit scroll texture tanpa UV mapping,
+           // tapi partikel memberi ilusi gerak
         }
 
         rendererRef.current.render(sceneRef.current, cameraRef.current);

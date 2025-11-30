@@ -1,30 +1,29 @@
 import { GoogleGenAI, GenerateContentResponse, Chat } from "@google/genai";
 
-// Helper to get API Key (Obfuscated to avoid GitHub secret scanning warnings)
+// helper ambil API key (disamarkan)
 const getApiKey = (): string => {
-    // Base64 encoded key: AIzaSyCua1sFf8DcRr2aueKxYTUeA6Qe-29hd7c
-    const encoded = "QUl6YVN5Q3VhMXNGZjhEY1JyMmF1ZUt4WVRVZUE2UWUtMjloZDdj";
-    try {
-        return atob(encoded);
-    } catch (e) {
-        console.error("Failed to decode API key");
-        return "";
-    }
+  // key base64 (disamarkan)
+  const encoded = "QUl6YVN5Q3VhMXNGZjhEY1JyMmF1ZUt4WVRVZUE2UWUtMjloZDdj";
+  try {
+    return atob(encoded);
+  } catch (e) {
+    console.error("Gagal decode API key");
+    return "";
+  }
 };
 
 /**
- * Creates a stateful chat session with a specific persona.
- * This allows the AI to remember context.
+ * Membuat sesi chat yang menyimpan konteks.
  */
 export const createChatSession = (): Chat => {
-    const apiKey = getApiKey();
+  const apiKey = getApiKey();
     
-    if (!apiKey) {
-        console.error("API_KEY is missing.");
-    }
+  if (!apiKey) {
+    console.error("API_KEY tidak ada.");
+  }
 
-    // Initialize with the key directly
-    const ai = new GoogleGenAI({ apiKey: apiKey });
+  // inisialisasi AI pakai key
+  const ai = new GoogleGenAI({ apiKey: apiKey });
     
     return ai.chats.create({
         model: 'gemini-2.5-flash',
@@ -51,14 +50,13 @@ export const createChatSession = (): Chat => {
             Formatting Rules:
             - Use clean Markdown.
             - Code blocks must be precise and optimized.`,
-            temperature: 0.8, // Slightly higher for more "Tralala" creativity
+            temperature: 0.8, // suhu model (lebih kreatif)
         }
     });
 };
 
 /**
- * Generates an image using Gemini Flash 2.5 Image model
- * Returns a base64 data URL string.
+ * Menghasilkan gambar (base64 data URL).
  */
 export const generateImage = async (prompt: string): Promise<string> => {
   try {
@@ -80,7 +78,7 @@ export const generateImage = async (prompt: string): Promise<string> => {
       }
     });
 
-    // Iterate through parts to find the image data safely with Optional Chaining
+    // cari data gambar di response
     const candidates = response.candidates;
     if (candidates && candidates.length > 0) {
         const parts = candidates[0].content?.parts;
@@ -88,7 +86,7 @@ export const generateImage = async (prompt: string): Promise<string> => {
             for (const part of parts) {
                 if (part.inlineData && part.inlineData.data) {
                     const base64EncodeString: string = part.inlineData.data;
-                    // Provide a default fallback for mimeType to satisfy TypeScript
+                    // fallback mimeType
                     const mimeType = part.inlineData.mimeType || 'image/png';
                     return `data:${mimeType};base64,${base64EncodeString}`;
                 }

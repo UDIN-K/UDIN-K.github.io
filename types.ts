@@ -24,7 +24,7 @@ export enum AIMode {
 export interface AIChatMessage {
     id: string;
     role: 'user' | 'model';
-    content: string; // Text content or Image URL
+    content: string; // teks atau URL gambar
     type: 'text' | 'image';
     timestamp: number;
 }

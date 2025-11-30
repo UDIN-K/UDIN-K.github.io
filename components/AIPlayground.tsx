@@ -3,7 +3,7 @@ import { createChatSession, generateImage } from '../services/geminiService';
 import { AIMode, AIChatMessage } from '../types';
 import { Chat, GenerateContentResponse } from "@google/genai";
 
-// --- Markdown/Code Renderer Helper ---
+// Renderer Markdown/Kode
 const MessageContent: React.FC<{ content: string }> = ({ content }) => {
     const parts = content.split(/(```[\s\S]*?```)/g);
 
@@ -41,21 +41,21 @@ const MessageContent: React.FC<{ content: string }> = ({ content }) => {
     );
 };
 
-// --- Futuristic CSS Avatar (No Images needed) ---
+// Avatar CSS futuristik
 const TechAvatar: React.FC<{ size?: string, animated?: boolean }> = ({ size = "w-full h-full", animated = true }) => (
     <div className={`${size} bg-slate-950 rounded-full flex items-center justify-center relative overflow-hidden shadow-inner border border-slate-800`}>
-        {/* Use the local image if available, fallback to DiceBear if needed */}
+        {/* pakai gambar lokal, fallback DiceBear */}
         <img 
             src="/avatar.png" 
             alt="AI Avatar" 
             className="w-full h-full object-cover"
             onError={(e) => {
-                // Fallback to the reliable purple anime girl if local file missing
+                // fallback avatar jika file lokal hilang
                 e.currentTarget.src = "https://api.dicebear.com/9.x/lorelei/svg?seed=GeminiChan&backgroundColor=b6e3f4";
             }}
         />
         
-        {/* Optional Overlay Glow for "Tech" feel */}
+        {/* overlay glow opsional */}
         <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-white/10 pointer-events-none"></div>
     </div>
 );
@@ -67,7 +67,7 @@ export const AIPlayground: React.FC = () => {
   
   const chatSessionRef = useRef<Chat | null>(null);
 
-  // Load AI Lab if hash matches
+    // buka AI Lab jika hash cocok
   useEffect(() => {
     const checkHash = () => {
         if (window.location.hash === '#ai-lab') {
@@ -86,7 +86,7 @@ export const AIPlayground: React.FC = () => {
             chatSessionRef.current = createChatSession();
           }
       } catch (e) {
-          console.error("Failed to init chat", e);
+          console.error("Gagal inisialisasi chat", e);
       }
   };
 
@@ -212,7 +212,7 @@ export const AIPlayground: React.FC = () => {
   const clearChat = () => {
       try {
         chatSessionRef.current = createChatSession();
-      } catch (e) { /* ignore */ }
+    } catch (e) { /* abaikan */ }
       
       setMessages([{
         id: Date.now().toString(),
@@ -226,14 +226,14 @@ export const AIPlayground: React.FC = () => {
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end pointer-events-none font-sans">
         
-        {/* OPEN STATE: CHAT MODAL */}
+        {/* BUKA: CHAT MODAL */}
         {isOpen && (
              <div className="mb-4 w-[90vw] md:w-[420px] h-[550px] bg-slate-900/90 backdrop-blur-xl border border-slate-700/80 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-fade-in-up origin-bottom-right ring-1 ring-white/10 pointer-events-auto">
                 
-                {/* Header */}
+                {/* Kepala */}
                 <div className="bg-slate-950/50 border-b border-slate-800 p-4 flex justify-between items-center shrink-0 select-none">
                     <div className="flex items-center gap-3">
-                        {/* Rounded Avatar Container with Strict Overflow Hidden */}
+                        {/* Kontainer avatar bundar */}
                         <div className="w-10 h-10 shadow-[0_0_15px_rgba(56,189,248,0.2)] rounded-full overflow-hidden isolate transform translate-z-0 border border-slate-700">
                              <TechAvatar />
                         </div>
@@ -255,7 +255,7 @@ export const AIPlayground: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Chat Area */}
+                {/* Area Chat */}
                 <div className="flex-1 overflow-y-auto p-5 space-y-5 bg-gradient-to-b from-transparent to-black/20" ref={scrollRef}>
                     {messages.map((msg) => (
                         <div key={msg.id} className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
@@ -288,7 +288,7 @@ export const AIPlayground: React.FC = () => {
                     )}
                 </div>
 
-                {/* Footer Input */}
+                {/* Input Footer */}
                 <div className="bg-slate-950 p-4 border-t border-slate-800/80">
                     <div className="flex gap-2 mb-3 overflow-x-auto pb-1 scrollbar-hide">
                          {quickPrompts.map((qp, idx) => (
@@ -335,17 +335,17 @@ export const AIPlayground: React.FC = () => {
              </div>
         )}
 
-        {/* CLOSED STATE: AVATAR TRIGGER */}
+        {/* TUTUP: TRIGGER AVATAR */}
         {!isOpen && (
             <button 
                 onClick={() => setIsOpen(true)}
                 className="group relative w-16 h-16 flex items-center justify-center transition-transform duration-300 focus:outline-none outline-none pointer-events-auto hover:scale-110 active:scale-95"
                 aria-label="Open AI Terminal"
             >
-                {/* Glow Effect */}
+                {/* Efek Glow */}
                 <div className="absolute inset-0 rounded-full bg-accent/30 blur-xl group-hover:bg-accent/50 transition-colors duration-500 animate-pulse"></div>
                 
-                {/* The Tech Avatar */}
+                {/* Avatar Teknologi */}
                 <div className="w-full h-full rounded-full overflow-hidden border-2 border-accent/50">
                     <TechAvatar />
                 </div>
