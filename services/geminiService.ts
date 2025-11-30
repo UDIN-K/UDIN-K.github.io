@@ -1,15 +1,12 @@
 import { GoogleGenAI, GenerateContentResponse, Chat } from "@google/genai";
-
-// helper ambil API key (disamarkan)
 const getApiKey = (): string => {
-  // key base64 (disamarkan)
-  const encoded = "QUl6YVN5Q3VhMXNGZjhEY1JyMmF1ZUt4WVRVZUE2UWUtMjloZDdj";
-  try {
-    return atob(encoded);
-  } catch (e) {
-    console.error("Gagal decode API key");
-    return "";
-  }
+    const encoded = "QUl6YVN5Q3VhMXNGZjhEY1JyMmF1ZUt4WVRVZUE2UWUtMjloZDdj";
+    try {
+        return atob(encoded);
+    } catch (e) {
+        console.error("Failed to decode API key");
+        return "";
+    }
 };
 
 /**
