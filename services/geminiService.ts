@@ -1,8 +1,5 @@
 import { GoogleGenAI, GenerateContentResponse, Chat } from "@google/genai";
-
-// Helper to get API Key (Obfuscated to avoid GitHub secret scanning warnings)
 const getApiKey = (): string => {
-    // Base64 encoded key: AIzaSyCua1sFf8DcRr2aueKxYTUeA6Qe-29hd7c
     const encoded = "QUl6YVN5Q3VhMXNGZjhEY1JyMmF1ZUt4WVRVZUE2UWUtMjloZDdj";
     try {
         return atob(encoded);
