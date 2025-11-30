@@ -1,4 +1,4 @@
-# UDIN-K.github.io 🌐
+# UDIN-K.github.io 
 
 Selamat datang di halaman GitHub Pages milik UDIN-K — tempat saya berbagi proyek, tulisan, dan eksperimen web. README ini dibuat untuk menjelaskan siapa saya, apa yang ada di repositori ini, dan bagaimana kamu bisa melihat atau berkontribusi.
 
@@ -55,11 +55,10 @@ Butuh bantuan menulis konten atau memperbaiki tampilan? Boleh ajukan issue atau 
 
 ## Kontak
 - GitHub: https://github.com/UDIN-K
-- Email: (tambahkan email Anda di sini jika mau)
+- Email: safrisam.id09@gmail.com
 
 ## Lisensi
-Lisensi konten: MIT (atau sesuaikan dengan lisensi pilihan Anda).  
-Cantumkan lisensi spesifik jika perlu.
+Lisensi konten: MIT 
 
 ## Pesan Singkat dari Pemilik
-Terima kasih sudah mampir! Jika kamu punya saran layout, ide untuk tulisan, atau ingin berkolaborasi — beri tahu saya lewat issue atau PR. Mari belajar dan bangun sesuatu yang keren bersama! 🚀
+Terima kasih sudah mampir! Jika kamu punya saran layout, ide untuk tulisan, atau ingin berkolaborasi — beri tahu saya lewat issue atau PR. Mari belajar dan bangun sesuatu yang keren bersama! 
