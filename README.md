@@ -1,64 +1,20 @@
-# UDIN-K.github.io 
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+</div>
 
-Selamat datang di halaman GitHub Pages milik UDIN-K — tempat saya berbagi proyek, tulisan, dan eksperimen web. README ini dibuat untuk menjelaskan siapa saya, apa yang ada di repositori ini, dan bagaimana kamu bisa melihat atau berkontribusi.
+# Run and deploy your AI Studio app
 
-## Tentang Situs Ini
-UDIN-K.github.io adalah situs statis yang dihosting di GitHub Pages. Di sini saya memamerkan:
-- Blog singkat dan catatan teknis
-- Portofolio proyek
-- Link dan sumber daya favorit
+This contains everything you need to run your app locally.
 
-Situs ini dibuat untuk belajar, berbagi, dan berkembang: harapannya, siapa pun yang mampir bisa mendapatkan inspirasi — atau ikut berkontribusi.
+View your app in AI Studio: https://ai.studio/apps/52de7d0b-f693-4c56-9add-657f7f3b7882
 
-## Fitur Utama
-- Mudah dikustomisasi — berbasis GitHub Pages
-- Responsif — bisa diakses dari ponsel atau desktop
-- Siap untuk konten: tulisan, gambar, dan tautan proyek
+## Run Locally
 
-## Lihat Situs Langsung
-Buka: https://udin-k.github.io (atau https://UDIN-K.github.io)  
-Jika belum otomatis muncul, cek pengaturan Pages pada repo untuk cabang (branch) yang dipublikasikan.
+**Prerequisites:**  Node.js
 
-## Cara Menjalankan di Lokal
-1. Clone repo:
-   ```bash
-   git clone https://github.com/UDIN-K/UDIN-K.github.io.git
-   cd UDIN-K.github.io
-   ```
-2. Jika menggunakan Jekyll (opsional):
-   ```bash
-   bundle install
-   bundle exec jekyll serve
-   ```
-3. Buka http://localhost:4000
 
-(Tergantung kerangka kerja yang dipakai, langkah bisa berbeda — cek file konfigurasi di repo untuk instruksi spesifik.)
-
-## Ingin Berkontribusi?
-Terima kasih — kontribusi sangat dihargai! Berikut panduan singkat:
-- Fork repo ini
-- Buat branch baru: git checkout -b fitur-baru
-- Tambahkan perubahan dan commit
-- Push dan buat pull request
-
-Butuh bantuan menulis konten atau memperbaiki tampilan? Boleh ajukan issue atau langsung kirim PR.
-
-## Struktur Singkat Repo
-- index.html / index.md — halaman utama
-- assets/ — gambar, CSS, dan file statis
-- _posts/ — (jika menggunakan Jekyll) tulisan dan catatan
-- README.md — (file ini)
-
-## Teknologi
-- GitHub Pages
-- (Opsional) Jekyll / HTML / CSS / JavaScript
-
-## Kontak
-- GitHub: https://github.com/UDIN-K
-- Email: safrisam.id09@gmail.com
-
-## Lisensi
-Lisensi konten: MIT 
-
-## Pesan Singkat dari Pemilik
-Terima kasih sudah mampir! Jika kamu punya saran layout, ide untuk tulisan, atau ingin berkolaborasi — beri tahu saya lewat issue atau PR. Mari belajar dan bangun sesuatu yang keren bersama! 
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`
