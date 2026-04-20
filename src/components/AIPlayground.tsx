@@ -167,14 +167,19 @@ export const AIPlayground: React.FC = () => {
         const streamResult = await chatSessionRef.current.sendMessageStream({ message: currentInput });
         
         let fullText = '';
-        for await (const chunk of streamResult) {
-            const chunkText = (chunk as GenerateContentResponse).text;
-            if (chunkText) {
-                fullText += chunkText;
-                setMessages(prev => prev.map(msg => 
-                    msg.id === responseId ? { ...msg, content: fullText } : msg
-                ));
+        try {
+            for await (const chunk of streamResult) {
+                const chunkText = (chunk as GenerateContentResponse).text;
+                if (chunkText) {
+                    fullText += chunkText;
+                    setMessages(prev => prev.map(msg => 
+                        msg.id === responseId ? { ...msg, content: fullText } : msg
+                    ));
+                }
             }
+        } catch (streamError) {
+             console.error("Stream error:", streamError);
+             throw new Error("Stream connection failed. Server might be busy.");
         }
 
       } else {
@@ -191,14 +196,17 @@ export const AIPlayground: React.FC = () => {
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Internal system crash.";
       
-      const errorMsg: AIChatMessage = {
-        id: (Date.now() + 1).toString(),
-        role: 'model',
-        content: "CRITICAL FAILURE. \nTrace: " + errorMessage,
-        type: 'text',
-        timestamp: Date.now(),
-      };
-      setMessages((prev) => [...prev, errorMsg]);
+      setMessages((prev) => {
+          // Remove the empty placeholder if it failed completely
+          const filtered = prev.filter(msg => !(msg.role === 'model' && msg.content === ''));
+          return [...filtered, {
+            id: (Date.now() + 1).toString(),
+            role: 'model',
+            content: `[CRITICAL FAILURE]\n\nServer Trace: ${errorMessage}\n\n*Status: API Core overwhelmed or misconfigured. Please attempt reconnection later.*`,
+            type: 'text',
+            timestamp: Date.now(),
+          }];
+      });
     } finally {
       setIsLoading(false);
     }
