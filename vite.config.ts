@@ -10,6 +10,9 @@ export default defineConfig({
   ],
   // Base path './' agar aset dapat dibaca di GitHub Pages (subfolder)
   base: './',
+  define: {
+    'process.env.GEMINI_API_KEY': JSON.stringify(process.env.GEMINI_API_KEY)
+  },
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
