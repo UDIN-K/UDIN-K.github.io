@@ -14,6 +14,10 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+# Add the env variable globally or at the job level
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,7 +28,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          # Update the node-version to 24
+          node-version: "24"
           # Cache dihapus sementara agar tidak error jika package-lock.json belum ada
           
       - name: Install dependencies
