@@ -10,15 +10,30 @@
   
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --animate-spin-slow: spin 8s linear infinite;
+  --animate-pulse-fast: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  
+  @keyframes scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+  }
+  --animate-scan: scan 4s linear infinite;
 }
 
 @layer base {
   body {
-    @apply bg-primary text-text font-sans antialiased;
+    @apply bg-primary text-text font-sans antialiased selection:bg-accent/30;
   }
 }
 
 @layer utilities {
+  .neon-glow {
+    text-shadow: 0 0 10px var(--color-accent), 0 0 20px var(--color-accent);
+  }
+  .neon-border {
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+  }
   .custom-scrollbar::-webkit-scrollbar {
     width: 6px;
   }

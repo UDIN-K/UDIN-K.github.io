@@ -28,3 +28,13 @@ export interface AIChatMessage {
     type: 'text' | 'image';
     timestamp: number;
 }
+
+export interface Certificate {
+    id: string;
+    title: string;
+    issuer: string;
+    date: string;
+    imageUrl: string;
+    verifyLink?: string;
+    description?: string;
+}

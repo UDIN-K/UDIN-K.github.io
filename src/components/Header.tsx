@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Command } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 export const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,12 +17,30 @@ export const Header: React.FC = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Portfolio', href: '#portfolio' },
-    { name: 'AI Lab', href: '#ai-lab' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Core', href: '/' },
+    { name: 'Experience', href: '/experience' },
+    { name: 'Engine', href: '/play' },
+    { name: 'Lua', href: '/scripting' },
+    { name: 'Labs', href: '/labs' },
+    { name: 'IDE', href: '/ide' },
+    { name: 'Vault', href: '/certificates' },
+    { name: 'Comms', href: '/contact' },
   ];
+
+  const handleLinkClick = (href: string) => {
+    setIsMobileMenuOpen(false);
+    if (href.startsWith('#')) {
+      // It's a hash link on the current page (managed by AI Lab listener in AIPlayground)
+      return;
+    }
+    if (href.startsWith('/#') && location.pathname === '/') {
+      const id = href.replace('/#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   return (
     <header
@@ -29,32 +49,43 @@ export const Header: React.FC = () => {
       }`}
     >
       <div className="container mx-auto px-4 md:px-8 flex justify-between items-center">
-        <motion.a 
-            href="#" 
+        <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="flex items-center gap-2 group"
         >
-          <div className="w-8 h-8 bg-white text-primary flex items-center justify-center font-black text-xl rounded-sm group-hover:bg-accent transition-colors">
-            U
-          </div>
-          <span className="text-xl font-bold tracking-widest text-white uppercase font-mono">
-            UDIN<span className="text-slate-500 group-hover:text-accent transition-colors">K</span>
-          </span>
-        </motion.a>
+          <Link to="/" className="flex items-center gap-2 group">
+            <div className="w-8 h-8 bg-white text-primary flex items-center justify-center font-black text-xl rounded-sm group-hover:bg-accent transition-colors">
+              U
+            </div>
+            <span className="text-xl font-bold tracking-widest text-white uppercase font-mono">
+              UDIN<span className="text-slate-500 group-hover:text-accent transition-colors">K</span>
+            </span>
+          </Link>
+        </motion.div>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center space-x-1">
           {navLinks.map((link) => (
-            <motion.a
-                key={link.name}
-                href={link.href}
-                whileHover={{ y: -2 }}
-                className="px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors relative group"
-            >
-                {link.name}
-                <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-accent scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
-            </motion.a>
+            <motion.div key={link.name} whileHover={{ y: -2 }}>
+              {link.href.startsWith('http') || link.href.startsWith('#') ? (
+                <a
+                  href={link.href}
+                  className="px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors relative group block"
+                >
+                  {link.name}
+                  <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-accent scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+                </a>
+              ) : (
+                <Link
+                  to={link.href}
+                  onClick={() => handleLinkClick(link.href)}
+                  className="px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors relative group block"
+                >
+                  {link.name}
+                  <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-accent scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+                </Link>
+              )}
+            </motion.div>
           ))}
           <div className="h-4 w-px bg-slate-800 mx-4"></div>
           <button className="p-2 text-slate-400 hover:text-white transition-colors">
@@ -82,14 +113,25 @@ export const Header: React.FC = () => {
           >
             <div className="flex flex-col py-6 px-4 space-y-4">
               {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-sm font-bold uppercase tracking-widest text-slate-300 hover:text-accent transform transition-transform active:scale-95"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.name}
-                </a>
+                link.href.startsWith('http') || link.href.startsWith('#') ? (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-sm font-bold uppercase tracking-widest text-slate-300 hover:text-accent transform transition-transform active:scale-95"
+                  >
+                    {link.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    onClick={() => handleLinkClick(link.href)}
+                    className="text-sm font-bold uppercase tracking-widest text-slate-300 hover:text-accent transform transition-transform active:scale-95"
+                  >
+                    {link.name}
+                  </Link>
+                )
               ))}
             </div>
           </motion.div>
