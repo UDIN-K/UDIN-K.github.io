@@ -1,6 +1,6 @@
 import { GoogleGenAI, GenerateContentResponse, Chat } from "@google/genai";
 const getApiKey = (): string => {
-    const encoded = "QUl6YVN5QUh2dDl6djViYlpzakZLOFpzZkV3R05Xbmx4bS1MMDlF";
+    const encoded = "QUl6YVN5QjloYkR3U0RXemlBOFlYN0ViZWJrVU00U1FOaDJmZGxn";
     try {
         return atob(encoded);
     } catch (e) {
