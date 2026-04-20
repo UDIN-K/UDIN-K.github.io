@@ -17,6 +17,8 @@ concurrency:
 # Add the env variable globally or at the job level
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
 
 jobs:
   build:
