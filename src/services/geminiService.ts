@@ -80,6 +80,6 @@ export const generateImage = async (prompt: string): Promise<string> => {
     throw new Error("No image data found in response.");
   } catch (error) {
     console.error("Error generating image:", error);
-    throw new Error("Failed to generate image.", { cause: error });
+    throw new Error(`Failed to generate image. ${error instanceof Error ? error.message : ''}`);
   }
 };
