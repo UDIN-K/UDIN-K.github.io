@@ -1,15 +1,15 @@
 import React, { useState, useRef } from 'react';
 import Editor from '@monaco-editor/react';
-import { 
-  Terminal, 
-  Play, 
-  Cpu, 
-  Sparkles, 
-  Code2, 
-  Monitor,
-  Database,
-  Download,
-  Trash2
+import {
+    Terminal,
+    Play,
+    Cpu,
+    Sparkles,
+    Code2,
+    Monitor,
+    Database,
+    Download,
+    Trash2
 } from 'lucide-react';
 import { createChatSession } from '../services/geminiService';
 import { cn } from '../lib/utils';
@@ -34,14 +34,14 @@ export const UdinIDE: React.FC = () => {
     const runCode = async () => {
         setOutput([]);
         setTimeout(() => {
-             setOutput([`[EXEC] Initializing ${language} engine...`]);
+            setOutput([`[EXEC] Initializing ${language} engine...`]);
         }, 50);
 
         if (language === 'javascript') {
             const originalLog = console.log;
             const originalError = console.error;
             const originalWarn = console.warn;
-            
+
             // Override console methods to stream to state
             console.log = (...args) => {
                 const msg = args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ');
@@ -58,11 +58,11 @@ export const UdinIDE: React.FC = () => {
 
             try {
                 // Allows using top-level await and async functions
-                const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+                const AsyncFunction = Object.getPrototypeOf(async function () { }).constructor;
                 const executor = new AsyncFunction(code);
-                
+
                 await executor();
-                
+
                 setOutput(prev => [...prev, '[DONE] Execution finished successfully.']);
             } catch (err) {
                 setOutput(prev => [...prev, `[ERR] RUNTIME_EXCEPTION: ${err instanceof Error ? err.message : String(err)}`]);
@@ -74,9 +74,9 @@ export const UdinIDE: React.FC = () => {
             }
         } else {
             setOutput(prev => [
-                ...prev, 
-                `[WARN] Engine for ${language.toUpperCase()} requires a native compiler. falling back to Cloud-VM Simulation...`, 
-                `[SIM] Syntax looks valid. Running heuristic analysis...`, 
+                ...prev,
+                `[WARN] Engine for ${language.toUpperCase()} requires a native compiler. falling back to Cloud-VM Simulation...`,
+                `[SIM] Syntax looks valid. Running heuristic analysis...`,
                 `[DONE] Simulation complete. Zero runtime anomalies detected.`
             ]);
         }
@@ -128,7 +128,7 @@ export const UdinIDE: React.FC = () => {
                     const newCode = codeMatch[1].trim();
                     setCode(newCode);
                 }
-                
+
                 if (explanationMatch && explanationMatch[1]) {
                     setOutput(prev => [...prev, `[AI_EXPLAIN] ${explanationMatch[1].trim()}`]);
                 } else {
@@ -158,10 +158,10 @@ export const UdinIDE: React.FC = () => {
                                 key={lang.value}
                                 onClick={() => setLanguage(lang.value)}
                                 className={cn(
-                                    "px-3 py-1 text-[9px] font-mono border rounded-sm transition-all uppercase tracking-tighter",
-                                    language === lang.value 
-                                    ? "bg-accent/10 border-accent/40 text-accent" 
-                                    : "border-transparent text-slate-500 hover:text-slate-300"
+                                    "px-4 py-2 min-h-[32px] flex items-center justify-center text-[9px] font-mono border rounded-sm transition-all uppercase tracking-tighter",
+                                    language === lang.value
+                                        ? "bg-accent/10 border-accent/40 text-accent"
+                                        : "border-transparent text-slate-500 hover:text-slate-300 hover:bg-slate-800/50"
                                 )}
                             >
                                 {lang.name}
@@ -171,25 +171,25 @@ export const UdinIDE: React.FC = () => {
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <button 
+                    <button
                         onClick={() => setOutput([])}
                         title="Clear Console"
                         className="p-1.5 text-slate-500 hover:text-red-400 transition-colors bg-slate-950 rounded-sm border border-slate-800"
                     >
                         <Trash2 className="w-3.5 h-3.5" />
                     </button>
-                    <button 
+                    <button
                         onClick={exportCode}
-                        className="flex items-center gap-2 px-4 py-1 bg-slate-800 text-white rounded-sm hover:bg-slate-700 transition-all text-[10px] font-black uppercase tracking-widest active:scale-95 border border-slate-700"
+                        className="flex items-center gap-2 px-4 py-2 min-h-[32px] bg-slate-800 text-white rounded-sm hover:bg-slate-700 transition-all text-[10px] font-black uppercase tracking-widest active:scale-95 border border-slate-700"
                     >
-                        <Download className="w-3 h-3" />
+                        <Download className="w-3 h-3 pointer-events-none" />
                         Export
                     </button>
-                    <button 
+                    <button
                         onClick={runCode}
-                        className="flex items-center gap-2 px-4 py-1 bg-white text-primary rounded-sm hover:bg-accent transition-all text-[10px] font-black uppercase tracking-widest active:scale-95 shadow-lg shadow-white/5"
+                        className="flex items-center gap-2 px-4 py-2 min-h-[32px] bg-white text-primary rounded-sm hover:bg-accent transition-all text-[10px] font-black uppercase tracking-widest active:scale-95 shadow-lg shadow-white/5"
                     >
-                        <Play className="w-3 h-3 fill-current" />
+                        <Play className="w-3 h-3 fill-current pointer-events-none" />
                         Execute
                     </button>
                 </div>
@@ -198,10 +198,16 @@ export const UdinIDE: React.FC = () => {
             {/* Main Environment */}
             <div className="flex-1 flex overflow-hidden">
                 {/* Sideline (Files etc - Mock) */}
-                <div className="w-12 bg-slate-950 border-r border-slate-900 flex flex-col items-center py-6 gap-6 shrink-0 hidden md:flex">
-                    <Code2 className="w-5 h-5 text-accent" />
-                    <Database className="w-5 h-5 text-slate-700" />
-                    <Terminal className="w-5 h-5 text-slate-700" />
+                <div className="w-12 bg-slate-950 border-r border-slate-900 flex flex-col items-center py-4 gap-4 shrink-0 hidden md:flex">
+                    <button className="p-2.5 rounded-md bg-accent/10 border border-accent/20 text-accent hover:brightness-110 transition-all active:scale-95">
+                        <Code2 className="w-5 h-5 pointer-events-none" />
+                    </button>
+                    <button className="p-2.5 rounded-md border border-transparent text-slate-600 hover:text-slate-300 hover:bg-slate-900 transition-all active:scale-95">
+                        <Database className="w-5 h-5 pointer-events-none" />
+                    </button>
+                    <button className="p-2.5 rounded-md border border-transparent text-slate-600 hover:text-slate-300 hover:bg-slate-900 transition-all active:scale-95">
+                        <Terminal className="w-5 h-5 pointer-events-none" />
+                    </button>
                 </div>
 
                 <div className="flex-1 flex flex-col overflow-hidden">
@@ -251,13 +257,13 @@ export const UdinIDE: React.FC = () => {
                                     <span className={cn(
                                         "flex-1",
                                         line.startsWith('[ERR]') ? "text-red-500 font-bold" :
-                                        line.startsWith('[LOG]') ? "text-slate-300" :
-                                        line.startsWith('[DONE]') ? "text-green-500 font-black" :
-                                        line.startsWith('[EXEC]') ? "text-yellow-500 animate-pulse" :
-                                        line.startsWith('[SYSTEM]') ? "text-accent" :
-                                        line.startsWith('[AI]') ? "text-accent" :
-                                        line.startsWith('[AI_EXPLAIN]') ? "text-slate-400 italic" :
-                                        "text-slate-500"
+                                            line.startsWith('[LOG]') ? "text-slate-300" :
+                                                line.startsWith('[DONE]') ? "text-green-500 font-black" :
+                                                    line.startsWith('[EXEC]') ? "text-yellow-500 animate-pulse" :
+                                                        line.startsWith('[SYSTEM]') ? "text-accent" :
+                                                            line.startsWith('[AI]') ? "text-accent" :
+                                                                line.startsWith('[AI_EXPLAIN]') ? "text-slate-400 italic" :
+                                                                    "text-slate-500"
                                     )}>
                                         {line}
                                     </span>
@@ -276,7 +282,7 @@ export const UdinIDE: React.FC = () => {
                             <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center shrink-0 border border-accent/20">
                                 <Sparkles className="w-4 h-4 text-accent" />
                             </div>
-                            <input 
+                            <input
                                 type="text"
                                 value={aiInput}
                                 onChange={(e) => setAiInput(e.target.value)}
@@ -284,7 +290,7 @@ export const UdinIDE: React.FC = () => {
                                 placeholder="Command AI to refactor, debug, or generate code..."
                                 className="flex-1 bg-transparent text-xs text-white focus:outline-none font-mono placeholder:text-slate-700"
                             />
-                            <button 
+                            <button
                                 onClick={handleAiCommand}
                                 disabled={isAiProcessing || !aiInput.trim()}
                                 className="px-4 py-1.5 bg-accent text-primary rounded-sm text-[10px] font-black uppercase tracking-widest disabled:opacity-30 transition-all hover:brightness-110"
