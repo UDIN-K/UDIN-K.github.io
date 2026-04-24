@@ -17,6 +17,7 @@ import { Chat, GenerateContentResponse } from "@google/genai";
 
 export const UdinIDE: React.FC = () => {
     const [code, setCode] = useState<string>('// System Initialized...\n// UDIN IDE v1.0.0-beta\n\nfunction boot() {\n    console.log("Welcome to UDIN IDE, Master Syafri!");\n    console.log("CPU_LOAD: 2.4%");\n    console.log("NEURAL_SYNC: OK");\n}\n\nboot();');
+    const [activeTab, setActiveTab] = useState<'code' | 'database' | 'terminal'>('code');
     const [language, setLanguage] = useState('javascript');
     const [output, setOutput] = useState<string[]>(['[SYSTEM] UDIN_IDE_CORE_V1.1 initialized.', '[AUTH] ACCESS_GRANTED: MAJIKAN_SYAFRI']);
     const [aiInput, setAiInput] = useState('');
@@ -198,107 +199,148 @@ export const UdinIDE: React.FC = () => {
             {/* Main Environment */}
             <div className="flex-1 flex overflow-hidden">
                 {/* Sideline (Files etc - Mock) */}
-                <div className="w-12 bg-slate-950 border-r border-slate-900 flex flex-col items-center py-4 gap-4 shrink-0 hidden md:flex">
-                    <button className="p-2.5 rounded-md bg-accent/10 border border-accent/20 text-accent hover:brightness-110 transition-all active:scale-95">
-                        <Code2 className="w-5 h-5 pointer-events-none" />
+                <div className="w-16 bg-slate-950 border-r border-slate-900 flex flex-col items-center py-4 gap-4 shrink-0 hidden md:flex">
+                    <button
+                        onClick={() => setActiveTab('code')}
+                        className={cn(
+                            "w-12 h-12 flex justify-center items-center rounded-xl transition-all active:scale-95",
+                            activeTab === 'code' ? "bg-accent/10 border border-accent/20 text-accent hover:brightness-110" : "border border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800"
+                        )}
+                    >
+                        <Code2 className="w-6 h-6 pointer-events-none" />
                     </button>
-                    <button className="p-2.5 rounded-md border border-transparent text-slate-600 hover:text-slate-300 hover:bg-slate-900 transition-all active:scale-95">
-                        <Database className="w-5 h-5 pointer-events-none" />
+                    <button
+                        onClick={() => setActiveTab('database')}
+                        className={cn(
+                            "w-12 h-12 flex justify-center items-center rounded-xl transition-all active:scale-95",
+                            activeTab === 'database' ? "bg-accent/10 border border-accent/20 text-accent hover:brightness-110" : "border border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800"
+                        )}
+                    >
+                        <Database className="w-6 h-6 pointer-events-none" />
                     </button>
-                    <button className="p-2.5 rounded-md border border-transparent text-slate-600 hover:text-slate-300 hover:bg-slate-900 transition-all active:scale-95">
-                        <Terminal className="w-5 h-5 pointer-events-none" />
+                    <button
+                        onClick={() => setActiveTab('terminal')}
+                        className={cn(
+                            "w-12 h-12 flex justify-center items-center rounded-xl transition-all active:scale-95",
+                            activeTab === 'terminal' ? "bg-accent/10 border border-accent/20 text-accent hover:brightness-110" : "border border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800"
+                        )}
+                    >
+                        <Terminal className="w-6 h-6 pointer-events-none" />
                     </button>
                 </div>
 
                 <div className="flex-1 flex flex-col overflow-hidden">
                     {/* Editor Area */}
-                    <div className="flex-1 relative group">
-                        <Editor
-                            height="100%"
-                            language={language}
-                            theme="vs-dark"
-                            value={code}
-                            onChange={(value) => setCode(value || '')}
-                            options={{
-                                minimap: { enabled: false },
-                                fontSize: 13,
-                                lineNumbers: 'on',
-                                roundedSelection: true,
-                                scrollBeyondLastLine: false,
-                                automaticLayout: true,
-                                padding: { top: 20 },
-                                theme: 'vs-dark',
-                                cursorBlinking: 'smooth',
-                                smoothScrolling: true,
-                                fontFamily: 'JetBrains Mono, monospace'
-                            }}
-                        />
-                        {/* Status Overlay */}
-                        <div className="absolute bottom-4 right-4 bg-slate-900/80 backdrop-blur border border-slate-800 px-3 py-1 rounded text-[8px] font-mono text-slate-500 uppercase tracking-widest pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
-                            UTF-8 | CRLF | {language.toUpperCase()}
+                    {activeTab === 'code' && (
+                        <div className="flex-1 relative group">
+                            <Editor
+                                height="100%"
+                                language={language}
+                                theme="vs-dark"
+                                value={code}
+                                onChange={(value) => setCode(value || '')}
+                                options={{
+                                    minimap: { enabled: false },
+                                    fontSize: 13,
+                                    lineNumbers: 'on',
+                                    roundedSelection: true,
+                                    scrollBeyondLastLine: false,
+                                    automaticLayout: true,
+                                    padding: { top: 20 },
+                                    theme: 'vs-dark',
+                                    cursorBlinking: 'smooth',
+                                    smoothScrolling: true,
+                                    fontFamily: 'JetBrains Mono, monospace'
+                                }}
+                            />
+                            {/* Status Overlay */}
+                            <div className="absolute bottom-4 right-4 bg-slate-900/80 backdrop-blur border border-slate-800 px-3 py-1 rounded text-[8px] font-mono text-slate-500 uppercase tracking-widest pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
+                                UTF-8 | CRLF | {language.toUpperCase()}
+                            </div>
                         </div>
-                    </div>
+                    )}
+
+                    {/* Database View Indicator */}
+                    {activeTab === 'database' && (
+                        <div className="flex-1 flex flex-col items-center justify-center bg-slate-900/40 relative">
+                            {/* Grid Background */}
+                            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_10%,transparent_100%)] pointer-events-none"></div>
+
+                            <div className="w-16 h-16 rounded-2xl bg-slate-800/80 border border-slate-700/50 flex items-center justify-center mb-6 shadow-2xl relative z-10">
+                                <Database className="w-8 h-8 text-slate-500" />
+                            </div>
+                            <h3 className="text-white font-mono font-black tracking-widest uppercase mb-3 relative z-10">Database Viewer</h3>
+                            <p className="text-slate-500 font-mono text-[11px] max-w-sm text-center relative z-10 leading-relaxed">
+                                System clusters are currently unlinked. No active data schematics detected in workspace. Run <span className="text-accent bg-accent/10 px-1 py-0.5 rounded">CONNECT</span> in terminal to initialize.
+                            </p>
+                        </div>
+                    )}
 
                     {/* Console / Console Input Area */}
-                    <div className="h-[200px] md:h-[250px] bg-slate-950 border-t border-slate-800 flex flex-col shrink-0">
-                        {/* Output Header */}
-                        <div className="px-6 py-2 border-b border-slate-900 flex justify-between items-center bg-slate-900/30">
-                            <div className="flex items-center gap-2">
-                                <Terminal className="w-3 h-3 text-slate-500" />
-                                <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">System Output</span>
+                    {(activeTab === 'code' || activeTab === 'terminal') && (
+                        <div className={cn(
+                            "bg-slate-950 flex flex-col shrink-0",
+                            activeTab === 'terminal' ? "flex-1" : "h-[200px] md:h-[250px] border-t border-slate-800"
+                        )}>
+                            {/* Output Header */}
+                            <div className="px-6 py-2 border-b border-slate-900 flex justify-between items-center bg-slate-900/30">
+                                <div className="flex items-center gap-2">
+                                    <Terminal className="w-3 h-3 text-slate-500" />
+                                    <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">System Output</span>
+                                </div>
+                            </div>
+
+                            {/* Logs */}
+                            <div className="flex-1 overflow-y-auto p-4 custom-scrollbar bg-black/20">
+                                {output.map((line, i) => (
+                                    <div key={i} className="font-mono text-[11px] leading-relaxed mb-1">
+                                        <span className="text-slate-800 mr-2">[{i.toString().padStart(2, '0')}]</span>
+                                        <span className={cn(
+                                            "flex-1",
+                                            line.startsWith('[ERR]') ? "text-red-500 font-bold" :
+                                                line.startsWith('[LOG]') ? "text-slate-300" :
+                                                    line.startsWith('[DONE]') ? "text-green-500 font-black" :
+                                                        line.startsWith('[EXEC]') ? "text-yellow-500 animate-pulse" :
+                                                            line.startsWith('[SYSTEM]') ? "text-accent" :
+                                                                line.startsWith('[AI]') ? "text-accent" :
+                                                                    line.startsWith('[AI_EXPLAIN]') ? "text-slate-400 italic" :
+                                                                        "text-slate-500"
+                                        )}>
+                                            {line}
+                                        </span>
+                                    </div>
+                                ))}
+                                {isAiProcessing && (
+                                    <div className="flex items-center gap-2 font-mono text-[11px] text-accent mt-2">
+                                        <Cpu className="w-3 h-3 animate-spin" />
+                                        <span>U-CHAT_NEURAL_LOGIC_SYNC...</span>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* AI Input Rail */}
+                            <div className="p-3 bg-slate-900 border-t border-slate-800 flex items-center gap-3">
+                                <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center shrink-0 border border-accent/20">
+                                    <Sparkles className="w-4 h-4 text-accent" />
+                                </div>
+                                <input
+                                    type="text"
+                                    value={aiInput}
+                                    onChange={(e) => setAiInput(e.target.value)}
+                                    onKeyDown={(e) => e.key === 'Enter' && handleAiCommand()}
+                                    placeholder="Command AI to refactor, debug, or generate code..."
+                                    className="flex-1 bg-transparent text-xs text-white focus:outline-none font-mono placeholder:text-slate-700"
+                                />
+                                <button
+                                    onClick={handleAiCommand}
+                                    disabled={isAiProcessing || !aiInput.trim()}
+                                    className="px-4 py-1.5 bg-accent text-primary rounded-sm text-[10px] font-black uppercase tracking-widest disabled:opacity-30 transition-all hover:brightness-110"
+                                >
+                                    Send Command
+                                </button>
                             </div>
                         </div>
-
-                        {/* Logs */}
-                        <div className="flex-1 overflow-y-auto p-4 custom-scrollbar bg-black/20">
-                            {output.map((line, i) => (
-                                <div key={i} className="font-mono text-[11px] leading-relaxed mb-1">
-                                    <span className="text-slate-800 mr-2">[{i.toString().padStart(2, '0')}]</span>
-                                    <span className={cn(
-                                        "flex-1",
-                                        line.startsWith('[ERR]') ? "text-red-500 font-bold" :
-                                            line.startsWith('[LOG]') ? "text-slate-300" :
-                                                line.startsWith('[DONE]') ? "text-green-500 font-black" :
-                                                    line.startsWith('[EXEC]') ? "text-yellow-500 animate-pulse" :
-                                                        line.startsWith('[SYSTEM]') ? "text-accent" :
-                                                            line.startsWith('[AI]') ? "text-accent" :
-                                                                line.startsWith('[AI_EXPLAIN]') ? "text-slate-400 italic" :
-                                                                    "text-slate-500"
-                                    )}>
-                                        {line}
-                                    </span>
-                                </div>
-                            ))}
-                            {isAiProcessing && (
-                                <div className="flex items-center gap-2 font-mono text-[11px] text-accent mt-2">
-                                    <Cpu className="w-3 h-3 animate-spin" />
-                                    <span>U-CHAT_NEURAL_LOGIC_SYNC...</span>
-                                </div>
-                            )}
-                        </div>
-
-                        {/* AI Input Rail */}
-                        <div className="p-3 bg-slate-900 border-t border-slate-800 flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center shrink-0 border border-accent/20">
-                                <Sparkles className="w-4 h-4 text-accent" />
-                            </div>
-                            <input
-                                type="text"
-                                value={aiInput}
-                                onChange={(e) => setAiInput(e.target.value)}
-                                onKeyDown={(e) => e.key === 'Enter' && handleAiCommand()}
-                                placeholder="Command AI to refactor, debug, or generate code..."
-                                className="flex-1 bg-transparent text-xs text-white focus:outline-none font-mono placeholder:text-slate-700"
-                            />
-                            <button
-                                onClick={handleAiCommand}
-                                disabled={isAiProcessing || !aiInput.trim()}
-                                className="px-4 py-1.5 bg-accent text-primary rounded-sm text-[10px] font-black uppercase tracking-widest disabled:opacity-30 transition-all hover:brightness-110"
-                            >
-                                Send Command
-                            </button>
-                        </div>
-                    </div>
+                    )}
                 </div>
             </div>
         </div>
