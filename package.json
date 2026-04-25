@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "tsx server.ts",
     "start": "node dist/server.cjs",
-    "build": "tsc && vite build && esbuild server.ts --bundle --platform=node --outdir=dist --format=cjs --out-extension:.js=.cjs",
+    "build": "vite build",
+    "build:full": "tsc && vite build && esbuild server.ts --bundle --platform=node --outdir=dist --format=cjs --out-extension:.js=.cjs",
     "preview": "vite preview",
     "lint": "eslint ."
   },
