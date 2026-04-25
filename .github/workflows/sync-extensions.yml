@@ -24,15 +24,32 @@ jobs:
       - name: Create repo directory
         run: mkdir -p public/repo
 
-      - name: Download Keiyoushi index
+      - name: Download Keiyoushi index and repo metadata
         run: |
           echo "📦 Downloading Keiyoushi extensions index..."
           curl -sL "https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json" -o public/repo/index.min.json
           
-          # Verify the download is valid JSON
+          echo "📦 Downloading Keiyoushi repo metadata..."
+          curl -sL "https://raw.githubusercontent.com/keiyoushi/extensions/repo/repo.json" -o /tmp/upstream_repo.json
+          
+          # Verify the index download is valid JSON
           if ! python3 -c "import json; json.load(open('public/repo/index.min.json'))" 2>/dev/null; then
-            echo "❌ Downloaded file is not valid JSON. Aborting."
+            echo "❌ Downloaded index is not valid JSON. Aborting."
             exit 1
+          fi
+          
+          # Update repo.json: keep our branding but sync the signing key from upstream
+          if python3 -c "import json; json.load(open('/tmp/upstream_repo.json'))" 2>/dev/null; then
+            python3 -c "
+          import json
+          upstream = json.load(open('/tmp/upstream_repo.json'))
+          local = json.load(open('public/repo/repo.json'))
+          local['meta']['signingKeyFingerprint'] = upstream['meta']['signingKeyFingerprint']
+          json.dump(local, open('public/repo/repo.json', 'w'), indent=2)
+          print('✅ Updated signing key fingerprint from upstream.')
+          "
+          else
+            echo "⚠️ Could not fetch upstream repo.json, keeping existing repo.json."
           fi
           
           TOTAL=$(python3 -c "import json; data=json.load(open('public/repo/index.min.json')); print(len(data))")
@@ -41,7 +58,7 @@ jobs:
       - name: Check for changes
         id: changes
         run: |
-          git add public/repo/index.min.json
+          git add public/repo/index.min.json public/repo/repo.json
           if git diff --staged --quiet; then
             echo "changed=false" >> $GITHUB_OUTPUT
             echo "ℹ️ No changes detected. Extensions are up to date."
@@ -59,7 +76,7 @@ jobs:
           TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M UTC')
           TOTAL=$(python3 -c "import json; data=json.load(open('public/repo/index.min.json')); print(len(data))")
           
-          git add public/repo/index.min.json
+          git add public/repo/index.min.json public/repo/repo.json
           git commit -m "sync: update Keiyoushi extensions mirror ($TOTAL extensions) — $TIMESTAMP"
           git push origin main
           
