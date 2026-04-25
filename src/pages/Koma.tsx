@@ -15,13 +15,17 @@ interface Extension {
     sources: { name: string; lang: string; baseUrl: string; id: string }[];
 }
 
+const REPO_BASE = `${window.location.origin}/repo`;
+const REPO_INDEX = `${REPO_BASE}/index.min.json`;
+const KEIYOUSHI_RAW = 'https://raw.githubusercontent.com/keiyoushi/extensions/repo';
+
 export const Koma: React.FC = () => {
     const language = useLanguage();
     const [extensions, setExtensions] = useState<Extension[]>([]);
     const [loading, setLoading] = useState(true);
 
     const activeRepositories = [
-        { name: "Koma (コマ)", url: "https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json", type: "Manga", desc: "Main repository for Koma." },
+        { name: "Koma (コマ)", url: REPO_INDEX, type: "Manga", desc: "Auto-synced mirror of Keiyoushi extensions." },
         { name: "Keiyoushi (Raw)", url: "https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json", type: "Manga", desc: "Raw official repository." },
         { name: "Yūzōnō", url: "https://raw.githubusercontent.com/yuzono/manga-repo/repo/index.min.json", type: "Manga", desc: "Alternative Manga extensions" },
         { name: "Fucked by FAKKU", url: "https://raw.githubusercontent.com/Fucked-By-Fakku/extensions/repo/index.min.json", type: "Manga", desc: "NSFW extensions" },
@@ -37,7 +41,7 @@ export const Koma: React.FC = () => {
     useEffect(() => {
         const fetchExtensions = async () => {
             try {
-                const res = await fetch('https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json');
+                const res = await fetch(`${REPO_BASE}/index.min.json`);
                 const data = await res.json();
                 setExtensions(data);
                 setLoading(false);
@@ -347,7 +351,7 @@ export const Koma: React.FC = () => {
                             {text.downloadKoma}
                         </a>
                         <a 
-                            href="koma://add-repo?url=https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json" 
+                            href={`koma://add-repo?url=${REPO_INDEX}`} 
                             className="w-full sm:w-auto px-8 py-4 bg-slate-900 border border-slate-700 text-white font-bold rounded hover:bg-slate-800 transition-all flex items-center justify-center gap-3 uppercase tracking-widest text-xs"
                         >
                             <Plug className="w-4 h-4" />
@@ -388,12 +392,12 @@ export const Koma: React.FC = () => {
                         <div className="flex flex-col items-center w-full max-w-full bg-[#1A1C23] border border-slate-700 rounded-lg overflow-hidden p-1 sm:hidden">
                             <div className="w-full overflow-hidden mb-2">
                                 <code className="text-xs text-slate-300 font-mono py-2 px-3 block truncate text-left">
-                                    https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json
+                                    {REPO_INDEX}
                                 </code>
                             </div>
                             <button 
                                 onClick={(e) => {
-                                    navigator.clipboard.writeText('https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json');
+                                    navigator.clipboard.writeText(REPO_INDEX);
                                     const btn = e.currentTarget;
                                     const originalText = btn.innerText;
                                     btn.innerText = text.copied;
@@ -414,12 +418,12 @@ export const Koma: React.FC = () => {
                         <div className="hidden sm:flex items-center w-full max-w-full bg-[#1A1C23] border border-slate-700 rounded-lg overflow-hidden p-1">
                             <div className="flex-1 min-w-0 overflow-hidden">
                                 <code className="text-xs text-slate-300 font-mono py-2 px-3 block truncate text-left">
-                                    https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json
+                                    {REPO_INDEX}
                                 </code>
                             </div>
                             <button 
                                 onClick={(e) => {
-                                    navigator.clipboard.writeText('https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json');
+                                    navigator.clipboard.writeText(REPO_INDEX);
                                     const btn = e.currentTarget;
                                     const originalText = btn.innerText;
                                     btn.innerText = text.copied;
@@ -559,7 +563,7 @@ export const Koma: React.FC = () => {
                                         <div className="flex justify-between items-start mb-3">
                                             <div className="w-10 h-10 rounded bg-slate-800/50 flex items-center justify-center overflow-hidden shrink-0">
                                                 <img 
-                                                    src={`https://raw.githubusercontent.com/keiyoushi/extensions/repo/icon/${ext.pkg}.png`} 
+                                                    src={`${KEIYOUSHI_RAW}/icon/${ext.pkg}.png`} 
                                                     alt={ext.name} 
                                                     className="w-full h-full object-cover" 
                                                     onError={(e) => { 
