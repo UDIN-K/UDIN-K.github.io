@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, Command } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import { ThemeSelector } from './ThemeSelector';
+import { useLanguage } from '../hooks/useLanguage';
+
+import { LanguageSelector } from './LanguageSelector';
 
 export const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const language = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,15 +21,21 @@ export const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const t = {
+      en: { port: 'Portfolio', koma: 'Koma (コマ)' },
+      id: { port: 'Portofolio', koma: 'Koma (コマ)' },
+      es: { port: 'Portafolio', koma: 'Koma (コマ)' },
+      ja: { port: 'ポートフォリオ', koma: 'Koma (コマ)' },
+      ko: { port: '포트폴리오', koma: 'Koma (コマ)' },
+      zh: { port: '作品集', koma: 'Koma (コマ)' },
+      fr: { port: 'Portfolio', koma: 'Koma (コマ)' },
+      ar: { port: 'أعمالي', koma: 'Koma (コマ)' }
+  };
+  const text = t[language as keyof typeof t] || t.en;
+
   const navLinks = [
-    { name: 'Core', href: '/' },
-    { name: 'Experience', href: '/experience' },
-    { name: 'Engine', href: '/play' },
-    { name: 'Lua', href: '/scripting' },
-    { name: 'Labs', href: '/labs' },
-    { name: 'IDE', href: '/ide' },
-    { name: 'Vault', href: '/certificates' },
-    { name: 'Comms', href: '/contact' },
+    { name: text.port, href: '/projects' },
+    { name: text.koma, href: '/koma' },
   ];
 
   const handleLinkClick = (href: string) => {
@@ -48,7 +59,7 @@ export const Header: React.FC = () => {
         isScrolled ? 'bg-primary/80 backdrop-blur-md border-b border-white/5 py-4' : 'bg-transparent py-8'
       }`}
     >
-      <div className="container mx-auto px-4 md:px-8 flex justify-between items-center">
+      <div className="container mx-auto px-6 md:px-8 flex justify-between items-center">
         <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -88,18 +99,22 @@ export const Header: React.FC = () => {
             </motion.div>
           ))}
           <div className="h-4 w-px bg-slate-800 mx-4"></div>
-          <button className="p-2 text-slate-400 hover:text-white transition-colors">
-            <Command className="w-4 h-4" />
-          </button>
+          
+          <ThemeSelector />
+          <LanguageSelector />
         </nav>
 
         {/* Mobile Menu Button */}
-        <button
-          className="md:hidden text-white hover:text-accent transition-colors"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        <div className="md:hidden flex items-center gap-4">
+          <ThemeSelector />
+          <LanguageSelector />
+          <button
+            className="text-white hover:text-accent transition-colors"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Nav Overlay */}

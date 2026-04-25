@@ -200,7 +200,7 @@ export const UdinIDE: React.FC = () => {
             <div className="flex-1 flex overflow-hidden">
                 {/* Sideline (Files etc - Mock) */}
                 <div className="w-16 bg-slate-950 border-r border-slate-900 flex flex-col items-center py-4 gap-4 shrink-0 hidden md:flex">
-                    <button
+                    <button 
                         onClick={() => setActiveTab('code')}
                         className={cn(
                             "w-12 h-12 flex justify-center items-center rounded-xl transition-all active:scale-95",
@@ -209,7 +209,7 @@ export const UdinIDE: React.FC = () => {
                     >
                         <Code2 className="w-6 h-6 pointer-events-none" />
                     </button>
-                    <button
+                    <button 
                         onClick={() => setActiveTab('database')}
                         className={cn(
                             "w-12 h-12 flex justify-center items-center rounded-xl transition-all active:scale-95",
@@ -218,7 +218,7 @@ export const UdinIDE: React.FC = () => {
                     >
                         <Database className="w-6 h-6 pointer-events-none" />
                     </button>
-                    <button
+                    <button 
                         onClick={() => setActiveTab('terminal')}
                         className={cn(
                             "w-12 h-12 flex justify-center items-center rounded-xl transition-all active:scale-95",
@@ -265,7 +265,7 @@ export const UdinIDE: React.FC = () => {
                         <div className="flex-1 flex flex-col items-center justify-center bg-slate-900/40 relative">
                             {/* Grid Background */}
                             <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_10%,transparent_100%)] pointer-events-none"></div>
-
+                            
                             <div className="w-16 h-16 rounded-2xl bg-slate-800/80 border border-slate-700/50 flex items-center justify-center mb-6 shadow-2xl relative z-10">
                                 <Database className="w-8 h-8 text-slate-500" />
                             </div>
@@ -283,64 +283,64 @@ export const UdinIDE: React.FC = () => {
                             activeTab === 'terminal' ? "flex-1" : "h-[200px] md:h-[250px] border-t border-slate-800"
                         )}>
                             {/* Output Header */}
-                            <div className="px-6 py-2 border-b border-slate-900 flex justify-between items-center bg-slate-900/30">
-                                <div className="flex items-center gap-2">
-                                    <Terminal className="w-3 h-3 text-slate-500" />
-                                    <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">System Output</span>
-                                </div>
-                            </div>
-
-                            {/* Logs */}
-                            <div className="flex-1 overflow-y-auto p-4 custom-scrollbar bg-black/20">
-                                {output.map((line, i) => (
-                                    <div key={i} className="font-mono text-[11px] leading-relaxed mb-1">
-                                        <span className="text-slate-800 mr-2">[{i.toString().padStart(2, '0')}]</span>
-                                        <span className={cn(
-                                            "flex-1",
-                                            line.startsWith('[ERR]') ? "text-red-500 font-bold" :
-                                                line.startsWith('[LOG]') ? "text-slate-300" :
-                                                    line.startsWith('[DONE]') ? "text-green-500 font-black" :
-                                                        line.startsWith('[EXEC]') ? "text-yellow-500 animate-pulse" :
-                                                            line.startsWith('[SYSTEM]') ? "text-accent" :
-                                                                line.startsWith('[AI]') ? "text-accent" :
-                                                                    line.startsWith('[AI_EXPLAIN]') ? "text-slate-400 italic" :
-                                                                        "text-slate-500"
-                                        )}>
-                                            {line}
-                                        </span>
-                                    </div>
-                                ))}
-                                {isAiProcessing && (
-                                    <div className="flex items-center gap-2 font-mono text-[11px] text-accent mt-2">
-                                        <Cpu className="w-3 h-3 animate-spin" />
-                                        <span>U-CHAT_NEURAL_LOGIC_SYNC...</span>
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* AI Input Rail */}
-                            <div className="p-3 bg-slate-900 border-t border-slate-800 flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center shrink-0 border border-accent/20">
-                                    <Sparkles className="w-4 h-4 text-accent" />
-                                </div>
-                                <input
-                                    type="text"
-                                    value={aiInput}
-                                    onChange={(e) => setAiInput(e.target.value)}
-                                    onKeyDown={(e) => e.key === 'Enter' && handleAiCommand()}
-                                    placeholder="Command AI to refactor, debug, or generate code..."
-                                    className="flex-1 bg-transparent text-xs text-white focus:outline-none font-mono placeholder:text-slate-700"
-                                />
-                                <button
-                                    onClick={handleAiCommand}
-                                    disabled={isAiProcessing || !aiInput.trim()}
-                                    className="px-4 py-1.5 bg-accent text-primary rounded-sm text-[10px] font-black uppercase tracking-widest disabled:opacity-30 transition-all hover:brightness-110"
-                                >
-                                    Send Command
-                                </button>
+                        <div className="px-6 py-2 border-b border-slate-900 flex justify-between items-center bg-slate-900/30">
+                            <div className="flex items-center gap-2">
+                                <Terminal className="w-3 h-3 text-slate-500" />
+                                <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">System Output</span>
                             </div>
                         </div>
-                    )}
+
+                        {/* Logs */}
+                        <div className="flex-1 overflow-y-auto p-4 custom-scrollbar bg-black/20">
+                            {output.map((line, i) => (
+                                <div key={i} className="font-mono text-[11px] leading-relaxed mb-1">
+                                    <span className="text-slate-800 mr-2">[{i.toString().padStart(2, '0')}]</span>
+                                    <span className={cn(
+                                        "flex-1",
+                                        line.startsWith('[ERR]') ? "text-red-500 font-bold" :
+                                            line.startsWith('[LOG]') ? "text-slate-300" :
+                                                line.startsWith('[DONE]') ? "text-green-500 font-black" :
+                                                    line.startsWith('[EXEC]') ? "text-yellow-500 animate-pulse" :
+                                                        line.startsWith('[SYSTEM]') ? "text-accent" :
+                                                            line.startsWith('[AI]') ? "text-accent" :
+                                                                line.startsWith('[AI_EXPLAIN]') ? "text-slate-400 italic" :
+                                                                    "text-slate-500"
+                                    )}>
+                                        {line}
+                                    </span>
+                                </div>
+                            ))}
+                            {isAiProcessing && (
+                                <div className="flex items-center gap-2 font-mono text-[11px] text-accent mt-2">
+                                    <Cpu className="w-3 h-3 animate-spin" />
+                                    <span>U-CHAT_NEURAL_LOGIC_SYNC...</span>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* AI Input Rail */}
+                        <div className="p-3 bg-slate-900 border-t border-slate-800 flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center shrink-0 border border-accent/20">
+                                <Sparkles className="w-4 h-4 text-accent" />
+                            </div>
+                            <input
+                                type="text"
+                                value={aiInput}
+                                onChange={(e) => setAiInput(e.target.value)}
+                                onKeyDown={(e) => e.key === 'Enter' && handleAiCommand()}
+                                placeholder="Command AI to refactor, debug, or generate code..."
+                                className="flex-1 bg-transparent text-xs text-white focus:outline-none font-mono placeholder:text-slate-700"
+                            />
+                            <button
+                                onClick={handleAiCommand}
+                                disabled={isAiProcessing || !aiInput.trim()}
+                                className="px-4 py-1.5 bg-accent text-primary rounded-sm text-[10px] font-black uppercase tracking-widest disabled:opacity-30 transition-all hover:brightness-110"
+                            >
+                                Send Command
+                            </button>
+                        </div>
+                    </div>
+                )}
                 </div>
             </div>
         </div>
