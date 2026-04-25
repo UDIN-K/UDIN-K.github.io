@@ -32,7 +32,7 @@ export const KomaExplorer: React.FC = () => {
         window.scrollTo(0, 0);
         const fetchExtensions = async () => {
             try {
-                const res = await fetch('/api/koma/repo/index.min.json');
+                const res = await fetch('https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json');
                 const data = await res.json();
                 setExtensions(data);
                 setLoading(false);
@@ -268,7 +268,7 @@ export const KomaExplorer: React.FC = () => {
                                     <div className="flex justify-between items-start mb-3">
                                         <div className="w-10 h-10 rounded bg-slate-800/50 flex items-center justify-center overflow-hidden shrink-0">
                                             <img 
-                                                src={`/api/koma/repo/icon/${ext.pkg}.png`} 
+                                                src={`https://raw.githubusercontent.com/keiyoushi/extensions/repo/icon/${ext.pkg}.png`} 
                                                 alt={ext.name} 
                                                 className="w-full h-full object-cover" 
                                                 onError={(e) => { 
@@ -289,7 +289,7 @@ export const KomaExplorer: React.FC = () => {
                                     <p className="text-slate-500 text-xs font-mono mb-4 truncate">v{ext.version} • {ext.sources.length} sources</p>
                                     
                                     <a 
-                                        href={`/api/koma/repo/apk/${ext.apk}`}
+                                        href={`https://raw.githubusercontent.com/keiyoushi/extensions/repo/apk/${ext.apk}`}
                                         className="mt-auto flex items-center justify-between p-3 bg-slate-950/50 rounded border border-slate-800/50 group-hover:bg-accent/10 group-hover:border-accent/30 transition-colors"
                                     >
                                         <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 group-hover:text-accent transition-colors">
