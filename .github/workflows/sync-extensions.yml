@@ -32,9 +32,9 @@ jobs:
           echo "📦 Downloading Keiyoushi repo metadata..."
           curl -sL "https://raw.githubusercontent.com/keiyoushi/extensions/repo/repo.json" -o /tmp/upstream_repo.json
           
-          # Verify the index download is valid JSON
-          if ! python3 -c "import json; json.load(open('public/repo/index.min.json'))" 2>/dev/null; then
-            echo "❌ Downloaded index is not valid JSON. Aborting."
+          # Verify the index download is valid JSON and modify the apk field to use absolute URLs
+          if ! python3 -c "import json; data = json.load(open('public/repo/index.min.json')); [d.update({'apk': 'https://raw.githubusercontent.com/keiyoushi/extensions/repo/apk/' + d['apk']}) for d in data]; json.dump(data, open('public/repo/index.min.json', 'w'), separators=(',', ':'))" 2>/dev/null; then
+            echo "❌ Failed to process index.min.json. Aborting."
             exit 1
           fi
           
