@@ -77,33 +77,33 @@ jobs:
           
           # Process: keep only needed fields (id, tag_name, name, body, published_at, assets with name/size/browser_download_url)
           python3 -c "
-import json
-try:
-    raw = json.load(open('/tmp/koma_releases_raw.json'))
-    if not isinstance(raw, list):
-        print('⚠️ Releases response is not a list, skipping.')
-        exit(0)
-    releases = []
-    for r in raw:
-        assets = []
-        for a in r.get('assets', []):
-            assets.append({
-                'name': a['name'],
-                'size': a['size'],
-                'browser_download_url': a['browser_download_url']
-            })
-        releases.append({
-            'id': r['id'],
-            'tag_name': r['tag_name'],
-            'name': r.get('name', ''),
-            'body': r.get('body', ''),
-            'published_at': r.get('published_at', ''),
-            'assets': assets
-        })
-    json.dump(releases, open('public/repo/releases.json', 'w'), separators=(',', ':'))
-    print(f'✅ Synced {len(releases)} releases with assets.')
-except Exception as e:
-    print(f'⚠️ Could not process releases: {e}')
+          import json
+          try:
+              raw = json.load(open('/tmp/koma_releases_raw.json'))
+              if not isinstance(raw, list):
+                  print('⚠️ Releases response is not a list, skipping.')
+                  exit(0)
+              releases = []
+              for r in raw:
+                  assets = []
+                  for a in r.get('assets', []):
+                      assets.append({
+                          'name': a['name'],
+                          'size': a['size'],
+                          'browser_download_url': a['browser_download_url']
+                      })
+                  releases.append({
+                      'id': r['id'],
+                      'tag_name': r['tag_name'],
+                      'name': r.get('name', ''),
+                      'body': r.get('body', ''),
+                      'published_at': r.get('published_at', ''),
+                      'assets': assets
+                  })
+              json.dump(releases, open('public/repo/releases.json', 'w'), separators=(',', ':'))
+              print(f'✅ Synced {len(releases)} releases with assets.')
+          except Exception as e:
+              print(f'⚠️ Could not process releases: {e}')
           "
 
       - name: Check for changes
