@@ -22,7 +22,7 @@ export const KomaChangelog: React.FC = () => {
     window.scrollTo(0, 0);
     const fetchReleases = async () => {
       try {
-        const res = await fetch('https://api.github.com/repos/UDIN-K/KOMA/releases');
+        const res = await fetch('https://api.github.com/repos/UDIN-K/KOMA/releases', { cache: 'no-store' });
         if (res.ok) {
           const data = await res.json();
           setReleases(data);
