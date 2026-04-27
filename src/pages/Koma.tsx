@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { BookOpen, Plug, Wrench, Download, GitBranch, MessageSquare, ArrowRight, GitCommitVertical, X, Loader2 } from 'lucide-react';
+import { BookOpen, Plug, Wrench, Download, GitBranch, MessageSquare, ArrowRight, GitCommitVertical, X, Loader2, Lock, XCircle } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage';
 
 interface Extension {
@@ -60,7 +60,7 @@ export const Koma: React.FC = () => {
     };
 
     const activeRepositories = [
-        { name: "Koma (コマ)", url: REPO_INDEX, type: "Manga", desc: "Auto-synced mirror of Keiyoushi extensions." },
+        { name: "Main Koma App Extension", url: REPO_INDEX, type: "Manga", desc: "Under maintenance" },
         { name: "Keiyoushi (Raw)", url: "https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json", type: "Manga", desc: "Raw official repository." },
         { name: "Yūzōnō", url: "https://raw.githubusercontent.com/yuzono/manga-repo/repo/index.min.json", type: "Manga", desc: "Alternative Manga extensions" },
         { name: "Fucked by FAKKU", url: "https://raw.githubusercontent.com/Fucked-By-Fakku/extensions/repo/index.min.json", type: "Manga", desc: "NSFW extensions" },
@@ -93,7 +93,7 @@ export const Koma: React.FC = () => {
             title: "Koma (コマ)",
             subtitle: (
                 <>
-                    Extension Repositories for <strong className="text-white">Tachiyomi, Mihon, Koma</strong>, and other forks. Access thousands of comic and manga sources directly from your device.
+                    A premium, open-source manga reader for Android — discover and read manga, manhwa, manhua, novels and more – easier than ever on your Android device.
                 </>
             ),
             downloadKoma: "Download App",
@@ -120,13 +120,13 @@ export const Koma: React.FC = () => {
             addApp: "Add to App",
             exploreAll: "Explore All Extensions",
             showingNum: "Showing sample of available extensions.",
-            copyManually: "Or copy the repository URL manually:"
+            copyManually: "Under maintenance:"
         },
         id: {
             title: "Koma (コマ)",
             subtitle: (
                 <>
-                    Repositori Ekstensi untuk <strong className="text-white">Tachiyomi, Mihon, Koma</strong>, dan fork lainnya. Akses ribuan sumber komik dan manga langsung dari perangkat Anda.
+                    A premium, open-source manga reader for Android — discover and read manga, manhwa, manhua, novels and more – easier than ever on your Android device.
                 </>
             ),
             downloadKoma: "Unduh Aplikasi",
@@ -153,7 +153,7 @@ export const Koma: React.FC = () => {
             addApp: "Tambah ke App",
             exploreAll: "Jelajahi Semua Ekstensi",
             showingNum: "Menampilkan sampel ekstensi yang tersedia.",
-            copyManually: "Atau salin URL repositori secara manual:"
+            copyManually: "Sedang dalam perbaikan:"
         },
         es: {
             title: "Koma (コマ)",
@@ -378,7 +378,7 @@ export const Koma: React.FC = () => {
                                 {text.title}
                             </h1>
                             <h2 className="text-white text-5xl md:text-[5rem] font-bold tracking-tight leading-none mb-8 font-mono">
-                                Extension<br />Repositories
+                                Reader<br />App
                             </h2>
                             <p className="text-slate-300 text-lg font-mono mb-10 leading-relaxed max-w-xl">
                                 {text.subtitle}
@@ -399,38 +399,19 @@ export const Koma: React.FC = () => {
                                     <Download className="w-5 h-5" />
                                     {text.downloadKoma}
                                 </button>
+                                <a
+                                    href="https://github.com/UDIN-K/KOMA"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="px-6 py-4 bg-slate-900 border border-slate-700 text-white font-bold rounded-full hover:bg-slate-800 transition-all flex items-center justify-center shadow-lg"
+                                    title="View Source on GitHub"
+                                >
+                                    <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current">
+                                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                    </svg>
+                                </a>
                             </div>
 
-                            <div className="max-w-xl">
-                                <p className="text-accent font-mono text-sm mb-3">
-                                    {text.copyManually}
-                                </p>
-                                <div className="flex items-center w-full bg-[#1A1C23] border border-slate-700 rounded-lg overflow-hidden p-1 shadow-inner h-14">
-                                    <div className="flex-1 min-w-0 overflow-hidden px-4">
-                                        <code className="text-sm text-slate-300 font-mono block text-left truncate">
-                                            {REPO_INDEX}
-                                        </code>
-                                    </div>
-                                    <button
-                                        onClick={(e) => {
-                                            navigator.clipboard.writeText(REPO_INDEX);
-                                            const btn = e.currentTarget;
-                                            const originalText = btn.innerText;
-                                            btn.innerText = text.copied;
-                                            btn.classList.add('bg-green-600', 'text-white');
-                                            btn.classList.remove('bg-slate-700', 'text-slate-300');
-                                            setTimeout(() => {
-                                                btn.innerText = originalText;
-                                                btn.classList.remove('bg-green-600', 'text-white');
-                                                btn.classList.add('bg-slate-700', 'text-slate-300');
-                                            }, 2000);
-                                        }}
-                                        className="h-full px-6 bg-slate-700 hover:bg-slate-600 text-slate-300 font-bold text-xs uppercase tracking-widest transition-colors flex-shrink-0 flex items-center justify-center rounded-md mr-0.5"
-                                    >
-                                        {text.copy}
-                                    </button>
-                                </div>
-                            </div>
                         </div>
 
                         <div className="flex-1 w-full max-w-sm flex justify-center lg:justify-end">
@@ -552,64 +533,89 @@ export const Koma: React.FC = () => {
                                 <p className="text-slate-400 text-sm font-mono mb-6 flex-grow">{repo.desc}</p>
 
                                 <div className="mt-auto space-y-3">
-                                    <div className="flex flex-col sm:hidden w-full bg-[#1A1C23] border border-slate-700/60 rounded-lg overflow-hidden p-1">
-                                        <div className="w-full overflow-hidden py-2 px-2 relative mb-2">
-                                            <code className="text-xs text-slate-300 font-mono block truncate">
-                                                {repo.url}
-                                            </code>
-                                        </div>
-                                        <button
-                                            onClick={(e) => {
-                                                navigator.clipboard.writeText(repo.url);
-                                                const btn = e.currentTarget;
-                                                const originalText = btn.innerText;
-                                                btn.innerText = text.copied;
-                                                btn.classList.add('bg-green-600', 'text-white');
-                                                btn.classList.remove('bg-slate-800', 'text-slate-300');
-                                                setTimeout(() => {
-                                                    btn.innerText = originalText;
-                                                    btn.classList.remove('bg-green-600', 'text-white');
-                                                    btn.classList.add('bg-slate-800', 'text-slate-300');
-                                                }, 2000);
-                                            }}
-                                            className="w-full px-4 py-2 bg-slate-800 border border-slate-700 hover:bg-slate-700 text-slate-300 font-bold text-[10px] rounded uppercase tracking-widest transition-colors flex-shrink-0"
-                                        >
-                                            {text.copy}
-                                        </button>
-                                    </div>
+                                    {repo.url === REPO_INDEX ? (
+                                        <>
+                                            <div className="flex items-center w-full bg-[#1A1C23] border border-slate-700/60 rounded-lg overflow-hidden p-2 opacity-50 cursor-not-allowed">
+                                                <div className="flex-1 min-w-0 overflow-hidden px-2 flex items-center gap-2">
+                                                    <Lock className="w-4 h-4 text-slate-500 shrink-0" />
+                                                    <code className="text-xs text-slate-500 font-mono block truncate">
+                                                        {repo.url}
+                                                    </code>
+                                                </div>
+                                                <button disabled className="px-3 py-2 bg-slate-800 border border-slate-700 text-slate-500 font-bold text-[10px] sm:text-xs rounded uppercase tracking-widest shrink-0 cursor-not-allowed">
+                                                    {text.copy}
+                                                </button>
+                                            </div>
+                                            <button
+                                                disabled
+                                                className="w-full py-3.5 bg-red-950/20 border border-red-900/40 text-red-500 hover:text-red-400 font-bold rounded-lg text-xs uppercase tracking-widest text-center flex items-center justify-center gap-2 cursor-not-allowed opacity-80"
+                                            >
+                                                <XCircle className="w-4 h-4" />
+                                                {text.addApp}
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div className="flex flex-col sm:hidden w-full bg-[#1A1C23] border border-slate-700/60 rounded-lg overflow-hidden p-1">
+                                                <div className="w-full overflow-hidden py-2 px-2 relative mb-2">
+                                                    <code className="text-xs text-slate-300 font-mono block truncate">
+                                                        {repo.url}
+                                                    </code>
+                                                </div>
+                                                <button
+                                                    onClick={(e) => {
+                                                        navigator.clipboard.writeText(repo.url);
+                                                        const btn = e.currentTarget;
+                                                        const originalText = btn.innerText;
+                                                        btn.innerText = text.copied;
+                                                        btn.classList.add('bg-green-600', 'text-white');
+                                                        btn.classList.remove('bg-slate-800', 'text-slate-300');
+                                                        setTimeout(() => {
+                                                            btn.innerText = originalText;
+                                                            btn.classList.remove('bg-green-600', 'text-white');
+                                                            btn.classList.add('bg-slate-800', 'text-slate-300');
+                                                        }, 2000);
+                                                    }}
+                                                    className="w-full px-4 py-2 bg-slate-800 border border-slate-700 hover:bg-slate-700 text-slate-300 font-bold text-[10px] rounded uppercase tracking-widest transition-colors flex-shrink-0"
+                                                >
+                                                    {text.copy}
+                                                </button>
+                                            </div>
 
-                                    <div className="hidden sm:flex items-center w-full bg-[#1A1C23] border border-slate-700/60 rounded-lg overflow-hidden">
-                                        <div className="flex-1 min-w-0 overflow-hidden py-3 px-3 md:px-4 relative">
-                                            <code className="text-xs text-slate-300 font-mono block truncate">
-                                                {repo.url}
-                                            </code>
-                                        </div>
-                                        <button
-                                            onClick={(e) => {
-                                                navigator.clipboard.writeText(repo.url);
-                                                const btn = e.currentTarget;
-                                                const originalText = btn.innerText;
-                                                btn.innerText = text.copied;
-                                                btn.classList.add('bg-green-600', 'text-white');
-                                                btn.classList.remove('bg-slate-800', 'text-slate-300');
-                                                setTimeout(() => {
-                                                    btn.innerText = originalText;
-                                                    btn.classList.remove('bg-green-600', 'text-white');
-                                                    btn.classList.add('bg-slate-800', 'text-slate-300');
-                                                }, 2000);
-                                            }}
-                                            className="px-4 py-3 bg-slate-800 border-l border-slate-700 hover:bg-slate-700 text-slate-300 font-bold text-xs uppercase tracking-widest transition-colors shrink-0"
-                                        >
-                                            {text.copy}
-                                        </button>
-                                    </div>
-                                    <a
-                                        href={`koma://add-repo?url=${repo.url}`}
-                                        className="w-full py-3.5 bg-accent/10 border border-accent/20 text-accent hover:bg-accent hover:text-slate-950 font-bold rounded-lg text-xs uppercase tracking-widest transition-all text-center flex items-center justify-center gap-2 group/btn"
-                                    >
-                                        <Download className="w-4 h-4 group-hover/btn:-translate-y-0.5 transition-transform" />
-                                        {text.addApp}
-                                    </a>
+                                            <div className="hidden sm:flex items-center w-full bg-[#1A1C23] border border-slate-700/60 rounded-lg overflow-hidden">
+                                                <div className="flex-1 min-w-0 overflow-hidden py-3 px-3 md:px-4 relative">
+                                                    <code className="text-xs text-slate-300 font-mono block truncate">
+                                                        {repo.url}
+                                                    </code>
+                                                </div>
+                                                <button
+                                                    onClick={(e) => {
+                                                        navigator.clipboard.writeText(repo.url);
+                                                        const btn = e.currentTarget;
+                                                        const originalText = btn.innerText;
+                                                        btn.innerText = text.copied;
+                                                        btn.classList.add('bg-green-600', 'text-white');
+                                                        btn.classList.remove('bg-slate-800', 'text-slate-300');
+                                                        setTimeout(() => {
+                                                            btn.innerText = originalText;
+                                                            btn.classList.remove('bg-green-600', 'text-white');
+                                                            btn.classList.add('bg-slate-800', 'text-slate-300');
+                                                        }, 2000);
+                                                    }}
+                                                    className="px-4 py-3 bg-slate-800 border-l border-slate-700 hover:bg-slate-700 text-slate-300 font-bold text-xs uppercase tracking-widest transition-colors shrink-0"
+                                                >
+                                                    {text.copy}
+                                                </button>
+                                            </div>
+                                            <a
+                                                href={`koma://add-repo?url=${repo.url}`}
+                                                className="w-full py-3.5 bg-accent/10 border border-accent/20 text-accent hover:bg-accent hover:text-slate-950 font-bold rounded-lg text-xs uppercase tracking-widest transition-all text-center flex items-center justify-center gap-2 group/btn"
+                                            >
+                                                <Download className="w-4 h-4 group-hover/btn:-translate-y-0.5 transition-transform" />
+                                                {text.addApp}
+                                            </a>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         ))}
