@@ -46,13 +46,18 @@ export const Koma: React.FC = () => {
         if (releases.length === 0 && !fetchingReleases) {
             setFetchingReleases(true);
             try {
-                const res = await fetch('https://api.github.com/repos/UDIN-K/KOMA/releases');
+                // Try local cached releases first (synced by GitHub Actions bot)
+                let res = await fetch(`${REPO_BASE}/releases.json`);
+                if (!res.ok) {
+                    // Fallback to GitHub API if local file doesn't exist yet
+                    res = await fetch('https://api.github.com/repos/UDIN-K/KOMA/releases');
+                }
                 if (res.ok) {
                     const data = await res.json();
                     setReleases(data);
                 }
             } catch (err) {
-                console.error('Failed to fetch github releases', err);
+                console.error('Failed to fetch releases', err);
             } finally {
                 setFetchingReleases(false);
             }

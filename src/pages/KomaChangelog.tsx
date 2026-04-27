@@ -22,7 +22,12 @@ export const KomaChangelog: React.FC = () => {
     window.scrollTo(0, 0);
     const fetchReleases = async () => {
       try {
-        const res = await fetch('https://api.github.com/repos/UDIN-K/KOMA/releases');
+        // Try local cached releases first (synced by GitHub Actions bot)
+        let res = await fetch(`${window.location.origin}/repo/releases.json`);
+        if (!res.ok) {
+          // Fallback to GitHub API if local file doesn't exist yet
+          res = await fetch('https://api.github.com/repos/UDIN-K/KOMA/releases');
+        }
         if (res.ok) {
           const data = await res.json();
           setReleases(data);

@@ -22,7 +22,7 @@ jobs:
           ref: main
 
       - name: Create repo directory
-        run: mkdir -p public/repo
+        run: mkdir -p public/repo public/repo/apk
 
       - name: Download Keiyoushi index and repo metadata
         run: |
@@ -66,10 +66,50 @@ jobs:
           cp -r /tmp/keiyoushi_icons/icon public/repo/
           echo "✅ Successfully downloaded extension icons."
 
+      - name: Sync Koma releases data
+        run: |
+          echo "📦 Syncing Koma releases from GitHub API..."
+          curl -sL \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/UDIN-K/KOMA/releases" \
+            -o /tmp/koma_releases_raw.json
+          
+          # Process: keep only needed fields (id, tag_name, name, body, published_at, assets with name/size/browser_download_url)
+          python3 -c "
+import json
+try:
+    raw = json.load(open('/tmp/koma_releases_raw.json'))
+    if not isinstance(raw, list):
+        print('⚠️ Releases response is not a list, skipping.')
+        exit(0)
+    releases = []
+    for r in raw:
+        assets = []
+        for a in r.get('assets', []):
+            assets.append({
+                'name': a['name'],
+                'size': a['size'],
+                'browser_download_url': a['browser_download_url']
+            })
+        releases.append({
+            'id': r['id'],
+            'tag_name': r['tag_name'],
+            'name': r.get('name', ''),
+            'body': r.get('body', ''),
+            'published_at': r.get('published_at', ''),
+            'assets': assets
+        })
+    json.dump(releases, open('public/repo/releases.json', 'w'), separators=(',', ':'))
+    print(f'✅ Synced {len(releases)} releases with assets.')
+except Exception as e:
+    print(f'⚠️ Could not process releases: {e}')
+          "
+
       - name: Check for changes
         id: changes
         run: |
-          git add public/repo/index.min.json public/repo/repo.json public/repo/icon/
+          git add public/repo/index.min.json public/repo/repo.json public/repo/icon/ public/repo/releases.json
           if git diff --staged --quiet; then
             echo "changed=false" >> $GITHUB_OUTPUT
             echo "ℹ️ No changes detected. Extensions are up to date."
@@ -87,7 +127,7 @@ jobs:
           TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M UTC')
           TOTAL=$(python3 -c "import json; data=json.load(open('public/repo/index.min.json')); print(len(data))")
           
-          git add public/repo/index.min.json public/repo/repo.json public/repo/icon/
+          git add public/repo/index.min.json public/repo/repo.json public/repo/icon/ public/repo/releases.json
           git commit -m "sync: update Keiyoushi extensions mirror ($TOTAL extensions) — $TIMESTAMP"
           git push origin main
           
