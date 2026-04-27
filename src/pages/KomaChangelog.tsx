@@ -52,7 +52,7 @@ export const KomaChangelog: React.FC = () => {
 
       {loading ? (
         <div className="flex justify-center items-center py-20">
-          <motion.div 
+          <motion.div
             animate={{ rotate: 360 }}
             transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
             className="w-10 h-10 border-4 border-slate-800 border-t-accent rounded-full"
@@ -65,7 +65,7 @@ export const KomaChangelog: React.FC = () => {
       ) : (
         <div className="space-y-12">
           {releases.map((release, index) => (
-            <motion.div 
+            <motion.div
               key={release.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -91,13 +91,13 @@ export const KomaChangelog: React.FC = () => {
                     </span>
                     <span className="flex items-center gap-1.5">
                       <Calendar className="w-4 h-4" />
-                      {new Date(release.published_at).toLocaleDateString(undefined, { 
-                        year: 'numeric', month: 'long', day: 'numeric' 
+                      {new Date(release.published_at).toLocaleDateString(undefined, {
+                        year: 'numeric', month: 'long', day: 'numeric'
                       })}
                     </span>
                   </div>
                 </div>
-                <a 
+                <a
                   href={release.html_url}
                   target="_blank"
                   rel="noopener noreferrer"

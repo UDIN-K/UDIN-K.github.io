@@ -364,10 +364,10 @@ export const Koma: React.FC = () => {
         <div className="min-h-screen bg-slate-950 pt-32 pb-24 relative overflow-hidden font-sans">
             {/* Background elements */}
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.03)_0%,transparent_70%)] pointer-events-none"></div>
-            
+
             <div className="container mx-auto px-6 md:px-8 relative z-10">
                 {/* Hero Section */}
-                <motion.div 
+                <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="mb-24"
@@ -378,21 +378,21 @@ export const Koma: React.FC = () => {
                                 {text.title}
                             </h1>
                             <h2 className="text-white text-5xl md:text-[5rem] font-bold tracking-tight leading-none mb-8 font-mono">
-                                Extension<br/>Repositories
+                                Extension<br />Repositories
                             </h2>
                             <p className="text-slate-300 text-lg font-mono mb-10 leading-relaxed max-w-xl">
                                 {text.subtitle}
                             </p>
-                            
+
                             <div className="flex flex-wrap gap-4 mb-10">
-                                <a 
+                                <a
                                     href={`koma://add-repo?url=${REPO_INDEX}`}
                                     className="px-8 py-4 bg-accent text-slate-950 font-bold rounded-full hover:brightness-110 transition-all font-mono text-sm flex items-center gap-3 shadow-lg shadow-accent/20"
                                 >
                                     <Plug className="w-5 h-5" />
                                     {text.addRepo}
                                 </a>
-                                <button 
+                                <button
                                     onClick={handleDownloadClick}
                                     className="px-8 py-4 bg-slate-800 text-white font-bold rounded-full hover:bg-slate-700 transition-all font-mono text-sm flex items-center gap-3 shadow-lg"
                                 >
@@ -403,7 +403,7 @@ export const Koma: React.FC = () => {
 
                             <div className="max-w-xl">
                                 <p className="text-accent font-mono text-sm mb-3">
-                                     {text.copyManually}
+                                    {text.copyManually}
                                 </p>
                                 <div className="flex items-center w-full bg-[#1A1C23] border border-slate-700 rounded-lg overflow-hidden p-1 shadow-inner h-14">
                                     <div className="flex-1 min-w-0 overflow-hidden px-4">
@@ -411,7 +411,7 @@ export const Koma: React.FC = () => {
                                             {REPO_INDEX}
                                         </code>
                                     </div>
-                                    <button 
+                                    <button
                                         onClick={(e) => {
                                             navigator.clipboard.writeText(REPO_INDEX);
                                             const btn = e.currentTarget;
@@ -432,10 +432,10 @@ export const Koma: React.FC = () => {
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div className="flex-1 w-full max-w-sm flex justify-center lg:justify-end">
                             {/* Mockup */}
-                            <motion.div 
+                            <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8, ease: "easeOut" }}
@@ -507,7 +507,7 @@ export const Koma: React.FC = () => {
                             <p className="text-slate-400 text-sm mb-6 line-clamp-2">Learn how to easily install extensions from our repository straight to your device.</p>
                             <span className="text-accent hover:text-white transition-colors text-sm font-semibold flex items-center gap-1">Read guide <ArrowRight className="w-4 h-4" /></span>
                         </Link>
-                        
+
                         <Link to="/koma/troubleshooting" className="bg-slate-900/50 rounded-2xl p-6 hover:bg-slate-900 transition-colors border border-transparent hover:border-slate-800 group block">
                             <div className="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center mb-4 group-hover:bg-slate-700 transition-colors">
                                 <Wrench className="w-5 h-5 text-accent" />
@@ -516,7 +516,7 @@ export const Koma: React.FC = () => {
                             <p className="text-slate-400 text-sm mb-6 line-clamp-2">Having issues? Find solutions to common problems like untrusted extensions here.</p>
                             <span className="text-accent hover:text-white transition-colors text-sm font-semibold flex items-center gap-1">Fix issues <ArrowRight className="w-4 h-4" /></span>
                         </Link>
-                        
+
                         <Link to="/koma/changelog" className="bg-slate-900/50 rounded-2xl p-6 hover:bg-slate-900 transition-colors border border-transparent hover:border-slate-800 group block">
                             <div className="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center mb-4 group-hover:bg-slate-700 transition-colors">
                                 <GitCommitVertical className="w-5 h-5 text-orange-400" />
@@ -550,7 +550,7 @@ export const Koma: React.FC = () => {
                                     </span>
                                 </div>
                                 <p className="text-slate-400 text-sm font-mono mb-6 flex-grow">{repo.desc}</p>
-                                
+
                                 <div className="mt-auto space-y-3">
                                     <div className="flex flex-col sm:hidden w-full bg-[#1A1C23] border border-slate-700/60 rounded-lg overflow-hidden p-1">
                                         <div className="w-full overflow-hidden py-2 px-2 relative mb-2">
@@ -558,7 +558,7 @@ export const Koma: React.FC = () => {
                                                 {repo.url}
                                             </code>
                                         </div>
-                                        <button 
+                                        <button
                                             onClick={(e) => {
                                                 navigator.clipboard.writeText(repo.url);
                                                 const btn = e.currentTarget;
@@ -577,14 +577,14 @@ export const Koma: React.FC = () => {
                                             {text.copy}
                                         </button>
                                     </div>
-                                    
+
                                     <div className="hidden sm:flex items-center w-full bg-[#1A1C23] border border-slate-700/60 rounded-lg overflow-hidden">
                                         <div className="flex-1 min-w-0 overflow-hidden py-3 px-3 md:px-4 relative">
                                             <code className="text-xs text-slate-300 font-mono block truncate">
                                                 {repo.url}
                                             </code>
                                         </div>
-                                        <button 
+                                        <button
                                             onClick={(e) => {
                                                 navigator.clipboard.writeText(repo.url);
                                                 const btn = e.currentTarget;
@@ -603,7 +603,7 @@ export const Koma: React.FC = () => {
                                             {text.copy}
                                         </button>
                                     </div>
-                                    <a 
+                                    <a
                                         href={`koma://add-repo?url=${repo.url}`}
                                         className="w-full py-3.5 bg-accent/10 border border-accent/20 text-accent hover:bg-accent hover:text-slate-950 font-bold rounded-lg text-xs uppercase tracking-widest transition-all text-center flex items-center justify-center gap-2 group/btn"
                                     >
@@ -617,7 +617,7 @@ export const Koma: React.FC = () => {
                 </motion.div>
 
                 {/* Live Extensions Explorer Preview */}
-                <motion.div 
+                <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -631,7 +631,7 @@ export const Koma: React.FC = () => {
 
                     {loading ? (
                         <div className="flex justify-center items-center py-20">
-                            <motion.div 
+                            <motion.div
                                 animate={{ rotate: 360 }}
                                 transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
                                 className="w-12 h-12 border-4 border-slate-800 border-t-accent rounded-full"
@@ -644,14 +644,14 @@ export const Koma: React.FC = () => {
                                     <div key={i} className="bg-slate-900/40 border border-slate-800 rounded p-5 flex flex-col transition-colors group">
                                         <div className="flex justify-between items-start mb-3">
                                             <div className="w-10 h-10 rounded bg-slate-800/50 flex items-center justify-center overflow-hidden shrink-0">
-                                                <img 
-                                                    src={`${KEIYOUSHI_RAW}/icon/${ext.pkg}.png`} 
-                                                    alt={ext.name} 
-                                                    className="w-full h-full object-cover" 
-                                                    onError={(e) => { 
-                                                        e.currentTarget.style.display = 'none'; 
-                                                        e.currentTarget.nextElementSibling?.classList.remove('hidden'); 
-                                                    }} 
+                                                <img
+                                                    src={`${KEIYOUSHI_RAW}/icon/${ext.pkg}.png`}
+                                                    alt={ext.name}
+                                                    className="w-full h-full object-cover"
+                                                    onError={(e) => {
+                                                        e.currentTarget.style.display = 'none';
+                                                        e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                                                    }}
                                                 />
                                                 <Plug className="w-5 h-5 text-accent hidden" />
                                             </div>
@@ -664,7 +664,7 @@ export const Koma: React.FC = () => {
                                         </div>
                                         <h3 className="text-white font-bold mb-1 truncate" title={ext.name}>{ext.name.replace('Tachiyomi: ', '')}</h3>
                                         <p className="text-slate-500 text-xs font-mono mb-4 truncate">v{ext.version} • {ext.sources.length} sources</p>
-                                        
+
                                         <div className="mt-auto flex items-center justify-between p-3 bg-slate-950/50 rounded border border-slate-800/50 opacity-50">
                                             <span className="text-[10px] font-black uppercase tracking-wider text-slate-500">
                                                 {text.downloadTag}
@@ -674,10 +674,10 @@ export const Koma: React.FC = () => {
                                     </div>
                                 ))}
                             </div>
-                            
+
                             <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-[2px] flex flex-col justify-center items-center z-10 p-4 rounded border border-slate-800/50">
                                 <p className="text-white font-mono text-sm sm:text-base mb-6 max-w-md text-center bg-slate-900/80 px-4 py-2 rounded border border-slate-800 backdrop-blur-md">{text.showingNum}</p>
-                                <Link 
+                                <Link
                                     to="/koma/explorer"
                                     className="px-8 sm:px-12 py-5 sm:py-6 bg-accent text-slate-950 font-black rounded-xl hover:bg-white transition-all text-base sm:text-lg uppercase tracking-widest hover:-translate-y-1 inline-flex items-center gap-3 shadow-[0_0_50px_rgba(217,70,239,0.4)] hover:shadow-[0_0_80px_rgba(217,70,239,0.7)] scale-110"
                                 >
@@ -686,11 +686,11 @@ export const Koma: React.FC = () => {
                             </div>
                         </div>
                     )}
-                    
+
                 </motion.div>
 
                 {/* Community Section */}
-                <motion.div 
+                <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -731,7 +731,7 @@ export const Koma: React.FC = () => {
             <AnimatePresence>
                 {isDownloadModalOpen && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                        <motion.div 
+                        <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
@@ -744,13 +744,13 @@ export const Koma: React.FC = () => {
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
                             className="relative w-full max-w-lg bg-[#1A1C23] border border-slate-700 rounded-2xl p-6 shadow-2xl overflow-hidden"
                         >
-                            <button 
+                            <button
                                 onClick={() => setIsDownloadModalOpen(false)}
                                 className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors"
                             >
                                 <X className="w-5 h-5" />
                             </button>
-                            
+
                             <div className="flex items-center gap-4 mb-6">
                                 <div className="p-3 bg-accent/10 text-accent rounded-lg">
                                     <Download className="w-6 h-6" />
@@ -760,7 +760,7 @@ export const Koma: React.FC = () => {
                                     <p className="text-slate-400 text-sm">Select version and architecture</p>
                                 </div>
                             </div>
-                            
+
                             {fetchingReleases ? (
                                 <div className="flex justify-center items-center py-12">
                                     <Loader2 className="w-8 h-8 text-accent animate-spin" />
@@ -774,7 +774,7 @@ export const Koma: React.FC = () => {
                                     {/* Version Selector */}
                                     <div>
                                         <label className="block text-sm font-bold text-slate-300 mb-2">Version</label>
-                                        <select 
+                                        <select
                                             className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg p-3 outline-none focus:border-accent transition-colors"
                                             value={selectedReleaseIndex}
                                             onChange={(e) => setSelectedReleaseIndex(Number(e.target.value))}
@@ -786,7 +786,7 @@ export const Koma: React.FC = () => {
                                             ))}
                                         </select>
                                     </div>
-                                    
+
                                     {/* Architecture Selector */}
                                     <div>
                                         <label className="block text-sm font-bold text-slate-300 mb-3">Architecture</label>
@@ -810,7 +810,7 @@ export const Koma: React.FC = () => {
                                                     archLabel = "Universal";
                                                     description = "All devices (larger file size)";
                                                 }
-                                                
+
                                                 return (
                                                     <a
                                                         key={asset.name}
