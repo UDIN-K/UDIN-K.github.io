@@ -46,7 +46,7 @@ export const Koma: React.FC = () => {
         if (releases.length === 0 && !fetchingReleases) {
             setFetchingReleases(true);
             try {
-                const res = await fetch('https://api.github.com/repos/UDIN-K/KOMA/releases', { cache: 'no-store' });
+                const res = await fetch('https://api.github.com/repos/UDIN-K/KOMA/releases');
                 if (res.ok) {
                     const data = await res.json();
                     setReleases(data);
