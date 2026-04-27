@@ -55,10 +55,21 @@ jobs:
           TOTAL=$(python3 -c "import json; data=json.load(open('public/repo/index.min.json')); print(len(data))")
           echo "✅ Successfully downloaded index with $TOTAL extensions."
 
+      - name: Download Keiyoushi icons
+        run: |
+          echo "🖼️ Downloading Keiyoushi icons..."
+          git clone --depth 1 --filter=blob:none --sparse -b repo https://github.com/keiyoushi/extensions.git /tmp/keiyoushi_icons
+          cd /tmp/keiyoushi_icons
+          git sparse-checkout set icon
+          cd -
+          rm -rf public/repo/icon
+          cp -r /tmp/keiyoushi_icons/icon public/repo/
+          echo "✅ Successfully downloaded extension icons."
+
       - name: Check for changes
         id: changes
         run: |
-          git add public/repo/index.min.json public/repo/repo.json
+          git add public/repo/index.min.json public/repo/repo.json public/repo/icon/
           if git diff --staged --quiet; then
             echo "changed=false" >> $GITHUB_OUTPUT
             echo "ℹ️ No changes detected. Extensions are up to date."
@@ -70,13 +81,13 @@ jobs:
       - name: Commit and push
         if: steps.changes.outputs.changed == 'true'
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
           
           TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M UTC')
           TOTAL=$(python3 -c "import json; data=json.load(open('public/repo/index.min.json')); print(len(data))")
           
-          git add public/repo/index.min.json public/repo/repo.json
+          git add public/repo/index.min.json public/repo/repo.json public/repo/icon/
           git commit -m "sync: update Keiyoushi extensions mirror ($TOTAL extensions) — $TIMESTAMP"
           git push origin main
           
