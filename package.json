@@ -25,6 +25,7 @@
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.14.1",
     "recharts": "^3.8.1",
+    "remark-gfm": "^4.0.1",
     "tailwind-merge": "^3.5.0",
     "tailwindcss": "^4.0.0",
     "three": "^0.160.0",

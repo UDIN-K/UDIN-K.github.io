@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, Settings, Search, Download, AlertTriangle, ArrowLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { BookOpen, Settings, Search, Download, AlertTriangle } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage';
+import { KomaDocsLayout } from '../components/KomaDocsLayout';
 
 export const KomaGuide: React.FC = () => {
     const language = useLanguage();
@@ -417,68 +417,49 @@ export const KomaGuide: React.FC = () => {
     const text = content[language as keyof typeof content] || content.en;
 
     return (
-        <div className="min-h-screen bg-slate-950 pt-32 pb-24 relative overflow-hidden font-sans">
-            {/* Background elements */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.03)_0%,transparent_70%)] pointer-events-none"></div>
-            
-            <div className="container mx-auto px-6 md:px-8 relative z-10">
-                <div className="max-w-4xl mx-auto">
-                    <Link 
-                        to="/koma" 
-                        className="inline-flex items-center gap-2 text-slate-400 hover:text-accent transition-colors font-mono text-sm mb-12 group"
-                    >
-                        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                        {text.back}
-                    </Link>
-
-                    <motion.div 
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="mb-16"
-                    >
-                        <div className="inline-flex items-center justify-center p-4 rounded-xl bg-accent/10 border border-accent/20 mb-6 text-accent">
-                            <BookOpen className="w-8 h-8" />
-                        </div>
-                        <h1 className="text-4xl md:text-5xl font-black text-white font-heading tracking-tighter mb-4">
-                            {text.title}
-                        </h1>
-                        <p className="text-slate-400 text-lg max-w-2xl">
-                            {text.subtitle}
-                        </p>
-                    </motion.div>
-
-                    <div className="space-y-8">
-                        {text.steps.map((step, index) => (
-                            <motion.div 
-                                key={index}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.1 }}
-                                className="bg-slate-900/40 border border-slate-800 rounded-xl p-8"
-                            >
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="p-3 rounded-lg bg-slate-800 border border-slate-700 text-slate-300">
-                                        {step.icon}
-                                    </div>
-                                    <h2 className="text-2xl font-bold text-white font-heading">{step.title}</h2>
-                                </div>
-                                <p className="text-slate-400 mb-6 text-lg">{step.desc}</p>
-                                <ul className="space-y-4">
-                                    {step.details.map((detail, idx) => (
-                                        <li key={idx} className="flex gap-4 text-slate-300">
-                                            <span className="w-6 h-6 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-mono text-slate-400 shrink-0 mt-0.5">
-                                                {idx + 1}
-                                            </span>
-                                            <span className="leading-relaxed">{detail}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </motion.div>
-                        ))}
-                    </div>
+        <KomaDocsLayout>
+            <div className="flex items-center gap-4 mb-2">
+                <div className="p-3 rounded-lg bg-accent/10 border border-accent/20 text-accent">
+                    <BookOpen className="w-6 h-6" />
                 </div>
+                <h1 className="text-3xl md:text-4xl font-black text-white font-heading m-0">
+                    {text.title}
+                </h1>
             </div>
-        </div>
+            <p className="text-slate-400 text-lg mb-12">
+                {text.subtitle}
+            </p>
+
+            <div className="space-y-8">
+                {text.steps.map((step, index) => (
+                    <motion.div 
+                        key={index}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: index * 0.1 }}
+                        className="bg-slate-900/40 border border-slate-800 rounded-xl p-6 md:p-8"
+                    >
+                        <div className="flex items-center gap-4 mb-6">
+                            <div className="p-3 rounded-lg bg-slate-800 border border-slate-700 text-slate-300">
+                                {step.icon}
+                            </div>
+                            <h2 className="text-xl md:text-2xl font-bold text-white font-heading m-0">{step.title}</h2>
+                        </div>
+                        <p className="text-slate-400 mb-6 text-lg">{step.desc}</p>
+                        <ul className="space-y-4 m-0 p-0 list-none">
+                            {step.details.map((detail, idx) => (
+                                <li key={idx} className="flex gap-4 text-slate-300 m-0">
+                                    <span className="w-6 h-6 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-mono text-slate-400 shrink-0 mt-0.5">
+                                        {idx + 1}
+                                    </span>
+                                    <span className="leading-relaxed">{detail}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </motion.div>
+                ))}
+            </div>
+        </KomaDocsLayout>
     );
 };
