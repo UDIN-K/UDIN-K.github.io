@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { BookOpen, Plug, Wrench, Download, GitBranch, MessageSquare, ArrowRight, GitCommitVertical, X, Loader2, Lock, XCircle } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage';
+import PhoneMockup from '../components/PhoneMockup';
 
 interface Extension {
     name: string;
@@ -40,6 +41,27 @@ export const Koma: React.FC = () => {
     const [releases, setReleases] = useState<GithubRelease[]>([]);
     const [fetchingReleases, setFetchingReleases] = useState(false);
     const [selectedReleaseIndex, setSelectedReleaseIndex] = useState(0);
+    const [downloadCount, setDownloadCount] = useState<string>("...");
+
+    useEffect(() => {
+        const fetchDownloads = async () => {
+            try {
+                const res = await fetch('https://raw.githubusercontent.com/UDIN-K/KOMA/badge-data/downloads.json');
+                const data = await res.json();
+                const count = parseInt(data.message, 10);
+                if (!isNaN(count)) {
+                    if (count >= 1000) {
+                        setDownloadCount((count / 1000).toFixed(1).replace(/\.0$/, '') + 'k');
+                    } else {
+                        setDownloadCount(count.toString());
+                    }
+                }
+            } catch (err) {
+                console.error("Failed to fetch download count", err);
+            }
+        };
+        fetchDownloads();
+    }, []);
 
     const handleDownloadClick = async () => {
         setIsDownloadModalOpen(true);
@@ -102,7 +124,7 @@ export const Koma: React.FC = () => {
                 </>
             ),
             downloadKoma: "Download App",
-            addRepo: "Add Repository",
+            addRepo: "Getting Started",
             addRepoDesc: "Note: Use an Android device with Mihon, Koma, or a Tachiyomi fork installed to add this extension repo directly.",
             guide: "Installation Guide",
             troubleshooting: "Troubleshooting",
@@ -135,7 +157,7 @@ export const Koma: React.FC = () => {
                 </>
             ),
             downloadKoma: "Unduh Aplikasi",
-            addRepo: "Tambah Repositori",
+            addRepo: "Getting Started",
             addRepoDesc: "Catatan: Gunakan perangkat Android dengan Mihon, Koma, atau fork Tachiyomi terinstal untuk menambahkan repositori ekstensi ini secara langsung.",
             guide: "Panduan Instalasi",
             troubleshooting: "Pemecahan Masalah",
@@ -385,18 +407,35 @@ export const Koma: React.FC = () => {
                             <h2 className="text-white text-5xl md:text-[5rem] font-bold tracking-tight leading-none mb-8 font-mono">
                                 Reader<br />App
                             </h2>
-                            <p className="text-slate-300 text-lg font-mono mb-10 leading-relaxed max-w-xl">
+                            <p className="text-slate-300 text-lg font-mono mb-8 leading-relaxed max-w-xl">
                                 {text.subtitle}
                             </p>
 
+                            <div className="flex items-center gap-3 mb-10">
+                                <a href="https://github.com/UDIN-K/KOMA/releases" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity flex items-center h-6 rounded-[3px] overflow-hidden drop-shadow-sm">
+                                    <div className="bg-[#1a1c23] px-1.5 h-full flex items-center justify-center gap-1.5">
+                                        <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 16 16" fill="currentColor">
+                                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+                                        </svg>
+                                        <span className="text-white text-[11px] leading-none mb-[1px]">downloads</span>
+                                    </div>
+                                    <div className="bg-[#2e3440] px-2 h-full flex items-center justify-center">
+                                        <span className="text-white text-[11px] font-bold leading-none mb-[1px]">{downloadCount}</span>
+                                    </div>
+                                </a>
+                                <a href="https://github.com/UDIN-K/KOMA/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+                                    <img src="https://img.shields.io/github/license/UDIN-K/KOMA?style=flat-square&color=0ea5e9&labelColor=475569" alt="License" className="h-6" />
+                                </a>
+                            </div>
+
                             <div className="flex flex-wrap gap-4 mb-10">
-                                <a
-                                    href={`koma://add-repo?url=${REPO_INDEX}`}
+                                <Link
+                                    to="/koma/docs/guides/getting-started"
                                     className="px-8 py-4 bg-accent text-slate-950 font-bold rounded-full hover:brightness-110 transition-all font-mono text-sm flex items-center gap-3 shadow-lg shadow-accent/20"
                                 >
-                                    <Plug className="w-5 h-5" />
+                                    <BookOpen className="w-5 h-5" />
                                     {text.addRepo}
-                                </a>
+                                </Link>
                                 <button
                                     onClick={handleDownloadClick}
                                     className="px-8 py-4 bg-slate-800 text-white font-bold rounded-full hover:bg-slate-700 transition-all font-mono text-sm flex items-center gap-3 shadow-lg"
@@ -422,70 +461,18 @@ export const Koma: React.FC = () => {
                         <div className="flex-1 w-full max-w-sm flex justify-center lg:justify-end">
                             {/* Mockup */}
                             <motion.div
+                                className="w-full flex justify-center lg:justify-end"
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8, ease: "easeOut" }}
-                                className="relative w-full max-w-[280px] aspect-[1/2.15] bg-[#1e2028] rounded-[3rem] border-[4px] border-[#2a2c36] overflow-hidden shadow-[0_0_80px_rgba(255,121,198,0.15)] flex flex-col ring-8 ring-[#1A1C23]"
                             >
-                                {/* Top status bar area */}
-                                <div className="h-7 w-full bg-[#1e2028] flex justify-center items-start pt-1.5 shrink-0 relative z-10">
-                                    <div className="w-24 h-5 bg-[#14151a] rounded-full"></div>
-                                </div>
-                                {/* Mockup content */}
-                                <div className="flex-1 bg-[#252834] p-4 pt-2 overflow-hidden flex flex-col gap-4 font-mono">
-                                    <div className="flex justify-between items-center text-[#d6d6d8]">
-                                        <div className="font-bold text-lg tracking-wide text-white">Library</div>
-                                        <div className="flex gap-2">
-                                            <div className="w-5 h-5 rounded-full bg-[#3b3d4a] opacity-50"></div>
-                                            <div className="w-5 h-5 rounded-full bg-[#3b3d4a] opacity-50"></div>
-                                        </div>
-                                    </div>
-                                    <div className="grid grid-cols-2 gap-3 overflow-y-hidden pb-4">
-                                        <div className="aspect-[2/3] bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex flex-col relative overflow-hidden group shadow-lg">
-                                            <div className="h-10 bg-gradient-to-t from-[#14151a]/90 to-transparent p-2 text-[10px] text-white absolute bottom-0 left-0 right-0 leading-tight font-sans flex items-end tracking-wider">Manga Example 1</div>
-                                            <div className="absolute top-1.5 left-1.5 bg-white/90 text-slate-900 text-[10px] px-1.5 py-0.5 rounded font-bold">13</div>
-                                        </div>
-                                        <div className="aspect-[2/3] bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex flex-col relative overflow-hidden group shadow-lg">
-                                            <div className="h-10 bg-gradient-to-t from-[#14151a]/90 to-transparent p-2 text-[10px] text-white absolute bottom-0 left-0 right-0 leading-tight font-sans flex items-end tracking-wider">Another Manga</div>
-                                            <div className="absolute top-1.5 left-1.5 bg-white/90 text-slate-900 text-[10px] px-1.5 py-0.5 rounded font-bold">1</div>
-                                        </div>
-                                        <div className="aspect-[2/3] bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg flex flex-col relative overflow-hidden group shadow-lg">
-                                            <div className="h-10 bg-gradient-to-t from-[#14151a]/90 to-transparent p-2 text-[10px] text-white absolute bottom-0 left-0 right-0 leading-tight font-sans flex items-end tracking-wider">Some Webtoon</div>
-                                        </div>
-                                        <div className="aspect-[2/3] bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex flex-col relative overflow-hidden group shadow-lg">
-                                            <div className="h-10 bg-gradient-to-t from-[#14151a]/90 to-transparent p-2 text-[10px] text-white absolute bottom-0 left-0 right-0 leading-tight font-sans flex items-end tracking-wider">Comic Book</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* Bottom navbar area */}
-                                <div className="h-16 bg-[#1e2028] border-t border-[#2a2c36] shrink-0 flex justify-around items-center px-2 pb-2 pt-1 font-mono">
-                                    <div className="flex flex-col items-center gap-1 w-12 justify-center opacity-100">
-                                        <div className="w-6 h-6 bg-accent rounded-md opacity-90 mb-0.5"></div>
-                                        <span className="text-[9px] text-accent font-bold tracking-wider">Library</span>
-                                    </div>
-                                    <div className="flex flex-col items-center gap-1 w-12 justify-center opacity-50">
-                                        <div className="w-6 h-6 bg-[#d6d6d8] rounded-full mb-0.5"></div>
-                                        <span className="text-[9px] text-[#d6d6d8] font-bold tracking-wider">Updates</span>
-                                    </div>
-                                    <div className="flex flex-col items-center gap-1 w-12 justify-center opacity-50">
-                                        <div className="w-6 h-6 bg-[#d6d6d8] rounded-md mb-0.5"></div>
-                                        <span className="text-[9px] text-[#d6d6d8] font-bold tracking-wider">History</span>
-                                    </div>
-                                    <div className="flex flex-col items-center gap-1 w-12 justify-center opacity-50">
-                                        <div className="w-6 h-6 bg-[#d6d6d8] rounded-xl mb-0.5"></div>
-                                        <span className="text-[9px] text-[#d6d6d8] font-bold tracking-wider">Browse</span>
-                                    </div>
-                                    <div className="flex flex-col items-center gap-1 w-12 justify-center opacity-50">
-                                        <div className="w-6 h-6 bg-[#d6d6d8] rounded-full scale-75 mb-0.5"></div>
-                                        <span className="text-[9px] text-[#d6d6d8] font-bold tracking-wider">More</span>
-                                    </div>
-                                </div>
+                                <PhoneMockup />
                             </motion.div>
                         </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto px-4 text-left">
-                        <Link to="/koma/guide" className="bg-slate-900/50 rounded-2xl p-6 hover:bg-slate-900 transition-colors border border-transparent hover:border-slate-800 group block">
+                        <Link to="/koma/docs/guides/getting-started" className="bg-slate-900/50 rounded-2xl p-6 hover:bg-slate-900 transition-colors border border-transparent hover:border-slate-800 group block">
                             <div className="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center mb-4 group-hover:bg-slate-700 transition-colors">
                                 <BookOpen className="w-5 h-5 text-green-400" />
                             </div>
@@ -494,7 +481,7 @@ export const Koma: React.FC = () => {
                             <span className="text-accent hover:text-white transition-colors text-sm font-semibold flex items-center gap-1">Read guide <ArrowRight className="w-4 h-4" /></span>
                         </Link>
 
-                        <Link to="/koma/troubleshooting" className="bg-slate-900/50 rounded-2xl p-6 hover:bg-slate-900 transition-colors border border-transparent hover:border-slate-800 group block">
+                        <Link to="/koma/docs/guides/troubleshooting/common-issues" className="bg-slate-900/50 rounded-2xl p-6 hover:bg-slate-900 transition-colors border border-transparent hover:border-slate-800 group block">
                             <div className="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center mb-4 group-hover:bg-slate-700 transition-colors">
                                 <Wrench className="w-5 h-5 text-accent" />
                             </div>
@@ -719,8 +706,8 @@ export const Koma: React.FC = () => {
                                 <span className="font-bold text-slate-300 group-hover:text-[#5865F2] transition-colors">Keiyoushi</span>
                                 <MessageSquare className="w-4 h-4 text-slate-500 group-hover:text-[#5865F2] transition-colors" />
                             </a>
-                            <a href="https://discord.gg/mihon" target="_blank" rel="noopener noreferrer" className="px-6 py-4 bg-slate-900 border border-slate-800 rounded hover:border-[#5865F2]/50 hover:bg-[#5865F2]/5 transition-all flex items-center justify-between group">
-                                <span className="font-bold text-slate-300 group-hover:text-[#5865F2] transition-colors">Mihon</span>
+                            <a href="#" target="_blank" rel="noopener noreferrer" className="px-6 py-4 bg-slate-900 border border-slate-800 rounded hover:border-[#5865F2]/50 hover:bg-[#5865F2]/5 transition-all flex items-center justify-between group">
+                                <span className="font-bold text-slate-300 group-hover:text-[#5865F2] transition-colors">Koma Discord</span>
                                 <MessageSquare className="w-4 h-4 text-slate-500 group-hover:text-[#5865F2] transition-colors" />
                             </a>
                             <a href="https://discord.gg/aniyomi" target="_blank" rel="noopener noreferrer" className="px-6 py-4 bg-slate-900 border border-slate-800 rounded hover:border-[#5865F2]/50 hover:bg-[#5865F2]/5 transition-all flex items-center justify-between group">

@@ -19,6 +19,7 @@ import { KomaGuide } from './pages/KomaGuide';
 import { KomaTroubleshooting } from './pages/KomaTroubleshooting';
 import { KomaExplorer } from './pages/KomaExplorer';
 import { KomaChangelog } from './pages/KomaChangelog';
+import { KomaDocPage } from './pages/KomaDocPage';
 
 const App: React.FC = () => {
   return (
@@ -34,6 +35,7 @@ const App: React.FC = () => {
             <Route path="/koma/guide" element={<KomaGuide />} />
             <Route path="/koma/troubleshooting" element={<KomaTroubleshooting />} />
             <Route path="/koma/changelog" element={<KomaChangelog />} />
+            <Route path="/koma/docs/*" element={<KomaDocPage />} />
             <Route path="/koma/explorer" element={<KomaExplorer />} />
             <Route path="/experience" element={<Experience />} />
             <Route path="/play" element={<Play />} />

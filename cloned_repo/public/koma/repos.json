@@ -1,0 +1,73 @@
+[
+  {
+    "name": "Koma Extensions",
+    "shortName": "Koma",
+    "url": "https://udink.me/repo/index.min.json",
+    "type": "manga",
+    "description": "A Main Koma App extensions.",
+    "official": true
+  },
+  {
+    "name": "Keiyoushi",
+    "shortName": "KEY",
+    "url": "https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json",
+    "type": "manga",
+    "description": "Official Keiyoushi extensions repository."
+  },
+  {
+    "name": "Yūzōnō",
+    "shortName": "YZN",
+    "url": "https://raw.githubusercontent.com/yuzono/manga-repo/repo/index.min.json",
+    "type": "manga",
+    "description": "Alternative Manga extensions."
+  },
+  {
+    "name": "Kavita",
+    "shortName": "KAV",
+    "url": "https://raw.githubusercontent.com/Kareadita/tach-extension/repo/index.min.json",
+    "type": "manga",
+    "description": "Kavita self-hosted library extensions."
+  },
+  {
+    "name": "Suwayomi",
+    "shortName": "SWY",
+    "url": "https://raw.githubusercontent.com/suwayomi/tachiyomi-extension/repo/index.min.json",
+    "type": "manga",
+    "description": "Suwayomi server extensions."
+  },
+  {
+    "name": "CopyManga",
+    "shortName": "CPM",
+    "url": "https://raw.githubusercontent.com/stevenyomi/copymanga/repo/index.min.json",
+    "type": "manga",
+    "description": "Chinese manga extensions."
+  },
+  {
+    "name": "Kohi-den",
+    "shortName": "KHD",
+    "url": "https://kohiden.xyz/Kohi-den/extensions/raw/branch/main/index.min.json",
+    "type": "anime",
+    "description": "Kohi-den anime extensions."
+  },
+  {
+    "name": "Secozzi",
+    "shortName": "SCZ",
+    "url": "https://raw.githubusercontent.com/Secozzi/aniyomi-extensions/refs/heads/repo/index.min.json",
+    "type": "anime",
+    "description": "Alternative anime extensions."
+  },
+  {
+    "name": "Claudemirovsky",
+    "shortName": "CRS",
+    "url": "https://raw.githubusercontent.com/Claudemirovsky/cursedyomi-extensions/repo/index.min.json",
+    "type": "anime",
+    "description": "CursedYomi anime extensions."
+  },
+  {
+    "name": "Hollow",
+    "shortName": "HLW",
+    "url": "https://codeberg.org/hollow/aniyomi-extensions-fr/media/branch/repo/index.min.json",
+    "type": "anime",
+    "description": "French anime extensions."
+  }
+]

@@ -1,0 +1,76 @@
+.tree {
+  border-radius: 8px;
+  margin: 16px;
+  padding: 16px;
+  color: #fff;
+  background-color: rgba(0,0,0,0.2);
+  font-family: monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.tree > ul {
+  margin: 0;
+}
+
+.tree li + li {
+  margin-top: 0;
+}
+
+.tree span.folder.root,
+.tree span.folder.main,
+.tree span.folder.dynamic,
+.tree span.file.zip {
+  color: #4ade80 !important;
+}
+
+.tree span.file .file-extension {
+  color: #9ca3af;
+}
+
+.tree ul {
+  padding-left: 5px;
+  list-style: none;
+}
+
+.tree ul li {
+  position: relative;
+  padding-left: 15px;
+  box-sizing: border-box;
+}
+
+.tree ul li:before {
+  top: 15px;
+  left: 0;
+  width: 10px;
+  height: 1px;
+  margin: auto;
+}
+
+.tree ul li:after {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+}
+
+.tree ul li:before,
+.tree ul li:after {
+  position: absolute;
+  content: '';
+  background-color: #4b5563;
+}
+
+.tree ul li:last-child:after {
+  height: 15px;
+}
+
+.tree-icon {
+  height: 12px;
+  width: 12px;
+  margin-right: 6px;
+  display: inline-block;
+  vertical-align: middle;
+}
