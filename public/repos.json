@@ -5,7 +5,8 @@
     "url": "https://udink.me/repo/index.min.json",
     "type": "manga",
     "description": "A Main Koma App extensions.",
-    "official": true
+    "official": true,
+    "status": "maintenance"
   },
   {
     "name": "Keiyoushi",
