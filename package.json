@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx server.ts",
     "start": "node dist/server.cjs",
-    "build": "vite build",
+    "build": "vite build && cp dist/index.html dist/404.html && mkdir -p dist/koma && cp dist/index.html dist/koma/index.html && mkdir -p dist/projects && cp dist/index.html dist/projects/index.html && mkdir -p dist/experience && cp dist/index.html dist/experience/index.html && mkdir -p dist/labs && cp dist/index.html dist/labs/index.html && mkdir -p dist/ide && cp dist/index.html dist/ide/index.html && mkdir -p dist/contact && cp dist/index.html dist/contact/index.html",
     "build:full": "tsc && vite build && esbuild server.ts --bundle --platform=node --outdir=dist --format=cjs --out-extension:.js=.cjs",
     "preview": "vite preview",
     "lint": "eslint ."
