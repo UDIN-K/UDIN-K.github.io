@@ -197,7 +197,7 @@ export const Home: React.FC = () => {
                   className="group relative flex flex-col text-left p-8 rounded-2xl border border-accent/10 bg-accent/[0.02] hover:bg-accent/[0.05] hover:border-accent/20 transition-all duration-300 overflow-hidden"
               >
                   <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-10 group-hover:scale-110 transition-all duration-500">
-                      <img src="/img/koma.svg" alt="" className="w-24 h-24 pointer-events-none" />
+                      <img src="/img/koma.svg" alt="Koma App Logo - Open Source Manga Reader" className="w-24 h-24 pointer-events-none" />
                   </div>
                   <div className="w-12 h-12 rounded-full border border-accent/20 bg-accent/10 flex items-center justify-center mb-16 group-hover:scale-110 transition-transform duration-300 overflow-hidden p-2.5">
                        <img src="/img/koma.svg" alt="Koma" className="w-full h-full object-contain" />

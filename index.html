@@ -11,9 +11,12 @@
     <meta property="og:description" content="Portfolio of Muhammad Syafri Syamsudin Syah (UDIN-K). Creator of Koma App, a free open-source manga reader for Android. Explore my software engineering projects." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://udink.me/" />
+    <meta property="og:image" content="https://udink.me/img/open-graph-background.webp" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Muhammad Syafri (UDINK) — Koma App & Software Engineer" />
     <meta name="twitter:description" content="Portfolio of Muhammad Syafri Syamsudin Syah (UDIN-K). Creator of Koma App, a free open-source manga reader for Android. Explore my software engineering projects." />
+    <meta name="twitter:image" content="https://udink.me/img/open-graph-background.webp" />
+    <link rel="canonical" href="https://udink.me/" />
     
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
@@ -38,6 +41,40 @@
     
     <!-- DevIcon CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Muhammad Syafri Syamsudin Syah",
+      "alternateName": "UDIN-K",
+      "url": "https://udink.me/",
+      "image": "https://udink.me/img/logo.png",
+      "sameAs": [
+        "https://github.com/UDIN-K",
+        "https://www.linkedin.com/in/muhammad-syafri-syamsudin-syah-802b5a1b3/"
+      ],
+      "jobTitle": "Software Engineer",
+      "knowsAbout": ["Android Development", "Backend Development", "React", "TypeScript", "Kotlin"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Koma",
+      "operatingSystem": "Android",
+      "applicationCategory": "MultimediaApplication",
+      "description": "A free open-source manga reader for Android.",
+      "url": "https://udink.me/koma",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
