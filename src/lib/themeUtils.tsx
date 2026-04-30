@@ -20,17 +20,17 @@ export const getArchitectureText = (currentTheme: string) => {
 export const getFooterText = (currentTheme: string) => {
     switch (currentTheme) {
         case 'dracula':
-            return "System architecture, low-level optimization, and neural experimentation. Bridging the gap between binary logic and creative expression.";
+            return "Professional Software Engineer specializing in backend architecture, full-stack development, and embedded systems. Creating scalable, high-performance web applications.";
         case 'rosepine':
-            return "Aesthetic engineering, smooth transitions, and elegant code. Weaving beauty into functional logic.";
+            return "Aesthetic front-end development, robust back-end engineering, and elegant code architecture. Building beautiful and functional web applications.";
         case 'terminal':
-            return "ROOT ACCESS SECURED. LOW-LEVEL BINARY OPTIMIZATION AND KERNEL HACKING MODE INITIATED.";
+            return "SOFTWARE ENGINEER. LOW-LEVEL SYSTEM OPTIMIZATION, BACKEND ARCHITECTURE, AND SECURE WEB DEVELOPMENT.";
         case 'catppuccin':
-            return "Clean architecture, friendly UI design, and cozy coding environments. Making text pop and logic smooth.";
+            return "Clean UI/UX design, robust full-stack web development, and efficient code. Building friendly and fast digital experiences.";
         case 'synthwave':
-            return "NEON DREAMS AND RETRO FUTURISM. HACKING THE MAINFRAME SINCE '84.";
+            return "CYBER-ENGINEER. ADVANCED SYSTEM ARCHITECTURE, MODERN WEB DEV, AND NEXT-GEN SOFTWARE SOLUTIONS.";
         default:
-            return "System architecture, low-level optimization, and neural experimentation. Bridging the gap between binary logic and creative expression.";
+            return "Professional Software Engineer specializing in backend architecture, full-stack development, and embedded systems. Creating scalable, high-performance web applications.";
     }
 };
 

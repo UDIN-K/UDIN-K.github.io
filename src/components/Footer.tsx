@@ -1,5 +1,5 @@
 
-import { Mail, Heart, ArrowUpRight, Cpu, Terminal } from 'lucide-react';
+import { Mail, Heart, ArrowUpRight, Cpu, Terminal, Coffee } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../hooks/useTheme';
 import { getFooterText, getCopyrightText } from '../lib/themeUtils';
@@ -56,6 +56,16 @@ export const Footer: React.FC = () => {
                   <Terminal className="w-3 h-3 group-hover:text-white" />
                 </div>
                 github.com/UDIN-k
+              </a>
+              <a 
+                href="https://trakteer.id/ud1nk" 
+                target="_blank" rel="noopener noreferrer"
+                className="group flex items-center text-slate-400 hover:text-red-400 transition-colors text-xs font-mono"
+              >
+                <div className="w-8 h-8 rounded border border-slate-800 flex items-center justify-center mr-3 group-hover:border-red-400/40 group-hover:bg-red-400/5 transition-all">
+                  <Coffee className="w-3 h-3 group-hover:text-red-400" />
+                </div>
+                trakteer.id/ud1nk
               </a>
             </div>
           </div>

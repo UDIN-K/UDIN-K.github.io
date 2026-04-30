@@ -151,7 +151,7 @@
   }
 
   body {
-    @apply bg-slate-950 text-text font-sans antialiased selection:bg-accent/30;
+    @apply bg-slate-950 text-text font-sans antialiased selection:bg-accent/30 overflow-x-hidden;
   }
 }
 
@@ -164,6 +164,10 @@
   }
   .custom-scrollbar::-webkit-scrollbar {
     width: 6px;
+    height: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-button {
+    display: none;
   }
   .custom-scrollbar::-webkit-scrollbar-track {
     background: transparent;

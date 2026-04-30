@@ -21,25 +21,6 @@ async function startServer() {
     }
   });
 
-  // Proxy endpoint for koma extensions repo.json to auto-update fingerprint
-  app.get("/api/koma/repo/repo.json", async (req, res) => {
-    try {
-      const response = await fetch("https://raw.githubusercontent.com/keiyoushi/extensions/repo/repo.json");
-      if (!response.ok) {
-        throw new Error(`Failed to fetch repo.json from keiyoushi: ${response.statusText}`);
-      }
-      const data = await response.json();
-      // Keep Koma branding but use upstream fingerprint
-      data.meta.name = "Koma Extensions";
-      data.meta.shortName = "Koma";
-      data.meta.website = "https://udink.me";
-      res.json(data);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: "Failed to fetch extensions repo.json" });
-    }
-  });
-
   // Proxy the icon folder so Koma can load image from relative path
   app.get("/api/koma/repo/icon/:apkname", (req, res) => {
     const { apkname } = req.params;

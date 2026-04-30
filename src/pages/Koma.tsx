@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { BookOpen, Plug, Wrench, Download, GitBranch, MessageSquare, ArrowRight, GitCommitVertical, X, Loader2, Lock, XCircle } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage';
 import PhoneMockup from '../components/PhoneMockup';
+import { useSEO } from '../hooks/useSEO';
 
 interface Extension {
     name: string;
@@ -42,6 +43,13 @@ export const Koma: React.FC = () => {
     const [fetchingReleases, setFetchingReleases] = useState(false);
     const [selectedReleaseIndex, setSelectedReleaseIndex] = useState(0);
     const [downloadCount, setDownloadCount] = useState<string>("...");
+
+    useSEO({
+        title: "Koma Reader App",
+        description: "Download KOMA, a free and open-source manga reader for Android. A powerful fork of Tachiyomi/Mihon supporting thousands of extensions and local reading.",
+        keywords: "Koma, Koma App, Koma Manga Reader, Open Source Manga, Tachiyomi Fork, Mihon Fork, Koma Android, Aplikasi Koma",
+        icon: "/img/koma.svg"
+    });
 
     useEffect(() => {
         const fetchDownloads = async () => {
@@ -401,59 +409,72 @@ export const Koma: React.FC = () => {
                 >
                     <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 max-w-6xl mx-auto mb-20 px-4">
                         <div className="flex-1 text-left w-full mt-10">
-                            <h1 className="text-accent text-5xl md:text-[5rem] font-bold tracking-tight leading-none mb-2 font-mono">
-                                {text.title}
+                            <h1 className="text-accent text-5xl sm:text-6xl md:text-[5.5rem] font-black tracking-tighter leading-none mb-2 font-mono pt-4 sm:pt-0">
+                                Koma <span className="whitespace-nowrap">(コマ)</span>
                             </h1>
-                            <h2 className="text-white text-5xl md:text-[5rem] font-bold tracking-tight leading-none mb-8 font-mono">
-                                Reader<br />App
+                            <h2 className="text-white text-4xl sm:text-5xl md:text-[5.5rem] font-black tracking-tighter leading-none mb-6 md:mb-8 font-mono">
+                                Reader App
                             </h2>
-                            <p className="text-slate-300 text-lg font-mono mb-8 leading-relaxed max-w-xl">
+                            <p className="text-slate-300 text-base md:text-lg font-mono mb-8 leading-relaxed max-w-xl">
                                 {text.subtitle}
                             </p>
 
-                            <div className="flex items-center gap-3 mb-10">
-                                <a href="https://github.com/UDIN-K/KOMA/releases" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity flex items-center h-6 rounded-[3px] overflow-hidden drop-shadow-sm">
-                                    <div className="bg-[#1a1c23] px-1.5 h-full flex items-center justify-center gap-1.5">
+                            <div className="flex flex-wrap items-center gap-3 mb-8 md:mb-10">
+                                <a href="https://github.com/UDIN-K/KOMA/releases" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity flex items-center h-6 md:h-7 rounded-[3px] overflow-hidden drop-shadow-sm">
+                                    <div className="bg-[#1a1c23] px-2 h-full flex items-center justify-center gap-1.5 border border-slate-700/50 border-r-0 rounded-l-[3px]">
                                         <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 16 16" fill="currentColor">
                                             <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
                                         </svg>
-                                        <span className="text-white text-[11px] leading-none mb-[1px]">downloads</span>
+                                        <span className="text-white text-[10px] md:text-[11px] leading-none mb-[1px]">downloads</span>
                                     </div>
-                                    <div className="bg-[#2e3440] px-2 h-full flex items-center justify-center">
-                                        <span className="text-white text-[11px] font-bold leading-none mb-[1px]">{downloadCount}</span>
+                                    <div className="bg-[#2e3440] px-2.5 h-full flex items-center justify-center border border-slate-700/50 border-l-0 rounded-r-[3px]">
+                                        <span className="text-white text-[10px] md:text-[11px] font-bold leading-none mb-[1px]">{downloadCount}</span>
                                     </div>
                                 </a>
                                 <a href="https://github.com/UDIN-K/KOMA/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
-                                    <img src="https://img.shields.io/github/license/UDIN-K/KOMA?style=flat-square&color=0ea5e9&labelColor=475569" alt="License" className="h-6" />
+                                    <img src="https://img.shields.io/github/license/UDIN-K/KOMA?style=flat-square&color=0ea5e9&labelColor=475569" alt="License" className="h-6 md:h-7" />
                                 </a>
                             </div>
 
-                            <div className="flex flex-wrap gap-4 mb-10">
+                            <div className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4 mb-10 w-full">
                                 <Link
                                     to="/koma/docs/guides/getting-started"
-                                    className="px-8 py-4 bg-accent text-slate-950 font-bold rounded-full hover:brightness-110 transition-all font-mono text-sm flex items-center gap-3 shadow-lg shadow-accent/20"
+                                    className="w-full sm:w-auto px-6 md:px-8 py-3.5 md:py-4 bg-accent text-slate-950 font-bold rounded-full hover:brightness-110 transition-all font-mono text-sm flex items-center justify-center gap-3 shadow-lg shadow-accent/20"
                                 >
                                     <BookOpen className="w-5 h-5" />
                                     {text.addRepo}
                                 </Link>
-                                <button
-                                    onClick={handleDownloadClick}
-                                    className="px-8 py-4 bg-slate-800 text-white font-bold rounded-full hover:bg-slate-700 transition-all font-mono text-sm flex items-center gap-3 shadow-lg"
-                                >
-                                    <Download className="w-5 h-5" />
-                                    {text.downloadKoma}
-                                </button>
-                                <a
-                                    href="https://github.com/UDIN-K/KOMA"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="px-6 py-4 bg-slate-900 border border-slate-700 text-white font-bold rounded-full hover:bg-slate-800 transition-all flex items-center justify-center shadow-lg"
-                                    title="View Source on GitHub"
-                                >
-                                    <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current">
-                                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                                    </svg>
-                                </a>
+                                <div className="flex items-center gap-3 w-full sm:w-auto">
+                                    <button
+                                        onClick={handleDownloadClick}
+                                        className="flex-1 sm:flex-none px-6 md:px-8 py-3.5 md:py-4 bg-slate-800 text-white font-bold rounded-full hover:bg-slate-700 transition-all font-mono text-sm flex items-center justify-center gap-3 shadow-lg"
+                                    >
+                                        <Download className="w-5 h-5" />
+                                        {text.downloadKoma}
+                                    </button>
+                                    <a
+                                        href="https://github.com/UDIN-K/KOMA"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="px-5 py-3.5 md:py-4 bg-slate-900 border border-slate-700 text-white font-bold rounded-full hover:bg-slate-800 transition-all flex items-center justify-center shadow-lg"
+                                        title="View Source on GitHub"
+                                    >
+                                        <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current">
+                                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                        </svg>
+                                    </a>
+                                    <a
+                                        href="https://trakteer.id/ud1nk"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="px-5 py-3.5 md:py-4 bg-slate-900 border border-slate-700 text-red-400 font-bold rounded-full hover:bg-slate-800 hover:text-red-300 transition-all flex items-center justify-center shadow-lg"
+                                        title="Support me on Trakteer"
+                                    >
+                                        <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M19.324 10.635L19.231 10.23L16.273 6.137C15.82 5.511 14.847 4.908 14.12 4.757L8.98006 3.654C8.25706 3.513 7.37706 3.75 6.94506 4.298C4.54906 7.423 2.76606 10.169 3.09006 13.9C3.41406 17.659 5.86106 20.306 9.35806 20.306C12.87 20.306 15.39 17.608 15.714 13.791L15.421 13.238C15.228 12.871 14.861 12.868 14.614 13.24L12.441 16.516C12.194 16.892 11.599 16.864 11.199 16.541L7.54506 13.435L9.67306 10.978L13.149 13.393C13.55 13.715 14.161 13.535 14.417 13.067L15.342 11.155L14.771 9.998L8.68006 10.871L7.84206 8.528L13.681 7.643C14.07 7.589 14.502 7.766 14.686 8.125C15.341 9.395 16.483 11.758 17.065 12.924C17.327 13.469 17.922 13.541 18.255 13.124L19.123 12.046C19.467 11.621 19.554 11.082 19.324 10.635Z" />
+                                        </svg>
+                                    </a>
+                                </div>
                             </div>
 
                         </div>
@@ -471,32 +492,32 @@ export const Koma: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto px-4 text-left">
-                        <Link to="/koma/docs/guides/getting-started" className="bg-slate-900/50 rounded-2xl p-6 hover:bg-slate-900 transition-colors border border-transparent hover:border-slate-800 group block">
-                            <div className="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center mb-4 group-hover:bg-slate-700 transition-colors">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto px-4 text-left">
+                        <Link to="/koma/docs/guides/getting-started" className="bg-[#1A1C23]/80 rounded-2xl p-6 hover:bg-[#1A1C23] transition-colors border border-slate-800/60 hover:border-slate-700 group block">
+                            <div className="w-10 h-10 bg-green-500/10 border border-green-500/20 rounded-lg flex items-center justify-center mb-6 transition-colors">
                                 <BookOpen className="w-5 h-5 text-green-400" />
                             </div>
-                            <h3 className="text-white font-bold mb-2">{text.guide}</h3>
-                            <p className="text-slate-400 text-sm mb-6 line-clamp-2">Learn how to easily install extensions from our repository straight to your device.</p>
-                            <span className="text-accent hover:text-white transition-colors text-sm font-semibold flex items-center gap-1">Read guide <ArrowRight className="w-4 h-4" /></span>
+                            <h3 className="text-white font-bold mb-3 font-mono text-lg">{text.guide}</h3>
+                            <p className="text-slate-400 text-sm font-mono mb-8 line-clamp-2 leading-relaxed">Learn how to easily install extensions from our repository straight to your device.</p>
+                            <span className="text-accent hover:text-pink-400 transition-colors text-sm font-bold font-mono flex items-center gap-2">Read guide <ArrowRight className="w-4 h-4" /></span>
                         </Link>
 
-                        <Link to="/koma/docs/guides/troubleshooting/common-issues" className="bg-slate-900/50 rounded-2xl p-6 hover:bg-slate-900 transition-colors border border-transparent hover:border-slate-800 group block">
-                            <div className="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center mb-4 group-hover:bg-slate-700 transition-colors">
+                        <Link to="/koma/docs/guides/troubleshooting/common-issues" className="bg-[#1A1C23]/80 rounded-2xl p-6 hover:bg-[#1A1C23] transition-colors border border-slate-800/60 hover:border-slate-700 group block">
+                            <div className="w-10 h-10 bg-accent/10 border border-accent/20 rounded-lg flex items-center justify-center mb-6 transition-colors">
                                 <Wrench className="w-5 h-5 text-accent" />
                             </div>
-                            <h3 className="text-white font-bold mb-2">{text.troubleshooting}</h3>
-                            <p className="text-slate-400 text-sm mb-6 line-clamp-2">Having issues? Find solutions to common problems like untrusted extensions here.</p>
-                            <span className="text-accent hover:text-white transition-colors text-sm font-semibold flex items-center gap-1">Fix issues <ArrowRight className="w-4 h-4" /></span>
+                            <h3 className="text-white font-bold mb-3 font-mono text-lg">{text.troubleshooting}</h3>
+                            <p className="text-slate-400 text-sm font-mono mb-8 line-clamp-2 leading-relaxed">Having issues? Find solutions to common problems like untrusted extensions here.</p>
+                            <span className="text-accent hover:text-pink-400 transition-colors text-sm font-bold font-mono flex items-center gap-2">Fix issues <ArrowRight className="w-4 h-4" /></span>
                         </Link>
 
-                        <Link to="/koma/changelog" className="bg-slate-900/50 rounded-2xl p-6 hover:bg-slate-900 transition-colors border border-transparent hover:border-slate-800 group block">
-                            <div className="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center mb-4 group-hover:bg-slate-700 transition-colors">
+                        <Link to="/koma/changelog" className="bg-[#1A1C23]/80 rounded-2xl p-6 hover:bg-[#1A1C23] transition-colors border border-slate-800/60 hover:border-slate-700 group block">
+                            <div className="w-10 h-10 bg-orange-500/10 border border-orange-500/20 rounded-lg flex items-center justify-center mb-6 transition-colors">
                                 <GitCommitVertical className="w-5 h-5 text-orange-400" />
                             </div>
-                            <h3 className="text-white font-bold mb-2">{text.changelog}</h3>
-                            <p className="text-slate-400 text-sm mb-6 line-clamp-2">Stay updated with the latest changes and improvements to Koma.</p>
-                            <span className="text-accent hover:text-white transition-colors text-sm font-semibold flex items-center gap-1">View changes <ArrowRight className="w-4 h-4" /></span>
+                            <h3 className="text-white font-bold mb-3 font-mono text-lg">{text.changelog}</h3>
+                            <p className="text-slate-400 text-sm font-mono mb-8 line-clamp-2 leading-relaxed">Stay updated with the latest changes and improvements to Koma.</p>
+                            <span className="text-accent hover:text-pink-400 transition-colors text-sm font-bold font-mono flex items-center gap-2">View changes <ArrowRight className="w-4 h-4" /></span>
                         </Link>
                     </div>
                 </motion.div>
@@ -506,19 +527,19 @@ export const Koma: React.FC = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="max-w-5xl mx-auto mb-24"
+                    className="max-w-5xl mx-auto mb-24 px-4"
                 >
                     <div className="text-center mb-10">
-                        <h2 className="text-3xl font-black text-white font-heading tracking-tighter mb-4">{text.reposTitle}</h2>
+                        <h2 className="text-3xl font-black text-white font-mono tracking-tighter mb-4">{text.reposTitle}</h2>
                         <p className="text-slate-400 font-mono text-sm max-w-2xl mx-auto">{text.reposDesc}</p>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                         {activeRepositories.map((repo, i) => (
-                            <div key={i} className="bg-slate-900/40 border border-slate-800 rounded-xl p-6 flex flex-col transition-colors hover:border-slate-600">
-                                <div className="flex justify-between items-start mb-3">
-                                    <h3 className="text-white font-bold text-xl">{repo.name}</h3>
-                                    <span className="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700 text-[10px] uppercase font-bold font-mono tracking-wider shrink-0">
+                            <div key={i} className="bg-[#1A1C23]/80 border border-slate-700/60 rounded-xl p-6 flex flex-col transition-colors hover:border-slate-600">
+                                <div className="flex justify-between items-start mb-4">
+                                    <h3 className="text-white font-bold text-xl font-mono">{repo.name}</h3>
+                                    <span className="px-3 py-1.5 rounded bg-slate-800/80 text-slate-300 border border-slate-700 text-[10px] uppercase font-bold font-mono tracking-wider shrink-0">
                                         {repo.type === 'Manga' ? text.typeManga : text.typeAnime}
                                     </span>
                                 </div>
@@ -526,29 +547,20 @@ export const Koma: React.FC = () => {
 
                                 <div className="mt-auto space-y-3">
                                     {repo.url === REPO_INDEX ? (
-                                        <>
-                                            <div className="flex items-center w-full bg-[#1A1C23] border border-slate-700/60 rounded-lg overflow-hidden p-2 opacity-50 cursor-not-allowed">
-                                                <div className="flex-1 min-w-0 overflow-hidden px-2 flex items-center gap-2">
-                                                    <Lock className="w-4 h-4 text-slate-500 shrink-0" />
-                                                    <code className="text-xs text-slate-500 font-mono block truncate">
-                                                        {repo.url}
-                                                    </code>
-                                                </div>
-                                                <button disabled className="px-3 py-2 bg-slate-800 border border-slate-700 text-slate-500 font-bold text-[10px] sm:text-xs rounded uppercase tracking-widest shrink-0 cursor-not-allowed">
-                                                    {text.copy}
-                                                </button>
+                                        <div className="flex items-center w-full bg-slate-950/80 border border-slate-700/60 rounded-lg overflow-hidden opacity-50 cursor-not-allowed">
+                                            <div className="flex-1 min-w-0 overflow-hidden py-3 px-3 md:px-4 flex items-center gap-2">
+                                                <Lock className="w-4 h-4 text-slate-500 shrink-0" />
+                                                <code className="text-xs text-slate-500 font-mono block truncate">
+                                                    {repo.url}
+                                                </code>
                                             </div>
-                                            <button
-                                                disabled
-                                                className="w-full py-3.5 bg-red-950/20 border border-red-900/40 text-red-500 hover:text-red-400 font-bold rounded-lg text-xs uppercase tracking-widest text-center flex items-center justify-center gap-2 cursor-not-allowed opacity-80"
-                                            >
-                                                <XCircle className="w-4 h-4" />
-                                                {text.addApp}
+                                            <button disabled className="px-5 py-3 bg-[#2A2B35] border-l border-slate-700/60 text-slate-500 font-bold text-xs uppercase tracking-widest shrink-0 cursor-not-allowed">
+                                                {text.copy}
                                             </button>
-                                        </>
+                                        </div>
                                     ) : (
                                         <>
-                                            <div className="flex flex-col sm:hidden w-full bg-[#1A1C23] border border-slate-700/60 rounded-lg overflow-hidden p-1">
+                                            <div className="flex flex-col sm:hidden w-full bg-slate-950/80 border border-slate-700/60 rounded-lg overflow-hidden p-1">
                                                 <div className="w-full overflow-hidden py-2 px-2 relative mb-2">
                                                     <code className="text-xs text-slate-300 font-mono block truncate">
                                                         {repo.url}
@@ -568,13 +580,13 @@ export const Koma: React.FC = () => {
                                                             btn.classList.add('bg-slate-800', 'text-slate-300');
                                                         }, 2000);
                                                     }}
-                                                    className="w-full px-4 py-2 bg-slate-800 border border-slate-700 hover:bg-slate-700 text-slate-300 font-bold text-[10px] rounded uppercase tracking-widest transition-colors flex-shrink-0"
+                                                    className="w-full px-4 py-2 bg-[#2A2B35] border border-slate-700/60 hover:bg-[#32333E] text-slate-300 font-bold text-[10px] rounded uppercase tracking-widest transition-colors flex-shrink-0"
                                                 >
                                                     {text.copy}
                                                 </button>
                                             </div>
 
-                                            <div className="hidden sm:flex items-center w-full bg-[#1A1C23] border border-slate-700/60 rounded-lg overflow-hidden">
+                                            <div className="hidden sm:flex items-center w-full bg-slate-950/80 border border-slate-700/60 rounded-lg overflow-hidden">
                                                 <div className="flex-1 min-w-0 overflow-hidden py-3 px-3 md:px-4 relative">
                                                     <code className="text-xs text-slate-300 font-mono block truncate">
                                                         {repo.url}
@@ -594,18 +606,11 @@ export const Koma: React.FC = () => {
                                                             btn.classList.add('bg-slate-800', 'text-slate-300');
                                                         }, 2000);
                                                     }}
-                                                    className="px-4 py-3 bg-slate-800 border-l border-slate-700 hover:bg-slate-700 text-slate-300 font-bold text-xs uppercase tracking-widest transition-colors shrink-0"
+                                                    className="px-4 py-3 bg-[#2A2B35] border-l border-slate-700/60 hover:bg-[#32333E] text-slate-300 font-bold text-xs uppercase tracking-widest transition-colors shrink-0"
                                                 >
                                                     {text.copy}
                                                 </button>
                                             </div>
-                                            <a
-                                                href={`koma://add-repo?url=${repo.url}`}
-                                                className="w-full py-3.5 bg-accent/10 border border-accent/20 text-accent hover:bg-accent hover:text-slate-950 font-bold rounded-lg text-xs uppercase tracking-widest transition-all text-center flex items-center justify-center gap-2 group/btn"
-                                            >
-                                                <Download className="w-4 h-4 group-hover/btn:-translate-y-0.5 transition-transform" />
-                                                {text.addApp}
-                                            </a>
                                         </>
                                     )}
                                 </div>
@@ -620,7 +625,7 @@ export const Koma: React.FC = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     id="explorer"
-                    className="max-w-6xl mx-auto"
+                    className="max-w-6xl mx-auto px-4"
                 >
                     <div className="flex flex-col mb-8 text-center">
                         <h2 className="text-3xl font-black text-white font-heading tracking-tighter mb-2">{text.explorerTitle}</h2>
@@ -637,9 +642,9 @@ export const Koma: React.FC = () => {
                         </div>
                     ) : (
                         <div className="relative">
-                            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                                 {previewExtensions.map((ext, i) => (
-                                    <div key={i} className="bg-slate-900/40 border border-slate-800 rounded p-5 flex flex-col transition-colors group">
+                                    <div key={i} className="bg-[#1A1C23]/60 border border-slate-800/60 hover:border-slate-700 rounded-xl p-5 flex flex-col transition-colors group">
                                         <div className="flex justify-between items-start mb-3">
                                             <div className="w-10 h-10 rounded bg-slate-800/50 flex items-center justify-center overflow-hidden shrink-0">
                                                 <img

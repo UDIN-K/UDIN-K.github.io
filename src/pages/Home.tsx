@@ -7,9 +7,16 @@ import {
     ArrowRight
 } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage';
+import { useSEO } from '../hooks/useSEO';
 
 export const Home: React.FC = () => {
   const language = useLanguage();
+
+  useSEO({
+      title: "Muhammad Syafri (UDINK) — Koma App & Software Engineer",
+      description: "Muhammad Syafri Syamsudin Syah (UDIN-K) is a Software Engineer and creator of open-source projects including Koma, a free open-source manga reader for Android. Discover my portfolio, backend architecture, and tech experiments.",
+      keywords: "Muhammad Syafri, Syafri Syamsudin Syah, UDINK, Koma, Aplikasi Koma, Koma App, Koma Manga Reader, Koma Android, Mihon Fork, Tachiyomi Fork, Software Engineer, Backend Developer, System Architecture, Personal Portfolio, Open Source"
+  });
 
   const t = {
     en: {
@@ -189,11 +196,11 @@ export const Home: React.FC = () => {
                   to="/koma" 
                   className="group relative flex flex-col text-left p-8 rounded-2xl border border-accent/10 bg-accent/[0.02] hover:bg-accent/[0.05] hover:border-accent/20 transition-all duration-300 overflow-hidden"
               >
-                  <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 group-hover:scale-110 transition-all duration-500">
-                      <BookOpen className="w-24 h-24 text-accent" />
+                  <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-10 group-hover:scale-110 transition-all duration-500">
+                      <img src="/img/koma.svg" alt="" className="w-24 h-24 pointer-events-none" />
                   </div>
-                  <div className="w-12 h-12 rounded-full border border-accent/20 bg-accent/10 flex items-center justify-center mb-16 group-hover:scale-110 transition-transform duration-300">
-                      <BookOpen className="w-5 h-5 text-accent" />
+                  <div className="w-12 h-12 rounded-full border border-accent/20 bg-accent/10 flex items-center justify-center mb-16 group-hover:scale-110 transition-transform duration-300 overflow-hidden p-2.5">
+                       <img src="/img/koma.svg" alt="Koma" className="w-full h-full object-contain" />
                   </div>
                   <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-2 group-hover:text-accent transition-colors">
                       {text.komaTitle}

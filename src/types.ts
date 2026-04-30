@@ -27,6 +27,7 @@ export interface AIChatMessage {
     content: string; // Text content or Image URL
     type: 'text' | 'image';
     timestamp: number;
+    attachment?: string; // Base64 image
 }
 
 export interface Certificate {

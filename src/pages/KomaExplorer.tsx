@@ -198,7 +198,7 @@ export const KomaExplorer: React.FC = () => {
         <div className="min-h-screen bg-slate-950 pt-32 pb-24 relative overflow-hidden font-sans">
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.03)_0%,transparent_70%)] pointer-events-none"></div>
             
-            <div className="container mx-auto px-6 md:px-8 relative z-10">
+            <div className="container mx-auto px-4 sm:px-6 md:px-8 relative z-10">
                 <div className="max-w-6xl mx-auto mb-12">
                      <Link 
                         to="/koma" 
@@ -208,12 +208,12 @@ export const KomaExplorer: React.FC = () => {
                         {text.back}
                     </Link>
 
-                    <h1 className="text-4xl font-black text-white font-heading tracking-tighter mb-4">{text.title}</h1>
+                    <h1 className="text-4xl font-black text-white font-mono tracking-tighter mb-4">{text.title}</h1>
                     <p className="text-slate-400 font-mono text-sm max-w-2xl">{text.subtitle}</p>
                 </div>
 
                 <div className="max-w-6xl mx-auto">
-                    <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4 bg-slate-900/50 p-4 rounded-xl border border-slate-800">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4 bg-[#1A1C23]/80 p-4 rounded-xl border border-slate-800/60">
                         <div className="relative flex-1 md:max-w-md">
                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <Search className="w-4 h-4 text-slate-500" />
@@ -223,14 +223,14 @@ export const KomaExplorer: React.FC = () => {
                                 value={search}
                                 onChange={handleSearch}
                                 placeholder={text.searchPlaceholder}
-                                className="w-full bg-slate-950 border border-slate-700 text-white pl-10 pr-4 py-3 rounded outline-none focus:border-accent font-mono text-sm transition-colors"
+                                className="w-full bg-slate-950/80 border border-slate-700/60 text-white pl-10 pr-4 py-3 rounded-lg outline-none focus:border-accent font-mono text-sm transition-colors"
                             />
                         </div>
                         <div className="flex flex-col sm:flex-row gap-3">
                             <select 
                                 value={filterLang}
                                 onChange={handleFilterLang}
-                                className="bg-slate-950 border border-slate-700 text-white rounded outline-none focus:border-accent font-mono text-sm transition-colors py-3 px-4 appearance-none min-w-[200px]"
+                                className="bg-slate-950/80 border border-slate-700/60 text-white rounded-lg outline-none focus:border-accent font-mono text-sm transition-colors py-3 px-4 min-w-[200px]"
                             >
                                 <option value="all">{text.allLang}</option>
                                 {uniqueLangs.map(l => (
@@ -241,7 +241,7 @@ export const KomaExplorer: React.FC = () => {
                             <select 
                                 value={filterNsfw}
                                 onChange={handleFilterNsfw}
-                                className="bg-slate-950 border border-slate-700 text-white rounded outline-none focus:border-accent font-mono text-sm transition-colors py-3 px-4 appearance-none"
+                                className="bg-slate-950/80 border border-slate-700/60 text-white rounded-lg outline-none focus:border-accent font-mono text-sm transition-colors py-3 px-4"
                             >
                                 <option value="all">{text.allType}</option>
                                 <option value="sfw">{text.sfw}</option>
@@ -259,14 +259,14 @@ export const KomaExplorer: React.FC = () => {
                             />
                         </div>
                     ) : (
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                             {paginatedExtensions.map((ext, i) => (
                                 <motion.div 
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.2 }}
                                     key={i} 
-                                    className="bg-slate-900/40 border border-slate-800 hover:border-slate-600 rounded p-5 flex flex-col transition-colors group"
+                                    className="bg-[#1A1C23]/60 border border-slate-800/60 hover:border-slate-700 rounded-xl p-5 flex flex-col transition-colors group"
                                 >
                                     <div className="flex justify-between items-start mb-3">
                                         <div className="w-10 h-10 rounded bg-slate-800/50 flex items-center justify-center overflow-hidden shrink-0">

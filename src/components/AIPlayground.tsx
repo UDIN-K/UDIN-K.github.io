@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, ChangeEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Send, 
@@ -8,7 +8,8 @@ import {
   Trash2, 
   Headset,
   Loader2,
-  Sparkles
+  Sparkles,
+  Paperclip
 } from 'lucide-react';
 import { createChatSession, generateImage } from '../services/geminiService';
 import { AIMode, AIChatMessage } from '../types';
@@ -114,6 +115,20 @@ export const AIPlayground: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (file) {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+              setSelectedImage(reader.result as string);
+          };
+          reader.readAsDataURL(file);
+      }
+      if (fileInputRef.current) fileInputRef.current.value = "";
+  };
 
   const quickPrompts = [
       { text: "Cari Repository", mode: AIMode.TEXT },
@@ -138,19 +153,22 @@ export const AIPlayground: React.FC = () => {
 
   const handleSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    if (!input.trim() || isLoading) return;
+    if ((!input.trim() && !selectedImage) || isLoading) return;
 
     const currentInput = input;
+    const currentImage = selectedImage;
     const userMsg: AIChatMessage = {
       id: Date.now().toString(),
       role: 'user',
       content: currentInput,
       type: 'text',
       timestamp: Date.now(),
+      attachment: currentImage || undefined
     };
 
     setMessages((prev) => [...prev, userMsg]);
     setInput('');
+    setSelectedImage(null);
     setIsLoading(true);
 
     try {
@@ -168,7 +186,22 @@ export const AIPlayground: React.FC = () => {
             timestamp: Date.now()
         }]);
 
-        const streamResult = await chatSessionRef.current.sendMessageStream({ message: currentInput });
+        const messageParts: any[] = [];
+        if (currentInput) messageParts.push(currentInput);
+        
+        if (currentImage) {
+            const match = currentImage.match(/^data:(image\/[a-zA-Z]*);base64,(.*)$/);
+            if (match) {
+                messageParts.push({
+                    inlineData: {
+                        mimeType: match[1],
+                        data: match[2]
+                    }
+                });
+            }
+        }
+
+        const streamResult = await chatSessionRef.current.sendMessageStream({ message: messageParts.length === 1 ? messageParts[0] : messageParts });
         
         let fullText = '';
         try {
@@ -238,7 +271,7 @@ export const AIPlayground: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end pointer-events-none font-sans">
+    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 flex flex-col items-end pointer-events-none font-sans">
         <AnimatePresence>
             {isOpen && (
                  <motion.div 
@@ -246,7 +279,7 @@ export const AIPlayground: React.FC = () => {
                     animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
                     exit={{ opacity: 0, scale: 0.9, y: 30, rotateX: 20 }}
                     transition={{ type: 'spring', damping: 20, stiffness: 100 }}
-                    className="mb-4 w-[95vw] md:w-[500px] h-[700px] bg-slate-900/95 backdrop-blur-3xl border border-slate-700/50 rounded-2xl shadow-2xl flex flex-col overflow-hidden pointer-events-auto relative"
+                    className="mb-4 w-[calc(100vw-2rem)] sm:w-[450px] md:w-[500px] h-[75vh] max-h-[700px] bg-slate-900/95 backdrop-blur-3xl border border-slate-700/50 rounded-2xl shadow-2xl flex flex-col overflow-hidden pointer-events-auto relative"
                  >
                     {/* Header: Friendly Style */}
                     <div className="bg-slate-800/80 px-6 py-5 border-b border-slate-700/50 flex justify-between items-center shrink-0 relative z-10">
@@ -299,7 +332,12 @@ export const AIPlayground: React.FC = () => {
                                             <img src={msg.content} alt="AI Gen" className="rounded-xl border border-slate-700 shadow-md" />
                                         </div>
                                     ) : (
-                                        <MessageContent content={msg.content} />
+                                        <div className="flex flex-col gap-2">
+                                            {msg.attachment && (
+                                                <img src={msg.attachment} alt="Upload" className="max-w-[200px] max-h-[200px] rounded-lg border border-slate-700/50 object-cover" />
+                                            )}
+                                            {msg.content && <MessageContent content={msg.content} />}
+                                        </div>
                                     )}
                                 </div>
                             </motion.div>
@@ -325,30 +363,64 @@ export const AIPlayground: React.FC = () => {
                             ))}
                         </div>
                         
-                        <div className="bg-slate-900 border border-slate-700 focus-within:border-accent/60 rounded-xl transition-all group/input shadow-inner">
-                            <div className="flex gap-2 items-center p-1.5 min-h-[50px]">
+                        <div className="bg-slate-900 border border-slate-700 focus-within:border-accent/60 rounded-xl transition-all group/input shadow-inner flex flex-col pt-1">
+                            {selectedImage && (
+                                <div className="px-3 py-2 flex items-center gap-2">
+                                    <div className="relative inline-block">
+                                        <img src={selectedImage} alt="Preview" className="w-12 h-12 object-cover rounded border border-slate-700" />
+                                        <button 
+                                            onClick={() => setSelectedImage(null)}
+                                            className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center text-white hover:bg-red-600 transition-colors"
+                                        >
+                                            <X className="w-3 h-3" />
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                            <div className="flex gap-1.5 sm:gap-2 items-center p-1.5 min-h-[50px]">
                                  <button 
                                     onClick={() => setMode(mode === AIMode.TEXT ? AIMode.IMAGE : AIMode.TEXT)}
                                     className={cn(
-                                        "w-10 h-10 flex items-center justify-center transition-all bg-slate-800 rounded-lg shrink-0", 
+                                        "w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center transition-all bg-slate-800 rounded-lg shrink-0", 
                                         mode === AIMode.IMAGE ? 'text-accent' : 'text-slate-400 hover:text-slate-200'
                                     )}
+                                    title="Tukar Mode (Chat / Gambar)"
                                 >
                                     {mode === AIMode.TEXT ? <MessageSquare className="w-4 h-4" /> : <ImageIcon className="w-4 h-4" />}
                                  </button>
+
+                                 {mode === AIMode.TEXT && (
+                                     <>
+                                         <input 
+                                             type="file" 
+                                             accept="image/*" 
+                                             className="hidden" 
+                                             ref={fileInputRef} 
+                                             onChange={handleImageUpload} 
+                                         />
+                                         <button 
+                                             onClick={() => fileInputRef.current?.click()}
+                                             className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center transition-all bg-slate-800/50 hover:bg-slate-700 text-slate-400 hover:text-slate-200 rounded-lg shrink-0"
+                                             title="Kirim Screenshot/Gambar"
+                                         >
+                                             <Paperclip className="w-4 h-4" />
+                                         </button>
+                                     </>
+                                 )}
+
                                  <textarea
                                     ref={textareaRef}
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}
                                     onKeyDown={handleKeyDown}
-                                    placeholder={mode === AIMode.TEXT ? "Ketik pesan di sini..." : "Deskripsikan gambar yang ingin dibuat..."}
+                                    placeholder={mode === AIMode.TEXT ? "Ketik pesan..." : "Deskripsikan..."}
                                     rows={1}
-                                    className="flex-1 bg-transparent text-sm text-white focus:outline-none py-2 px-1 resize-none max-h-32 placeholder-slate-500 font-sans"
+                                    className="flex-1 bg-transparent text-sm text-white focus:outline-none py-2 px-2.5 resize-none max-h-[120px] placeholder-slate-500 font-sans custom-scrollbar"
                                  />
                                  <button 
                                     onClick={() => handleSubmit()}
-                                    disabled={!input.trim() || isLoading}
-                                    className="w-10 h-10 flex items-center justify-center bg-accent text-slate-950 rounded-lg hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-95 shrink-0"
+                                    disabled={(!input.trim() && !selectedImage) || isLoading}
+                                    className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center bg-accent text-slate-950 rounded-lg hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-95 shrink-0"
                                 >
                                     {isLoading ? <Loader2 className="w-4 h-4 animate-spin text-slate-950" /> : <Send className="w-4 h-4 ml-0.5" />}
                                  </button>
