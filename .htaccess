@@ -1,0 +1,49 @@
+# Enable compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE image/x-icon
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE application/ld+json
+</IfModule>
+
+# Cache headers for assets with hash (versioned assets - cache for 1 year)
+<FilesMatch "\.(js|css|svg|woff2?|avif|webp|png|jpg|jpeg|gif|ico|mp4|webm)$">
+    <IfModule mod_expires.c>
+        ExpiresActive On
+        ExpiresDefault "access plus 1 year"
+    </IfModule>
+    <IfModule mod_headers.c>
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </IfModule>
+</FilesMatch>
+
+# Cache headers for HTML files (shorter cache)
+<FilesMatch "\.html$">
+    <IfModule mod_expires.c>
+        ExpiresActive On
+        ExpiresDefault "access plus 1 hour"
+    </IfModule>
+    <IfModule mod_headers.c>
+        Header set Cache-Control "public, max-age=3600"
+    </IfModule>
+</FilesMatch>
+
+# Cache for devicon CSS (7 hours as per current setting is fine, but we'll optimize loading instead)
+<FilesMatch "devicon\.min\.css$">
+    <IfModule mod_expires.c>
+        ExpiresActive On
+        ExpiresDefault "access plus 7 days"
+    </IfModule>
+    <IfModule mod_headers.c>
+        Header set Cache-Control "public, max-age=604800"
+    </IfModule>
+</FilesMatch>
