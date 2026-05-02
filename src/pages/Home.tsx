@@ -181,13 +181,13 @@ export const Home: React.FC = () => {
                   <div className="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center mb-16 group-hover:scale-110 transition-transform duration-300">
                       <Layers className="w-5 h-5 text-white" />
                   </div>
-                  <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-2">
+                  <h2 className="text-xl md:text-2xl font-serif font-bold text-white mb-2">
                       {text.portTitle}
-                  </h3>
-                  <p className="text-slate-400 text-xs font-mono mb-6">
+                  </h2>
+                  <p className="text-slate-300 text-xs font-mono mb-6">
                       {text.portDesc}
                   </p>
-                  <div className="mt-auto flex items-center text-xs font-bold uppercase tracking-widest text-white/50 group-hover:text-white transition-colors">
+                  <div className="mt-auto flex items-center text-xs font-bold uppercase tracking-widest text-white/80 group-hover:text-white transition-colors">
                       {text.viewProj} <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                   </div>
               </Link>
@@ -202,13 +202,13 @@ export const Home: React.FC = () => {
                   <div className="w-12 h-12 rounded-full border border-accent/20 bg-accent/10 flex items-center justify-center mb-16 group-hover:scale-110 transition-transform duration-300 overflow-hidden p-2.5">
                        <img src="/img/koma.svg" alt="Koma" className="w-full h-full object-contain" />
                   </div>
-                  <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-2 group-hover:text-accent transition-colors">
+                  <h2 className="text-xl md:text-2xl font-serif font-bold text-white mb-2 group-hover:text-accent transition-colors">
                       {text.komaTitle}
-                  </h3>
-                  <p className="text-slate-400 text-xs font-mono mb-6">
+                  </h2>
+                  <p className="text-slate-300 text-xs font-mono mb-6">
                       {text.komaDesc}
                   </p>
-                  <div className="mt-auto flex items-center text-xs font-bold uppercase tracking-widest text-accent/50 group-hover:text-accent transition-colors">
+                  <div className="mt-auto flex items-center text-xs font-bold uppercase tracking-widest text-accent/80 group-hover:text-accent transition-colors">
                       {text.openRepo} <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                   </div>
               </Link>
