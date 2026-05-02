@@ -5,6 +5,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import matter from 'gray-matter';
 import { KomaDocsLayout } from '../components/KomaDocsLayout';
+import { useSEO } from '../hooks/useSEO';
 
 // Gather all markdown files at build time as raw strings
 const docsGlob = import.meta.glob('/src/koma-docs/**/*.md', { query: '?raw', eager: true, import: 'default' });
@@ -13,6 +14,15 @@ export const KomaDocPage: React.FC = () => {
     const { "*": docsPath } = useParams();
     const [markdownContent, setMarkdownContent] = useState<string>('');
     const [title, setTitle] = useState<string>('');
+    const [description, setDescription] = useState<string>('');
+
+    const seoTitle = title ? `${title} — Koma Docs — UDINK` : 'Koma Docs — UDINK';
+    const seoDescription = description || undefined;
+
+    useSEO({
+        title: seoTitle,
+        description: seoDescription
+    });
 
     useEffect(() => {
         if (!docsPath) return;
@@ -39,12 +49,20 @@ export const KomaDocPage: React.FC = () => {
                 } else {
                     setTitle(''); 
                 }
+
+                if (typeof parsed.data.description === 'string') {
+                    setDescription(parsed.data.description);
+                } else {
+                    setDescription('');
+                }
             } catch(e) {
                 // Fallback if parsing fails
                 setMarkdownContent(rawContent);
+                setDescription('');
             }
         } else {
             setMarkdownContent('# 404 NOT FOUND\nOops, we could not find that document.\n\nPath requested: `' + docsPath + '`');
+            setDescription('');
         }
         
         // Scroll to top

@@ -45,9 +45,9 @@ export const Koma: React.FC = () => {
     const [downloadCount, setDownloadCount] = useState<string>("...");
 
     useSEO({
-        title: "Koma Reader App",
-        description: "Download KOMA, a free and open-source manga reader for Android. A powerful fork of Tachiyomi/Mihon supporting thousands of extensions and local reading.",
-        keywords: "Koma, Koma App, Koma Manga Reader, Open Source Manga, Tachiyomi Fork, Mihon Fork, Koma Android, Aplikasi Koma",
+        title: "Koma Manga Reader (Android) — UDINK",
+        description: "Download Koma — a free, open-source manga reader for Android by UDINK. A powerful Tachiyomi/Mihon fork supporting thousands of extensions and local reading.",
+        keywords: "UDINK, UdinK, Koma, Koma App, Koma Manga Reader, Manga Reader Android, Open Source Manga Reader, Tachiyomi Fork, Mihon Fork, Koma Android, Aplikasi Koma",
         icon: "/img/koma.svg"
     });
 
@@ -413,7 +413,7 @@ export const Koma: React.FC = () => {
                                 Koma <span className="whitespace-nowrap">(コマ)</span>
                             </h1>
                             <h2 className="text-white text-4xl sm:text-5xl md:text-[5.5rem] font-black tracking-tighter leading-none mb-6 md:mb-8 font-mono">
-                                Reader App
+                                Manga Reader App
                             </h2>
                             <p className="text-slate-300 text-base md:text-lg font-mono mb-8 leading-relaxed max-w-xl">
                                 {text.subtitle}

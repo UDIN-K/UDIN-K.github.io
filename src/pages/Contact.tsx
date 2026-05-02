@@ -2,8 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import { ShieldAlert, Cpu, ChevronRight, Loader2, CheckCircle2 } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { useSEO } from '../hooks/useSEO';
 
 export const Contact: React.FC = () => {
+    useSEO({
+        title: 'Contact — UDINK',
+        description: 'Send a message to UDINK via the secure contact channel.'
+    });
+
     const [lines, setLines] = useState<string[]>(['[SYSTEM] Initializing secure handshake...', '[SYSTEM] Cryptography layers established.', '[USER] Connection requested via safrisam.id09@gmail.com']);
     const [input, setInput] = useState('');
     const [step, setStep] = useState<'IDLE' | 'NAMING' | 'MESSAGE' | 'SENDING' | 'SUCCESS'>('NAMING');
@@ -43,7 +49,7 @@ export const Contact: React.FC = () => {
 
     const transmit = () => {
         setStep('SENDING');
-        setLines(prev => [...prev, '[EXEC] Encrypting using 4096-bit AES...', '[EXEC] Routing through anonymized relays...', '[EXEC] Transmitting packet to MUHAMMAD_SYAFRI...']);
+        setLines(prev => [...prev, '[EXEC] Encrypting using 4096-bit AES...', '[EXEC] Routing through anonymized relays...', '[EXEC] Transmitting packet to UDINK...']);
         
         // Simulated sending
         setTimeout(() => {
@@ -154,7 +160,7 @@ export const Contact: React.FC = () => {
                                 <div key={i} className="w-8 h-0.5 bg-slate-900"></div>
                             ))}
                         </div>
-                        <span className="text-[8px] text-slate-700 font-mono tracking-widest uppercase">SYAFRI_GATE_PORT_0x80</span>
+                        <span className="text-[8px] text-slate-700 font-mono tracking-widest uppercase">UDINK_GATE_PORT_0x80</span>
                     </div>
                 </div>
             </div>

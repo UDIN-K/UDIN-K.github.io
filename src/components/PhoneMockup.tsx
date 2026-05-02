@@ -38,21 +38,21 @@ export default function PhoneMockup() {
                         </div>
                         <div className="grid grid-cols-2 gap-2 pb-4 overflow-hidden">
                             <div className="aspect-[2/3] bg-gradient-to-br from-slate-700 to-slate-800 rounded flex flex-col relative overflow-hidden group shadow-lg">
-                                <div className="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1622322699264-a6c3f3f2d2b5?auto=format&fit=crop&q=80&w=200')] bg-cover bg-center mix-blend-overlay"></div>
+                                <div className="absolute inset-0 opacity-40 bg-[url('/img/koma.png')] bg-cover bg-center mix-blend-overlay"></div>
                                 <div className="h-12 bg-gradient-to-t from-[#14151a] to-transparent p-1.5 text-[9px] text-white absolute bottom-0 left-0 right-0 leading-tight flex items-end">Kidnapped Dragons</div>
                                 <div className="absolute top-1 left-1 bg-teal-500 text-white text-[9px] px-1 rounded-sm font-semibold">14</div>
                             </div>
                             <div className="aspect-[2/3] bg-gradient-to-br from-slate-700 to-slate-800 rounded flex flex-col relative overflow-hidden group shadow-lg">
-                                <div className="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&q=80&w=200')] bg-cover bg-center mix-blend-overlay"></div>
+                                <div className="absolute inset-0 opacity-40 bg-[url('/img/koma.png')] bg-cover bg-center mix-blend-overlay"></div>
                                 <div className="h-12 bg-gradient-to-t from-[#14151a] to-transparent p-1.5 text-[9px] text-white absolute bottom-0 left-0 right-0 leading-tight flex items-end">The Baby Raises a Villain</div>
                             </div>
                             <div className="aspect-[2/3] bg-gradient-to-br from-slate-700 to-slate-800 rounded flex flex-col relative overflow-hidden group shadow-lg">
-                                <div className="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1613376023733-0a73315d9b06?auto=format&fit=crop&q=80&w=200')] bg-cover bg-center mix-blend-overlay"></div>
+                                <div className="absolute inset-0 opacity-40 bg-[url('/img/koma.png')] bg-cover bg-center mix-blend-overlay"></div>
                                 <div className="h-12 bg-gradient-to-t from-[#14151a] to-transparent p-1.5 text-[9px] text-white absolute bottom-0 left-0 right-0 leading-tight flex items-end">Tsue to Tsurugi no Wistoria</div>
                                 <div className="absolute top-1 left-1 bg-teal-500 text-white text-[9px] px-1 rounded-sm font-semibold">14</div>
                             </div>
                             <div className="aspect-[2/3] bg-gradient-to-br from-slate-700 to-slate-800 rounded flex flex-col relative overflow-hidden group shadow-lg">
-                                <div className="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&q=80&w=200')] bg-cover bg-center mix-blend-overlay"></div>
+                                <div className="absolute inset-0 opacity-40 bg-[url('/img/koma.png')] bg-cover bg-center mix-blend-overlay"></div>
                                 <div className="h-12 bg-gradient-to-t from-[#14151a] to-transparent p-1.5 text-[9px] text-white absolute bottom-0 left-0 right-0 leading-tight flex items-end">Eiyuu to Majo no Tensei...</div>
                             </div>
                         </div>
@@ -260,32 +260,32 @@ export default function PhoneMockup() {
             
             {/* Bottom navbar area */}
             <div className="h-14 bg-[#121319] border-t border-[#2a2c36]/40 shrink-0 flex justify-around items-center px-2 pb-2 pt-1 font-sans relative z-20">
-                <button onClick={() => setActiveTab('library')} className={`flex flex-col items-center gap-1 w-12 justify-center transition-opacity ${activeTab === 'library' ? 'opacity-100 text-teal-400' : 'opacity-50 text-slate-300'}`}>
+                <button onClick={() => setActiveTab('library')} className={`flex flex-col items-center gap-1 w-12 justify-center transition-opacity ${activeTab === 'library' ? 'opacity-100 text-teal-400' : 'opacity-80 text-slate-200'}`}>
                     <div className={`w-10 h-6 flex items-center justify-center rounded-full transition-colors ${activeTab === 'library' ? 'bg-teal-400/20' : ''}`}>
                         <LayoutTemplate className={`w-4 h-4 ${activeTab === 'library' ? 'fill-current' : ''}`} />
                     </div>
                     <span className="text-[8px] font-semibold tracking-wider">Library</span>
                 </button>
-                <button onClick={() => setActiveTab('updates')} className={`flex flex-col items-center gap-1 w-12 justify-center transition-opacity ${activeTab === 'updates' ? 'opacity-100 text-teal-400' : 'opacity-50 text-slate-300'}`}>
+                <button onClick={() => setActiveTab('updates')} className={`flex flex-col items-center gap-1 w-12 justify-center transition-opacity ${activeTab === 'updates' ? 'opacity-100 text-teal-400' : 'opacity-80 text-slate-200'}`}>
                     <div className={`w-10 h-6 flex items-center justify-center rounded-full transition-colors ${activeTab === 'updates' ? 'bg-teal-400/20' : ''}`}>
                         <svg className={`w-4 h-4 ${activeTab === 'updates' ? 'fill-current' : ''}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                     </div>
                     <span className="text-[8px] font-semibold tracking-wider">Updates</span>
                 </button>
-                <button onClick={() => setActiveTab('history')} className={`flex flex-col items-center gap-1 w-12 justify-center transition-opacity ${activeTab === 'history' ? 'opacity-100 text-teal-400' : 'opacity-50 text-slate-300'}`}>
+                <button onClick={() => setActiveTab('history')} className={`flex flex-col items-center gap-1 w-12 justify-center transition-opacity ${activeTab === 'history' ? 'opacity-100 text-teal-400' : 'opacity-80 text-slate-200'}`}>
                     <div className={`w-10 h-6 flex items-center justify-center rounded-full transition-colors ${activeTab === 'history' ? 'bg-teal-400/20' : ''}`}>
                         <RotateCw className="w-4 h-4" />
                     </div>
                     <span className="text-[8px] font-semibold tracking-wider">History</span>
                 </button>
-                <button onClick={() => setActiveTab('browse')} className={`flex flex-col items-center gap-1 w-12 justify-center relative transition-opacity ${activeTab === 'browse' ? 'opacity-100 text-teal-400' : 'opacity-50 text-slate-300'}`}>
+                <button onClick={() => setActiveTab('browse')} className={`flex flex-col items-center gap-1 w-12 justify-center relative transition-opacity ${activeTab === 'browse' ? 'opacity-100 text-teal-400' : 'opacity-80 text-slate-200'}`}>
                     <div className="absolute -top-1 right-2 w-3 h-3 bg-red-400 rounded-full text-[6px] text-white flex items-center justify-center font-bold z-10 border border-[#121319]">1</div>
                     <div className={`w-10 h-6 flex items-center justify-center rounded-full transition-colors ${activeTab === 'browse' ? 'bg-teal-400/20' : ''}`}>
                         <Globe className="w-4 h-4" />
                     </div>
                     <span className="text-[8px] font-semibold tracking-wider">Browse</span>
                 </button>
-                <button onClick={() => setActiveTab('more')} className={`flex flex-col items-center gap-1 w-12 justify-center transition-opacity ${activeTab === 'more' ? 'opacity-100 text-teal-400' : 'opacity-50 text-slate-300'}`}>
+                <button onClick={() => setActiveTab('more')} className={`flex flex-col items-center gap-1 w-12 justify-center transition-opacity ${activeTab === 'more' ? 'opacity-100 text-teal-400' : 'opacity-80 text-slate-200'}`}>
                     <div className={`w-10 h-6 flex items-center justify-center rounded-full transition-colors ${activeTab === 'more' ? 'bg-teal-400/20' : ''}`}>
                         <MoreHorizontal className="w-4 h-4" />
                     </div>

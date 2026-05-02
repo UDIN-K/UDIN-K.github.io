@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { Plug, Download, Search, ArrowLeft } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage';
+import { useSEO } from '../hooks/useSEO';
 
 interface Extension {
     name: string;
@@ -20,6 +21,11 @@ const KEIYOUSHI_RAW = 'https://raw.githubusercontent.com/keiyoushi/extensions/re
 
 export const KomaExplorer: React.FC = () => {
     const language = useLanguage();
+
+    useSEO({
+        title: 'Koma Extensions Explorer — UDINK',
+        description: 'Browse and search Koma extensions. Download APKs or use the repository link.'
+    });
     const [extensions, setExtensions] = useState<Extension[]>([]);
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState('');
@@ -49,7 +55,7 @@ export const KomaExplorer: React.FC = () => {
 
     const t = {
         en: {
-            title: "Extensions Explorer",
+            title: "Koma Extensions Explorer",
             subtitle: "Browse and search through all available extensions. Download APKs directly or use the repository link.",
             back: "Back to Dashboard",
             searchPlaceholder: "Search extensions by name...",
@@ -62,7 +68,7 @@ export const KomaExplorer: React.FC = () => {
             noResult: "No extensions found matching"
         },
         id: {
-            title: "Penjelajah Ekstensi",
+            title: "Penjelajah Ekstensi Koma",
             subtitle: "Jelajahi dan cari semua ekstensi yang tersedia. Unduh APK secara langsung atau gunakan tautan repositori.",
             back: "Kembali ke Beranda",
             searchPlaceholder: "Cari ekstensi berdasarkan nama...",

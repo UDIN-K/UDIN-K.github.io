@@ -4,6 +4,7 @@ import { KomaDocsLayout } from '../components/KomaDocsLayout';
 import { GitCommitVertical, Calendar, Tag, ExternalLink } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { useSEO } from '../hooks/useSEO';
 
 interface Release {
   id: number;
@@ -17,6 +18,11 @@ interface Release {
 export const KomaChangelog: React.FC = () => {
   const [releases, setReleases] = useState<Release[]>([]);
   const [loading, setLoading] = useState(true);
+
+  useSEO({
+    title: 'Koma Changelog — UDINK',
+    description: 'Release notes and recent updates for Koma Manga Reader.'
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -48,7 +54,7 @@ export const KomaChangelog: React.FC = () => {
           <GitCommitVertical className="w-6 h-6" />
         </div>
         <h1 className="text-3xl md:text-4xl font-black text-white font-heading m-0">
-          Changelogs
+          Koma Changelog
         </h1>
       </div>
       <p className="text-slate-400 text-lg mb-12">

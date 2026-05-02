@@ -3,7 +3,7 @@ import React from 'react';
 export const getArchitectureText = (currentTheme: string) => {
     switch (currentTheme) {
         case 'dracula':
-            return <span>Digital Architecture by <span className="text-white font-bold">Muhammad Syafri (UDIN-K)</span>.</span>;
+            return <span>Digital Architecture by <span className="text-white font-bold">UDINK (UDIN-K)</span>.</span>;
         case 'rosepine':
             return <span className="text-rose-300">Aesthetic Architecture crafted by <span className="text-rose-200 font-bold italic">UDIN-K</span>.</span>;
         case 'terminal':
@@ -13,7 +13,7 @@ export const getArchitectureText = (currentTheme: string) => {
         case 'synthwave':
             return <span className="text-pink-500 font-bold tracking-[0.3em] uppercase drop-shadow-[0_0_8px_rgba(255,42,109,0.8)]">CYBER-ARCHITECTURE BY UDINK_</span>;
         default:
-            return <span>Digital Architecture by <span className="text-white font-bold">Muhammad Syafri (UDIN-K)</span>.</span>;
+            return <span>Digital Architecture by <span className="text-white font-bold">UDINK (UDIN-K)</span>.</span>;
     }
 };
 
@@ -37,7 +37,7 @@ export const getFooterText = (currentTheme: string) => {
 export const getCopyrightText = (currentTheme: string, year: number) => {
     switch (currentTheme) {
         case 'dracula':
-            return `© ${year} MUHAMMAD SYAFRI (UDIN-K). ALL SYSTEMS NOMINAL.`;
+            return `© ${year} UDINK (UDIN-K). ALL SYSTEMS NOMINAL.`;
         case 'rosepine':
             return `✧ ${year} UDIN-K. CRAFTED WITH ELEGANCE ✧`;
         case 'terminal':
@@ -47,6 +47,6 @@ export const getCopyrightText = (currentTheme: string, year: number) => {
         case 'synthwave':
             return `© ${year} UDINK_CORP. GRID RUNNERS.`;
         default:
-            return `© ${year} MUHAMMAD SYAFRI (UDIN-K). ALL SYSTEMS NOMINAL.`;
+            return `© ${year} UDINK (UDIN-K). ALL SYSTEMS NOMINAL.`;
     }
 };

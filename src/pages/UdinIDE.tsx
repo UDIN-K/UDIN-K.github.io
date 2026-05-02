@@ -14,15 +14,21 @@ import {
 import { createChatSession } from '../services/geminiService';
 import { cn } from '../lib/utils';
 import { Chat, GenerateContentResponse } from "@google/genai";
+import { useSEO } from '../hooks/useSEO';
 
 export const UdinIDE: React.FC = () => {
-    const [code, setCode] = useState<string>('// System Initialized...\n// UDIN IDE v1.0.0-beta\n\nfunction boot() {\n    console.log("Welcome to UDIN IDE, Master Syafri!");\n    console.log("CPU_LOAD: 2.4%");\n    console.log("NEURAL_SYNC: OK");\n}\n\nboot();');
+    const [code, setCode] = useState<string>('// System Initialized...\n// UDIN IDE v1.0.0-beta\n\nfunction boot() {\n    console.log("Welcome to UDIN IDE, Operator!");\n    console.log("CPU_LOAD: 2.4%");\n    console.log("NEURAL_SYNC: OK");\n}\n\nboot();');
     const [activeTab, setActiveTab] = useState<'code' | 'database' | 'terminal'>('code');
     const [language, setLanguage] = useState('javascript');
-    const [output, setOutput] = useState<string[]>(['[SYSTEM] UDIN_IDE_CORE_V1.1 initialized.', '[AUTH] ACCESS_GRANTED: MAJIKAN_SYAFRI']);
+    const [output, setOutput] = useState<string[]>(['[SYSTEM] UDIN_IDE_CORE_V1.1 initialized.', '[AUTH] ACCESS_GRANTED: UDINK_ADMIN']);
     const [aiInput, setAiInput] = useState('');
     const [isAiProcessing, setIsAiProcessing] = useState(false);
     const chatRef = useRef<Chat | null>(null);
+
+    useSEO({
+        title: 'UDIN IDE — Online Code Workspace — UDINK',
+        description: 'Browser-based coding playground built around a Monaco editor experience.'
+    });
 
     const languages = [
         { name: 'JavaScript', value: 'javascript', ext: 'js' },
@@ -151,7 +157,7 @@ export const UdinIDE: React.FC = () => {
                 <div className="flex items-center gap-6">
                     <div className="flex items-center gap-2">
                         <Monitor className="w-4 h-4 text-accent" />
-                        <span className="text-[10px] font-black uppercase tracking-widest text-white">UDIN IDE</span>
+                        <h1 className="text-[10px] font-black uppercase tracking-widest text-white m-0">UDIN IDE</h1>
                     </div>
                     <div className="flex items-center gap-1">
                         {languages.map((lang) => (

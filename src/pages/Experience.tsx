@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
 import { Cpu, Briefcase, Network, Database, X, Globe, Shield } from 'lucide-react';
+import { useSEO } from '../hooks/useSEO';
 
 const EXPERIENCE_NODES = [
     {
@@ -88,6 +89,11 @@ const EXPERIENCE_NODES = [
 
 export const Experience: React.FC = () => {
   const [selectedNode, setSelectedNode] = useState<typeof EXPERIENCE_NODES[0] | null>(null);
+
+    useSEO({
+        title: 'Experience Timeline — UDINK',
+        description: 'Interactive timeline of systems, backend, and infrastructure work by UDINK.'
+    });
 
   return (
     <div className="min-h-screen bg-slate-950 pt-32 pb-24 relative overflow-hidden">

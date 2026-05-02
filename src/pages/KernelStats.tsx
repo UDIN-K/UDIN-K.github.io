@@ -83,7 +83,7 @@ export const KernelStats: React.FC = () => {
                         </div>
                         <div className="px-4 py-2 bg-slate-900 rounded border border-slate-800">
                             <div className="text-[9px] uppercase tracking-widest text-slate-600 mb-1">Encrypted Node</div>
-                            <div className="text-xl font-black text-accent">SYAFRI_GATE_01</div>
+                            <div className="text-xl font-black text-accent">UDINK_GATE_01</div>
                         </div>
                     </div>
                 </div>

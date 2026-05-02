@@ -13,9 +13,9 @@ export const Home: React.FC = () => {
   const language = useLanguage();
 
   useSEO({
-      title: "Muhammad Syafri (UDINK) — Koma App & Software Engineer",
-      description: "Muhammad Syafri Syamsudin Syah (UDIN-K) is a Software Engineer and creator of open-source projects including Koma, a free open-source manga reader for Android. Discover my portfolio, backend architecture, and tech experiments.",
-      keywords: "Muhammad Syafri, Syafri Syamsudin Syah, UDINK, Koma, Aplikasi Koma, Koma App, Koma Manga Reader, Koma Android, Mihon Fork, Tachiyomi Fork, Software Engineer, Backend Developer, System Architecture, Personal Portfolio, Open Source"
+      title: "UDINK — Koma Manga Reader (Android) & Software Engineer",
+      description: "UDINK is a Software Engineer and creator of Koma — a free, open-source manga reader for Android. Explore projects, docs, and experiments.",
+      keywords: "UDINK, UdinK, Koma, Koma Manga Reader, Manga Reader Android, Koma Reader, Koma App, Open Source, Mihon Fork, Tachiyomi Fork, Software Engineer, Backend Developer, Portfolio"
   });
 
   const t = {
@@ -24,7 +24,7 @@ export const Home: React.FC = () => {
       craft1: 'Crafting',
       craft2: 'Digital',
       craft3: 'Experiences',
-      desc: "I'm Syafri (UDIN-K), a developer focused on building modern web interfaces and the maintainer of Koma's official manga extensions.",
+      desc: "I'm UDINK (UDIN-K), a developer focused on building modern web interfaces and the maintainer of Koma's official manga extensions.",
       portTitle: 'Portfolio Archives',
       portDesc: 'Explore my open-source projects and creative work.',
       viewProj: 'View Projects',
@@ -37,7 +37,7 @@ export const Home: React.FC = () => {
       craft1: 'Membangun',
       craft2: 'Pengalaman',
       craft3: 'Digital',
-      desc: "Saya Syafri (UDIN-K), seorang developer yang fokus pada pembuatan antarmuka web modern dan pengelola ekstensi manga resmi Koma.",
+      desc: "Saya UDINK (UDIN-K), seorang developer yang fokus pada pembuatan antarmuka web modern dan pengelola ekstensi manga resmi Koma.",
       portTitle: 'Arsip Portofolio',
       portDesc: 'Jelajahi proyek open-source dan karya saya.',
       viewProj: 'Lihat Proyek',
@@ -50,7 +50,7 @@ export const Home: React.FC = () => {
       craft1: 'Creando',
       craft2: 'Experiencias',
       craft3: 'Digitales',
-      desc: "Soy Syafri (UDIN-K), desarrollador enfocado en interfaces web modernas y mantenedor de las extensiones oficiales de manga de Koma.",
+      desc: "Soy UDINK (UDIN-K), desarrollador enfocado en interfaces web modernas y mantenedor de las extensiones oficiales de manga de Koma.",
       portTitle: 'Archivo de Portafolio',
       portDesc: 'Explora mis proyectos de código abierto y trabajo creativo.',
       viewProj: 'Ver Proyectos',
@@ -63,7 +63,7 @@ export const Home: React.FC = () => {
       craft1: 'デジタル',
       craft2: '体験を',
       craft3: '構築する',
-      desc: "私はSyafri (UDIN-K)です。モダンなWeb UIの構築とKoma漫画拡張機能の保守を行っています。",
+      desc: "私はUDINK (UDIN-K)です。モダンなWeb UIの構築とKoma漫画拡張機能の保守を行っています。",
       portTitle: 'ポートフォリオ',
       portDesc: '私のオープンソースプロジェクトとクリエイティブな作品をご覧ください。',
       viewProj: 'プロジェクトを見る',
@@ -76,7 +76,7 @@ export const Home: React.FC = () => {
       craft1: '디지털',
       craft2: '경험',
       craft3: '제작',
-      desc: "저는 Syafri (UDIN-K)이며, 모던 웹 인터페이스 구축과 Koma 공식 망가 확장판의 유지관리를 담당하고 있습니다.",
+      desc: "저는 UDINK (UDIN-K)이며, 모던 웹 인터페이스 구축과 Koma 공식 망가 확장판의 유지관리를 담당하고 있습니다.",
       portTitle: '포트폴리오 보관소',
       portDesc: '나의 오픈소스 프로젝트와 창의적인 작업을 살펴보세요.',
       viewProj: '프로젝트 보기',
@@ -89,7 +89,7 @@ export const Home: React.FC = () => {
       craft1: '打造',
       craft2: '数字',
       craft3: '体验',
-      desc: "我是Syafri (UDIN-K)，专注于构建现代网页界面的开发者，也是Koma官方漫画扩展的维护者。",
+      desc: "我是UDINK (UDIN-K)，专注于构建现代网页界面的开发者，也是Koma官方漫画扩展的维护者。",
       portTitle: '作品集档案',
       portDesc: '探索我的开源项目和创意作品。',
       viewProj: '查看项目',
@@ -102,7 +102,7 @@ export const Home: React.FC = () => {
       craft1: 'Création',
       craft2: 'Expériences',
       craft3: 'Numériques',
-      desc: "Je suis Syafri (UDIN-K), développeur spécialisé dans les interfaces web modernes et la maintenance des extensions de manga Koma.",
+      desc: "Je suis UDINK (UDIN-K), développeur spécialisé dans les interfaces web modernes et la maintenance des extensions de manga Koma.",
       portTitle: 'Archives du Portfolio',
       portDesc: 'Explorez mes projets open-source et travaux créatifs.',
       viewProj: 'Voir les Projets',

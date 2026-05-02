@@ -3,9 +3,15 @@ import { motion } from 'framer-motion';
 import { Wrench, ShieldAlert, Globe, RefreshCw, AlertCircle } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage';
 import { KomaDocsLayout } from '../components/KomaDocsLayout';
+import { useSEO } from '../hooks/useSEO';
 
 export const KomaTroubleshooting: React.FC = () => {
     const language = useLanguage();
+
+    useSEO({
+        title: 'Koma Troubleshooting — UDINK',
+        description: 'Fix common issues in Koma, Mihon, and Tachiyomi forks: WebView/Cloudflare, obsolete extensions, images not loading, and install errors.'
+    });
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -13,7 +19,7 @@ export const KomaTroubleshooting: React.FC = () => {
 
     const content = {
         en: {
-            title: "Troubleshooting",
+            title: "Koma Troubleshooting",
             subtitle: "Facing source or app issues? Here's how to troubleshoot common problems in Koma, Mihon, or Tachiyomi forks.",
             back: "Back to Koma",
             sections: [
@@ -84,7 +90,7 @@ export const KomaTroubleshooting: React.FC = () => {
             ]
         },
         id: {
-            title: "Pemecahan Masalah",
+            title: "Pemecahan Masalah Koma",
             subtitle: "Menghadapi masalah dengan sumber atau aplikasi? Berikut cara memecahkan masalah umum di Koma, Mihon, atau Tachiyomi forks.",
             back: "Kembali ke Koma",
             sections: [

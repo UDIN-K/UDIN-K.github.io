@@ -3,9 +3,15 @@ import { motion } from 'framer-motion';
 import { BookOpen, Settings, Search, Download, AlertTriangle } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage';
 import { KomaDocsLayout } from '../components/KomaDocsLayout';
+import { useSEO } from '../hooks/useSEO';
 
 export const KomaGuide: React.FC = () => {
     const language = useLanguage();
+
+    useSEO({
+        title: 'Koma Installation Guide — UDINK',
+        description: 'Step-by-step guide to set up Koma on Android and add the extension repository in Koma, Mihon, or Tachiyomi forks.'
+    });
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -13,7 +19,7 @@ export const KomaGuide: React.FC = () => {
 
     const content = {
         en: {
-            title: "Installation Guide",
+            title: "Koma Installation Guide",
             subtitle: "Essential information to help you set up the extension repo in your app.",
             back: "Back to Koma",
             steps: [
@@ -63,7 +69,7 @@ export const KomaGuide: React.FC = () => {
             ]
         },
         id: {
-            title: "Panduan Instalasi",
+            title: "Panduan Instalasi Koma",
             subtitle: "Informasi penting untuk membantu Anda mengatur repositori ekstensi di aplikasi Anda.",
             back: "Kembali ke Koma",
             steps: [

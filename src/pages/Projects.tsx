@@ -4,6 +4,7 @@ import { Code, Star, GitFork, ExternalLink, GitBranch, FolderGit2, TestTube, Zap
 import { Link } from 'react-router-dom';
 import { cn } from '../lib/utils';
 import { useLanguage } from '../hooks/useLanguage';
+import { useSEO } from '../hooks/useSEO';
 
 interface Repo {
     id: number;
@@ -20,6 +21,11 @@ interface Repo {
 
 export const Projects: React.FC = () => {
     const language = useLanguage();
+
+    useSEO({
+        title: 'Projects & Open-Source Portfolio — UDINK',
+        description: 'Browse UDINK’s open-source projects, experiments, and repositories.'
+    });
     const [repos, setRepos] = useState<Repo[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);

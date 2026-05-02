@@ -3,8 +3,14 @@ import { motion } from 'motion/react';
 import { Cpu, ChevronRight } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { Link } from 'react-router-dom';
+import { useSEO } from '../hooks/useSEO';
 
 export const Labs: React.FC = () => {
+    useSEO({
+        title: 'Experimental Labs — UDINK',
+        description: 'Experimental modules and interactive demos: UDIN IDE, Neural Vision, Kernel Stats, and more.'
+    });
+
     const labModules = [
         { 
             title: 'UDIN IDE', 
