@@ -22,20 +22,20 @@ export const Header: React.FC = () => {
   }, []);
 
   const t = {
-      en: { port: 'Portfolio', koma: 'Koma (コマ)' },
-      id: { port: 'Portofolio', koma: 'Koma (コマ)' },
-      es: { port: 'Portafolio', koma: 'Koma (コマ)' },
-      ja: { port: 'ポートフォリオ', koma: 'Koma (コマ)' },
-      ko: { port: '포트폴리오', koma: 'Koma (コマ)' },
-      zh: { port: '作品集', koma: 'Koma (コマ)' },
-      fr: { port: 'Portfolio', koma: 'Koma (コマ)' },
-      ar: { port: 'أعمالي', koma: 'Koma (コマ)' }
+    en: { port: 'Portfolio', koma: 'Koma' },
+    id: { port: 'Portofolio', koma: 'Koma' },
+    es: { port: 'Portafolio', koma: 'Koma' },
+    ja: { port: 'ポートフォリオ', koma: 'Koma' },
+    ko: { port: '포트폴리오', koma: 'Koma' },
+    zh: { port: '作品集', koma: 'Koma' },
+    fr: { port: 'Portfolio', koma: 'Koma' },
+    ar: { port: 'أعمالي', koma: 'Koma' }
   };
   const text = t[language as keyof typeof t] || t.en;
 
   const navLinks = [
     { name: text.port, href: '/projects' },
-    { name: text.koma, href: '/koma' },
+    { name: text.koma, href: 'https://koma.udink.me' },
   ];
 
   const handleLinkClick = (href: string) => {
@@ -81,6 +81,8 @@ export const Header: React.FC = () => {
               {link.href.startsWith('http') || link.href.startsWith('#') ? (
                 <a
                   href={link.href}
+                  target={link.href.startsWith('http') ? '_blank' : undefined}
+                  rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                   className="px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors relative group block"
                 >
                   {link.name}
@@ -111,9 +113,6 @@ export const Header: React.FC = () => {
           <button
             className="text-white hover:text-accent transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            type="button"
-            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -135,6 +134,8 @@ export const Header: React.FC = () => {
                   <a
                     key={link.name}
                     href={link.href}
+                    target={link.href.startsWith('http') ? '_blank' : undefined}
+                    rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="text-sm font-bold uppercase tracking-widest text-slate-300 hover:text-accent transform transition-transform active:scale-95"
                   >

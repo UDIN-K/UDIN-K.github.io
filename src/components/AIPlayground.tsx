@@ -107,7 +107,7 @@ export const AIPlayground: React.FC = () => {
     {
         id: 'welcome',
         role: 'model',
-        content: "Halo! 👋 Aku asisten AI Koma. Ada yang bisa kubantu? Misalnya, cari URL repo untuk Tachiyomi, Koma, atau sekadar memperbaiki error ekstensi?",
+        content: "Halo! 👋 Aku asisten AI portfolio UDIN-K. Ada yang bisa kubantu? Misalnya, info proyek, teknologi yang dipakai, atau cara menghubungi saya.",
         type: 'text',
         timestamp: 0 
     }
@@ -131,9 +131,9 @@ export const AIPlayground: React.FC = () => {
   };
 
   const quickPrompts = [
-      { text: "Cari Repository", mode: AIMode.TEXT },
-      { text: "Cara Install Ekstensi", mode: AIMode.TEXT },
-      { text: "Gambar Karakter", mode: AIMode.IMAGE },
+      { text: "Lihat Proyek", mode: AIMode.TEXT },
+      { text: "Skill & Stack", mode: AIMode.TEXT },
+      { text: "Buat Ilustrasi", mode: AIMode.IMAGE },
   ];
 
   const applyPrompt = (text: string, pMode: AIMode) => {
@@ -292,7 +292,7 @@ export const AIPlayground: React.FC = () => {
                             </div>
                             <div>
                                 <div className="flex items-center gap-2">
-                                    <span className="font-bold text-white text-sm">Koma AI Assistant</span>
+                                    <span className="font-bold text-white text-sm">UDIN-K AI Assistant</span>
                                     <Sparkles className="w-4 h-4 text-accent" />
                                 </div>
                                 <div className="text-xs text-slate-400 mt-0.5">Online • Siap membantu</div>
@@ -318,7 +318,7 @@ export const AIPlayground: React.FC = () => {
                                 className={cn("flex flex-col gap-1 w-full", msg.role === 'user' ? 'items-end' : 'items-start')}
                             >
                                 <div className="px-1 text-xs text-slate-400 font-medium">
-                                    {msg.role === 'user' ? 'Kamu' : 'Koma AI'}
+                                    {msg.role === 'user' ? 'Kamu' : 'AI Assistant'}
                                 </div>
                                 <div className={cn(
                                     "max-w-[85%] p-4 text-sm relative group rounded-2xl",
@@ -344,7 +344,7 @@ export const AIPlayground: React.FC = () => {
                         ))}
                         {isLoading && (
                             <div className="flex flex-col gap-2 ml-1">
-                                <div className="text-xs text-slate-400 font-medium">Koma AI sedang mengetik...</div>
+                                <div className="text-xs text-slate-400 font-medium">AI sedang mengetik...</div>
                             </div>
                         )}
                     </div>
@@ -447,7 +447,7 @@ export const AIPlayground: React.FC = () => {
             </div>
             
             <div className="absolute -top-10 right-0 bg-slate-800 border border-slate-700 px-3 py-1 rounded-full text-xs font-bold text-white shadow-xl opacity-0 group-hover:opacity-100 transition-all translate-y-4 group-hover:translate-y-0 whitespace-nowrap">
-                 Tanya Koma AI ✨
+                 Tanya AI ✨
             </div>
         </motion.button>
     </div>

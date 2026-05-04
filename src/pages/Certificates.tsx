@@ -2,14 +2,8 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Award, ExternalLink, Calendar, ShieldCheck } from 'lucide-react';
 import { certificates } from '../data/certificates';
-import { useSEO } from '../hooks/useSEO';
 
 export const Certificates: React.FC = () => {
-    useSEO({
-        title: 'Certificates & Credentials — UDINK',
-        description: 'Certification vault with issuers, dates, and verification links.'
-    });
-
   return (
     <div className="min-h-screen bg-slate-950 pt-32 pb-24 relative overflow-hidden">
         {/* Grid Background */}

@@ -6,35 +6,6 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
-  // Custom proxy endpoint for koma extensions
-  app.get("/api/koma/repo/index.min.json", async (req, res) => {
-    try {
-      const response = await fetch("https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json");
-      if (!response.ok) {
-        throw new Error(`Failed to fetch from keiyoushi: ${response.statusText}`);
-      }
-      const data = await response.json();
-      res.json(data);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: "Failed to fetch extensions repostiory" });
-    }
-  });
-
-  // Proxy the icon folder so Koma can load image from relative path
-  app.get("/api/koma/repo/icon/:apkname", (req, res) => {
-    const { apkname } = req.params;
-    const redirectUrl = `https://raw.githubusercontent.com/keiyoushi/extensions/repo/icon/${apkname}`;
-    res.redirect(302, redirectUrl);
-  });
-
-  // Proxy the apk folder so Koma can download from relative path
-  app.get("/api/koma/repo/apk/:apkname", (req, res) => {
-    const { apkname } = req.params;
-    const redirectUrl = `https://raw.githubusercontent.com/keiyoushi/extensions/repo/apk/${apkname}`;
-    res.redirect(302, redirectUrl);
-  });
-
   if (process.env.NODE_ENV !== "production") {
     // Development mode
     const vite = await createViteServer({

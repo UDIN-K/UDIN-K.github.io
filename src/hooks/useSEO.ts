@@ -46,15 +46,6 @@ export const useSEO = ({ title, description, keywords, icon }: SEOProps) => {
     const currentUrl = window.location.href;
     document.querySelector('meta[property="og:url"]')?.setAttribute('content', currentUrl);
 
-    // Update Canonical
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.setAttribute('rel', 'canonical');
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute('href', currentUrl);
-
     return () => {
       // Revert on unmount
       document.title = originalTitle;

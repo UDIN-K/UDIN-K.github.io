@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Home } from './pages/Home';
 import { Projects } from './pages/Projects';
-import { Koma } from './pages/Koma';
 import { Experience } from './pages/Experience';
 import { Play } from './pages/Play';
 import { Scripting } from './pages/Scripting';
@@ -15,28 +14,17 @@ import { UdinIDE } from './pages/UdinIDE';
 import { Contact } from './pages/Contact';
 import { AIPlayground } from './components/AIPlayground';
 import { Footer } from './components/Footer';
-import { KomaGuide } from './pages/KomaGuide';
-import { KomaTroubleshooting } from './pages/KomaTroubleshooting';
-import { KomaExplorer } from './pages/KomaExplorer';
-import { KomaChangelog } from './pages/KomaChangelog';
-import { KomaDocPage } from './pages/KomaDocPage';
 
 const App: React.FC = () => {
   return (
     <Router basename={import.meta.env.BASE_URL}>
       <div className="min-h-screen bg-primary text-text font-sans antialiased selection:bg-accent selection:text-primary relative overflow-x-hidden">
         <Header />
-        
+
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
-            <Route path="/koma" element={<Koma />} />
-            <Route path="/koma/guide" element={<KomaGuide />} />
-            <Route path="/koma/troubleshooting" element={<KomaTroubleshooting />} />
-            <Route path="/koma/changelog" element={<KomaChangelog />} />
-            <Route path="/koma/docs/*" element={<KomaDocPage />} />
-            <Route path="/koma/explorer" element={<KomaExplorer />} />
             <Route path="/experience" element={<Experience />} />
             <Route path="/play" element={<Play />} />
             <Route path="/scripting" element={<Scripting />} />

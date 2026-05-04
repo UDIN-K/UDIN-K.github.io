@@ -196,11 +196,8 @@ export default function PhoneMockup() {
                         className="flex flex-col h-full text-white font-sans"
                     >
                         <div className="flex flex-col items-center py-4 border-b border-slate-800 mb-2">
-                            <div className="text-2xl font-bold tracking-widest text-white">KOMA</div>
-                            <div className="text-[8px] text-slate-400 italic mt-1 relative">
-                                <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-blue-400 font-sans not-italic">コマ</span>
-                                Every chapter. Everywhere.
-                            </div>
+                            <div className="text-2xl font-bold tracking-widest text-white">READER</div>
+                            <div className="text-[8px] text-slate-400 italic mt-1">Every chapter. Everywhere.</div>
                         </div>
 
                         <div className="flex items-center gap-3 py-2">

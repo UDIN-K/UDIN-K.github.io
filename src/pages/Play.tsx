@@ -1,14 +1,8 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { ThreeDGame } from '../components/ThreeDGame';
-import { useSEO } from '../hooks/useSEO';
 
 export const Play: React.FC = () => {
-    useSEO({
-        title: 'Neural Playground (Three.js) — UDINK',
-        description: 'Real-time Three.js sandbox exploring rendering, physics movement, and AABB collisions.'
-    });
-
     return (
         <div className="min-h-screen bg-slate-950 pt-32 pb-24 relative overflow-hidden">
             <div className="container mx-auto px-4 md:px-8">

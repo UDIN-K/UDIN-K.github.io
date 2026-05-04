@@ -47,7 +47,7 @@ deploy(architecture);`;
           </h1>
           
           <p className="text-lg text-text-muted max-w-lg leading-relaxed font-mono">
-            Hi, I'm <strong className="text-white">UDINK</strong>. 
+            Hi, I'm <strong className="text-white">UDIN-K</strong>.
             Crafting low-level logic, scalable backends, and AI-driven experiences.
           </p>
           

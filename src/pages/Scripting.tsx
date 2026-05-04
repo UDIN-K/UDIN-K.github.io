@@ -2,14 +2,8 @@ import React from 'react';
 import { RobloxShowcase } from '../components/RobloxShowcase';
 import { NeuralHackingLab } from '../components/NeuralHackingLab';
 import { Bot, Binary, Database, Code2 } from 'lucide-react';
-import { useSEO } from '../hooks/useSEO';
 
 export const Scripting: React.FC = () => {
-    useSEO({
-        title: 'Scripting & Luau Experiments — UDINK',
-        description: 'Luau scripting patterns, Roblox architecture, and performance-focused modules by UDINK.'
-    });
-
     return (
         <div className="min-h-screen bg-slate-950 pt-32 pb-24 relative overflow-hidden">
             {/* Background Texture */}
