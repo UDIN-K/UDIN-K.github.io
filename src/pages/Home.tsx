@@ -28,9 +28,9 @@ export const Home: React.FC = () => {
       portTitle: 'Portfolio Archives',
       portDesc: 'Explore my open-source projects and creative work.',
       viewProj: 'View Projects',
-      labTitle: 'Labs & Experiments',
-      labDesc: 'Interactive demos, prototypes, and technical explorations.',
-      openLabs: 'Explore Labs'
+      labTitle: 'Koma (コマ)\nReader App',
+      labDesc: 'Looking for Koma Manga Reader?',
+      openLabs: 'Explore Now!'
     },
     id: {
       avail: 'Tersedia untuk proyek baru',
@@ -41,9 +41,9 @@ export const Home: React.FC = () => {
       portTitle: 'Arsip Portofolio',
       portDesc: 'Jelajahi proyek open-source dan karya saya.',
       viewProj: 'Lihat Proyek',
-      labTitle: 'Labs & Eksperimen',
-      labDesc: 'Demo interaktif, prototipe, dan eksplorasi teknis.',
-      openLabs: 'Buka Labs'
+      labTitle: 'Koma (コマ)\nReader App',
+      labDesc: 'Looking for Koma Manga Reader?',
+      openLabs: 'Explore Now!'
     },
     es: {
       avail: 'Disponible para nuevos proyectos',
@@ -54,9 +54,9 @@ export const Home: React.FC = () => {
       portTitle: 'Archivo de Portafolio',
       portDesc: 'Explora mis proyectos de código abierto y trabajo creativo.',
       viewProj: 'Ver Proyectos',
-      labTitle: 'Labs y Experimentos',
-      labDesc: 'Demos interactivos, prototipos y exploraciones técnicas.',
-      openLabs: 'Explorar Labs'
+      labTitle: 'Koma (コマ)\nReader App',
+      labDesc: 'Looking for Koma Manga Reader?',
+      openLabs: 'Explore Now!'
     },
     ja: {
       avail: '新しいプロジェクトで利用可能',
@@ -67,9 +67,9 @@ export const Home: React.FC = () => {
       portTitle: 'ポートフォリオ',
       portDesc: 'オープンソースや制作物をチェックできます。',
       viewProj: 'プロジェクトを見る',
-      labTitle: 'ラボ & 実験',
-      labDesc: 'インタラクティブなデモや技術的な試作。',
-      openLabs: 'ラボを見る'
+      labTitle: 'Koma (コマ)\nReader App',
+      labDesc: 'Looking for Koma Manga Reader?',
+      openLabs: 'Explore Now!'
     },
     ko: {
       avail: '새 프로젝트 참여 가능',
@@ -80,9 +80,9 @@ export const Home: React.FC = () => {
       portTitle: '포트폴리오 보관소',
       portDesc: '오픈소스 프로젝트와 작업물을 둘러보세요.',
       viewProj: '프로젝트 보기',
-      labTitle: '랩 & 실험',
-      labDesc: '인터랙티브 데모, 프로토타입, 기술 실험.',
-      openLabs: '랩 열기'
+      labTitle: 'Koma (コマ)\nReader App',
+      labDesc: 'Looking for Koma Manga Reader?',
+      openLabs: 'Explore Now!'
     },
     zh: {
       avail: '可接受新项目',
@@ -93,9 +93,9 @@ export const Home: React.FC = () => {
       portTitle: '作品集档案',
       portDesc: '探索我的开源项目和创意作品。',
       viewProj: '查看项目',
-      labTitle: '实验室与实验',
-      labDesc: '交互式演示、原型与技术探索。',
-      openLabs: '进入 Labs'
+      labTitle: 'Koma (コマ)\nReader App',
+      labDesc: 'Looking for Koma Manga Reader?',
+      openLabs: 'Explore Now!'
     },
     fr: {
       avail: 'Disponible pour de nouveaux projets',
@@ -106,9 +106,9 @@ export const Home: React.FC = () => {
       portTitle: 'Archives du Portfolio',
       portDesc: 'Explorez mes projets open-source et travaux créatifs.',
       viewProj: 'Voir les Projets',
-      labTitle: 'Labs & Expériences',
-      labDesc: 'Démos interactives, prototypes et explorations techniques.',
-      openLabs: 'Explorer les Labs'
+      labTitle: 'Koma (コマ)\nReader App',
+      labDesc: 'Looking for Koma Manga Reader?',
+      openLabs: 'Explore Now!'
     },
     ar: {
       avail: 'متاح لمشاريع جديدة',
@@ -119,9 +119,9 @@ export const Home: React.FC = () => {
       portTitle: 'أرشيف الأعمال',
       portDesc: 'استكشف مشاريعي مفتوحة المصدر وأعمالي الإبداعية.',
       viewProj: 'عرض المشاريع',
-      labTitle: 'مختبرات وتجارب',
-      labDesc: 'عروض تفاعلية ونماذج أولية واستكشافات تقنية.',
-      openLabs: 'استعرض المختبرات'
+      labTitle: 'Koma (コマ)\nReader App',
+      labDesc: 'Looking for Koma Manga Reader?',
+      openLabs: 'Explore Now!'
     }
   };
 
@@ -192,8 +192,10 @@ export const Home: React.FC = () => {
                   </div>
               </Link>
 
-                <Link
-                  to="/labs"
+                <a
+                  href="https://koma.udink.me"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group relative flex flex-col text-left p-8 rounded-2xl border border-accent/10 bg-accent/[0.02] hover:bg-accent/[0.05] hover:border-accent/20 transition-all duration-300 overflow-hidden"
                 >
                   <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-10 group-hover:scale-110 transition-all duration-500">
@@ -202,7 +204,7 @@ export const Home: React.FC = () => {
                   <div className="w-12 h-12 rounded-full border border-accent/20 bg-accent/10 flex items-center justify-center mb-16 group-hover:scale-110 transition-transform duration-300">
                      <BookOpen className="w-5 h-5 text-accent" />
                   </div>
-                  <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-2 group-hover:text-accent transition-colors">
+                  <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-2 group-hover:text-accent transition-colors whitespace-pre-line">
                     {text.labTitle}
                   </h3>
                   <p className="text-slate-400 text-xs font-mono mb-6">
@@ -211,7 +213,7 @@ export const Home: React.FC = () => {
                   <div className="mt-auto flex items-center text-xs font-bold uppercase tracking-widest text-accent/50 group-hover:text-accent transition-colors">
                     {text.openLabs} <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                   </div>
-                </Link>
+                </a>
           </motion.div>
       </section>
     </div>
