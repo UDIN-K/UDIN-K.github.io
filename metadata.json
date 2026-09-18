@@ -1,6 +1,6 @@
 {
-  "name": "UDINK -FORTO",
-  "description": "",
+  "name": "UDINK — Fullstack Developer",
+  "description": "Fullstack Developer portfolio for UDINK showcasing modern web applications, native Android engineering, cloud systems, and open-source projects.",
   "requestFramePermissions": [],
-  "majorCapabilities": []
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

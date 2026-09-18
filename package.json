@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "tsx server.ts",
     "start": "node dist/server.cjs",
-    "build": "vite build && node scripts/postbuild.mjs",
-    "build:full": "tsc && vite build && node scripts/postbuild.mjs && esbuild server.ts --bundle --platform=node --outdir=dist --format=cjs --out-extension:.js=.cjs",
+    "build": "vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
+    "build:full": "tsc && vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
     "preview": "vite preview",
     "lint": "eslint ."
   },
@@ -18,8 +18,9 @@
     "@types/express": "^5.0.6",
     "clsx": "^2.1.1",
     "express": "^5.2.1",
+    "framer-motion": "^13.4.0",
     "gray-matter": "^4.0.3",
-    "lucide-react": "^1.8.0",
+    "lucide-react": "^1.47.0",
     "motion": "^12.38.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -28,9 +29,8 @@
     "recharts": "^3.8.1",
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.1",
-    "tailwind-merge": "^3.5.0",
+    "tailwind-merge": "^3.7.0",
     "tailwindcss": "^4.0.0",
-    "three": "^0.160.0",
     "tsx": "^4.21.0"
   },
   "devDependencies": {
@@ -38,7 +38,6 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@types/react-router-dom": "^5.3.3",
-    "@types/three": "^0.160.0",
     "@typescript-eslint/eslint-plugin": "^8.58.2",
     "@typescript-eslint/parser": "^8.58.2",
     "@vitejs/plugin-react": "^4.3.1",

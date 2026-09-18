@@ -1,90 +1,84 @@
-import { GoogleGenAI, GenerateContentResponse, Chat } from "@google/genai";
+import { AIChatMessage } from '../types';
 
-/**
- * Creates a stateful chat session with a specific persona.
- * This allows the AI to remember context.
- */
-export const createChatSession = (language: string = 'id'): Chat => {
-    const apiKey = process.env.GEMINI_API_KEY;
-    
-    if (!apiKey) {
-        throw new Error("GEMINI_API_KEY is missing. Please configure it in Settings.");
-    }
+export const sendMessageStream = async function* (messageParts: unknown, language: string, history: AIChatMessage[]) {
+  const geminiHistory = history.filter(h => h.id !== 'welcome' && h.type === 'text' && h.content !== '').map(h => ({
+    role: h.role,
+    parts: [{ text: h.content }]
+  }));
 
-    const ai = new GoogleGenAI({ apiKey });
-    
-    const langInstructions: Record<string, string> = {
-        'en': 'Speak English naturally and clearly.',
-        'id': 'Gunakan bahasa Indonesia kasual, ramah, yang mudah dipahami.',
-        'es': 'Habla español natural y amigable.',
-        'ja': '自然で親しみやすい日本語で話してください。',
-        'ko': '자연스럽고 친근한 한국어로 말해주세요.',
-        'zh': '用自然亲切的中文交谈。',
-        'fr': 'Parlez un français naturel et amical.',
-        'ar': 'تحدث باللغة العربية بشكل طبيعي وودي.'
-    };
-    
-    const languageDirection = langInstructions[language] || langInstructions['en'];
+  const res = await fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: messageParts, language, history: geminiHistory })
+  });
 
-    return ai.chats.create({
-        model: 'gemini-3-flash-preview',
-        config: {
-            systemInstruction: `You are a friendly and helpful AI Assistant for the UDIN-K portfolio.
+  if (!res.ok) {
+    const data = await res.json();
+    throw new Error(data.error || 'Failed to send message');
+  }
 
-            YOUR CORE DIRECTIVES:
-            - Answer questions about projects, skills, experience, and the portfolio itself.
-            - Keep responses concise, practical, and easy to skim.
-            - If asked for contact, share:
-              * Email: safrisam.id09@gmail.com
-              * GitHub: https://github.com/UDIN-k
-              * Trakteer: https://trakteer.id/ud1nk
+  const reader = res.body?.getReader();
+  const decoder = new TextDecoder();
+  let buffer = '';
 
-            BEHAVIOR:
-            - Be very friendly, polite, and helpful. Use emojis!
-            - Respond according to the selected language context: ${languageDirection}
-
-            Formatting:
-            - Use clean markdown for readability.`,
-            temperature: 0.7,
+  if (reader) {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const parts = buffer.split('\n\n');
+      buffer = parts.pop() || '';
+      for (const part of parts) {
+        if (part.startsWith('data: ')) {
+          const dataStr = part.slice(6);
+          if (dataStr === '[DONE]') {
+            return;
+          }
+          try {
+            const data = JSON.parse(dataStr);
+            if (data.error) {
+              throw new Error(data.error);
+            }
+            if (data.text) {
+              yield data.text;
+            }
+          } catch (e) {
+            console.error("Error parsing SSE data", e, dataStr);
+          }
         }
-    });
+      }
+    }
+  }
+};
+
+export const sendMessage = async (messageParts: unknown, language: string, history: AIChatMessage[] = []) => {
+  const stream = sendMessageStream(messageParts, language, history);
+  let fullText = '';
+  for await (const chunk of stream) {
+    if (chunk) fullText += chunk;
+  }
+  return { text: fullText };
 };
 
 /**
  * Generates an image using Gemini 2.5 Flash Image model
  */
+// Mapped to our custom server-side API.
 export const generateImage = async (prompt: string): Promise<string> => {
   try {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) throw new Error("GEMINI_API_KEY is missing");
-
-    const ai = new GoogleGenAI({ apiKey });
-    const response: GenerateContentResponse = await ai.models.generateContent({
-      model: 'gemini-2.5-flash-image',
-      contents: {
-        parts: [{ text: prompt }]
-      },
-      config: {
-        imageConfig: {
-            aspectRatio: "1:1",
-        }
-      }
+    const res = await fetch('/api/image', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt })
     });
-
-    if (response.candidates && response.candidates.length > 0) {
-        const parts = response.candidates[0].content?.parts;
-        if (parts) {
-            for (const part of parts) {
-                if (part.inlineData && part.inlineData.data) {
-                    const base64EncodeString: string = part.inlineData.data;
-                    const mimeType = part.inlineData.mimeType || 'image/png';
-                    return `data:${mimeType};base64,${base64EncodeString}`;
-                }
-            }
-        }
+    
+    if (!res.ok) {
+      const error = await res.json();
+      throw new Error(error.error || "Failed to generate image.");
     }
     
-    throw new Error("No image data found in response.");
+    const data = await res.json();
+    return data.imageUrl;
   } catch (error) {
     console.error("Error generating image:", error);
     throw new Error("Failed to generate image: " + (error as Error).message, { cause: error });

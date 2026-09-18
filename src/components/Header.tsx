@@ -41,7 +41,11 @@ export const Header: React.FC = () => {
   const handleLinkClick = (href: string) => {
     setIsMobileMenuOpen(false);
     if (href.startsWith('#')) {
-      // It's a hash link on the current page (managed by AI Lab listener in AIPlayground)
+      const id = href.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
       return;
     }
     if (href.startsWith('/#') && location.pathname === '/') {
